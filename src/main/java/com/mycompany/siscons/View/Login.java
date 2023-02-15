@@ -68,7 +68,6 @@ public class Login extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\Siscons - Projeto\\imagens\\compra-de-materiais-de-construcao-login.jpg")); // NOI18N
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 370));
 
@@ -122,8 +121,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(EntrarSistema1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 270, 90, 40));
-
-        jLabel4.setIcon(new javax.swing.ImageIcon("D:\\Siscons - Projeto\\imagens\\guindaste-transportando-material-de-construcao-para-um-edificio.png")); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 10, -1, -1));
 
         pack();

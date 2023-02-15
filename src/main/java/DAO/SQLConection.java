@@ -80,7 +80,7 @@ public class SQLConection
             Statement stmt = (Statement) connection.createStatement();
             stmt.executeUpdate(sqlSentence);
 	} catch (SQLException e) {
-	    JOptionPane.showMessageDialog(null, "Erro de execução SQL");
+	    JOptionPane.showMessageDialog(null, "Erro de execução SQL <-SQL CONECTION->");
 	}
         closeConnection(connection);
     }
