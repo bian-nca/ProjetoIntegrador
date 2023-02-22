@@ -95,7 +95,6 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        CadadastrarEmpresa.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\View\\imagens\\companhia.png")); // NOI18N
         CadadastrarEmpresa.setText("Cadastro de Empresa");
         CadadastrarEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,7 +103,6 @@ public class Menu extends javax.swing.JFrame {
         });
         InfosCad.add(CadadastrarEmpresa);
 
-        CadUsuario.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\View\\imagens\\adicionar-usuario.png")); // NOI18N
         CadUsuario.setText("Cadastro Usuarios");
         CadUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,7 +111,7 @@ public class Menu extends javax.swing.JFrame {
         });
         InfosCad.add(CadUsuario);
 
-        CadBancos.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\View\\imagens\\banco.png")); // NOI18N
+        CadBancos.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Trabalho\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\banco.png")); // NOI18N
         CadBancos.setText("Cadastro de Bancos");
         CadBancos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,7 +168,6 @@ public class Menu extends javax.swing.JFrame {
         });
         InfosCad.add(CadCentroCusto);
 
-        InfosCadClientes.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\View\\imagens\\clientes.png")); // NOI18N
         InfosCadClientes.setText("Cadastro Clientes | Fornecedores");
         InfosCadClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,11 +195,9 @@ public class Menu extends javax.swing.JFrame {
         });
         InfosConfig.add(TelaPedidos);
 
-        jMenuItem12.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\View\\imagens\\mov-caixa.png")); // NOI18N
         jMenuItem12.setText("Movimento de Caixa");
         InfosConfig.add(jMenuItem12);
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\View\\imagens\\nf.png")); // NOI18N
         jMenuItem3.setText("Nota Fiscal de Terceiros");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -211,7 +206,6 @@ public class Menu extends javax.swing.JFrame {
         });
         InfosConfig.add(jMenuItem3);
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\View\\imagens\\nf.png")); // NOI18N
         jMenuItem4.setText("Emissão de NF Eletrônica");
         InfosConfig.add(jMenuItem4);
 

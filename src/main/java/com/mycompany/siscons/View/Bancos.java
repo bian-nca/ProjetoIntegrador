@@ -5,6 +5,7 @@
 package com.mycompany.siscons.View;
 
 import DAO.SQLConection;
+import Model.ConsultaBanco;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -47,6 +48,7 @@ public class Bancos extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         ConsultaCepBanco = new javax.swing.JButton();
         EstadoBanco = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         setTitle("Cadastro Bancos");
         setResizable(false);
@@ -87,6 +89,15 @@ public class Bancos extends javax.swing.JFrame {
         ConsultaCepBanco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ConsultaCepBancoActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 0, 102));
+        jButton2.setText("CONSULTAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -134,8 +145,10 @@ public class Bancos extends javax.swing.JFrame {
                             .addComponent(Enderbanco)
                             .addComponent(EstadoBanco)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(179, 179, 179)
-                        .addComponent(jButton1)))
+                        .addGap(126, 126, 126)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2)))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -170,9 +183,13 @@ public class Bancos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(EstadoBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addComponent(jButton1)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(1, 1, 1)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -219,6 +236,11 @@ public class Bancos extends javax.swing.JFrame {
         EstadoBanco.setText(adress.getUf());
     }//GEN-LAST:event_ConsultaCepBancoActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // chamando minha tela de consulta de banco 
+        new ConsultaBanco().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -233,6 +255,7 @@ public class Bancos extends javax.swing.JFrame {
     private javax.swing.JTextField Fonebanco;
     private javax.swing.JTextField cepCadBanco;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

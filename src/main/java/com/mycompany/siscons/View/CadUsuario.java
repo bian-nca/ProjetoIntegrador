@@ -41,9 +41,9 @@ public class CadUsuario extends javax.swing.JFrame {
         AdministrativoRB = new javax.swing.JRadioButton();
         OperacionalRB = new javax.swing.JRadioButton();
         GerenciaRB = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         Codusuario = new javax.swing.JTextField();
+        SalvarUsuario1 = new javax.swing.JButton();
 
         setTitle("Cadastro de Usuários");
         setResizable(false);
@@ -93,14 +93,6 @@ public class CadUsuario extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setText("EDITAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(204, 0, 0));
         jButton2.setText("DELETAR");
@@ -110,12 +102,21 @@ public class CadUsuario extends javax.swing.JFrame {
             }
         });
 
+        SalvarUsuario1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        SalvarUsuario1.setForeground(new java.awt.Color(0, 0, 102));
+        SalvarUsuario1.setText("CONSULTAR");
+        SalvarUsuario1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalvarUsuario1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -142,24 +143,26 @@ public class CadUsuario extends javax.swing.JFrame {
                             .addComponent(CadUsuarioNome, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
                             .addComponent(CadUsuarioSenha)
                             .addComponent(CadUsuarioSenhaRep, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Codusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(7, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Codusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(SalvarUsuario1)))))
+                .addContainerGap(18, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(99, 99, 99)
+                .addGap(128, 128, 128)
                 .addComponent(SalvarUsuario)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(Codusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Codusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SalvarUsuario1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
@@ -182,9 +185,8 @@ public class CadUsuario extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(SalvarUsuario)
-                    .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -252,25 +254,9 @@ public class CadUsuario extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // alterando dados de usuários ja criados
-      try {
-       /* AINDA NÃO ESTÁ FUNCIONANDO* DA ERRO DE EXECUÇÃO SQL */
-        String updusuariocod = Codusuario.getText();
-        String updusuario = CadUsuarioNome.getText();
-        String sql = "UPDATE USUARIOS SET USUARIO = "+updusuario+" WHERE IDUSUARIO = "+updusuariocod+"";
-        SQLConection conection = new SQLConection();
-        conection.SqlExecution(sql);
-        JOptionPane.showMessageDialog(null, "USUÁRIO ALTERADO COM SUCESSO!");
-        this.dispose();
-       } catch (SQLException ex) {
-           JOptionPane.showConfirmDialog(null, "Erro ao consultar o banco de dados");
-           JOptionPane.showConfirmDialog(null, "Erro ao alterar o usuario!");     
-       }
-
-           
-       
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void SalvarUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarUsuario1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SalvarUsuario1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,7 +272,7 @@ public class CadUsuario extends javax.swing.JFrame {
     private javax.swing.JRadioButton GerenciaRB;
     private javax.swing.JRadioButton OperacionalRB;
     private javax.swing.JButton SalvarUsuario;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton SalvarUsuario1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

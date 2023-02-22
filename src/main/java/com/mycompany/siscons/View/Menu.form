@@ -38,9 +38,6 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="CadadastrarEmpresa">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\View\imagens\companhia.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro de Empresa"/>
               </Properties>
               <Events>
@@ -49,9 +46,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="CadUsuario">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\View\imagens\adicionar-usuario.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro Usuarios"/>
               </Properties>
               <Events>
@@ -61,7 +55,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="CadBancos">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\View\imagens\banco.png"/>
+                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Trabalho\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\banco.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro de Bancos"/>
               </Properties>
@@ -119,9 +113,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="InfosCadClientes">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\View\imagens\clientes.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro Clientes | Fornecedores"/>
               </Properties>
               <Events>
@@ -157,17 +148,11 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem12">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\View\imagens\mov-caixa.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Movimento de Caixa"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\View\imagens\nf.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Nota Fiscal de Terceiros"/>
               </Properties>
               <Events>
@@ -176,9 +161,6 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\View\imagens\nf.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Emiss&#xe3;o de NF Eletr&#xf4;nica"/>
               </Properties>
             </MenuItem>

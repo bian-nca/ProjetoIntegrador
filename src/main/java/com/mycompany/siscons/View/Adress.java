@@ -8,7 +8,7 @@ package com.mycompany.siscons.View;
  *
  * @author Álvaro
  */
-class Adress {
+public class Adress {
     private String logradouro;
     private String bairro;
     private String localidade;
