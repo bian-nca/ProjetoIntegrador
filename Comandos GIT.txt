@@ -10,7 +10,7 @@ $git commit -m "texto desejado"  → Adiciona um comentário
 
 $git branch -M "main"  → Master p/ Main
 
-$git remote add sistemabase https://github.com/bian-nca/ProjetoIntegrador → Diz o local para onde o diretório do seu arquivo.
+$git remote add sistemabase https://github.com/bian-nca/ProjetoIntegrador.git → Diz o local para onde o diretório do seu arquivo.
 
 $git push -u sistemabase main → Ele joga o commit para o repositório do GitHub.
 
