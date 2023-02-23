@@ -1,25 +1,42 @@
+********** PARA UPAR UMA ATUALIZAÇÃO NO GITHUB **********
+
+
 $git init → Inicializa
 
-$git add nome_do_arquivo → Adiciona um arquivo p/ ser direcionado
-
 $git add --all ou $git add . → Ele adiciona todos os arquivos que estiver naquele commit aguardando para dar push.
-
-$git status → Aparece o status de arquivos a serem usado pelo commit.
 
 $git commit -m "texto desejado"  → Adiciona um comentário
 
 $git branch -M "main"  → Master p/ Main
 
-$git remote add sistemabase https://github.com/bian-nca/ProjetoIntegrador.git → Diz o local para onde o diretório do seu arquivo.
+$git remote add siscons https://github.com/bian-nca/ProjetoIntegrador.git → Diz o local para onde o diretório do seu arquivo.
 
-$git push -u sistemabase main → Ele joga o commit para o repositório do GitHub.
+$git push -u siscons main → Ele joga o commit para o repositório do GitHub.
+
+
+********** PARA BAIXAR OS ARQUIVOS DO GITHUB **********
+
+
+$git init → Inicializa
+
+$git clone https://github.com/bian-nca/ProjetoIntegrador.git → ele cópia um repositório existente.
+
+
+********** PARA BAIXAR ATUALIZAÇÃO DO GITHUB **********
+
+$git init → Inicializa
+
+$git pull → Pega a atualização do git clone. (Antes entrar com $cd)
+
+
+********** OUTROS COMANDOS **********
+
+$git add nome_do_arquivo → Adiciona um arquivo p/ ser direcionado
+
+$git status → Aparece o status de arquivos a serem usado pelo commit.
 
 $git checkout -b "nome-da-branch" → Cria mais uma branch.
 
 $git checkout nome-da-branch → Volta para a branch desejada.
 
 $git merge nome-da-branch → juntar branch com a principal
-
-$git clone <link> → ele cópia um repositório existente.
-
-$git pull → Pega a atualização do git clone. (Antes entrar com $cd)
