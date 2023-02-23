@@ -287,18 +287,25 @@ public class CadUsuario extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // DELETANDO USUÁRIOS
-        try {
-       
-        String delusuario = Codusuario.getText();
-        String sql = "DELETE FROM USUARIOS WHERE IDUSUARIO = "+delusuario+"";
-        SQLConection conection = new SQLConection();
-        conection.SqlExecution(sql);
-        JOptionPane.showMessageDialog(null, "USUÁRIO DELETADO COM SUCESSO!");
-        this.dispose();
-       } catch (SQLException ex) {
-           JOptionPane.showConfirmDialog(null, "Erro ao consultar o banco de dados");
-           JOptionPane.showConfirmDialog(null, "Erro ao deletar usuario!");     
-       }
+        
+        String message = "Deseja deletar o Usuário Selecionado?";
+        String title = "Confirmação";
+        //Exibe caixa de dialogo (veja figura) solicitando confirmação ou não. 
+        //Se o usuário clicar em "Sim" retorna 0 pra variavel reply, se informado não retorna 1
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+          if (reply == JOptionPane.YES_OPTION)
+          {
+            try {
+            String delusuario = Codusuario.getText();
+            String sql = "DELETE FROM USUARIOS WHERE IDUSUARIO = "+delusuario+"";
+            SQLConection conection = new SQLConection();
+            conection.SqlExecution(sql);
+            JOptionPane.showMessageDialog(null, "USUÁRIO DELETADO COM SUCESSO!");
+            this.dispose();
+            } catch (SQLException ex) {
+               JOptionPane.showMessageDialog(null, "Erro ao deletar usuario!");     
+            }
+          }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void ConsultarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarUsuarioActionPerformed
