@@ -203,6 +203,7 @@ public class ConsultaBanco extends javax.swing.JFrame {
                 while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
                     modelo.addRow(new Object[]{rs.getString("codbanco"), rs.getString("descricao"), rs.getString("telefone"), rs.getString("cep"), rs.getString("endereco"), rs.getString("cidade"), rs.getString("estado")});   
                 }
+                con.close();
             } catch (SQLException ex) {
                     Logger.getLogger(ConsultaBanco.class.getName()).log(Level.SEVERE, null, ex);
                 }

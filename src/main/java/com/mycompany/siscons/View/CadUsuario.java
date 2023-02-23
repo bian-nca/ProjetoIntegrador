@@ -1,9 +1,10 @@
 package com.mycompany.siscons.View;
 
 import DAO.SQLConection;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 public class CadUsuario extends javax.swing.JFrame {
@@ -43,7 +44,7 @@ public class CadUsuario extends javax.swing.JFrame {
         GerenciaRB = new javax.swing.JRadioButton();
         jButton2 = new javax.swing.JButton();
         Codusuario = new javax.swing.JTextField();
-        SalvarUsuario1 = new javax.swing.JButton();
+        ConsultarUsuario = new javax.swing.JButton();
 
         setTitle("Cadastro de Usuários");
         setResizable(false);
@@ -102,12 +103,14 @@ public class CadUsuario extends javax.swing.JFrame {
             }
         });
 
-        SalvarUsuario1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        SalvarUsuario1.setForeground(new java.awt.Color(0, 0, 102));
-        SalvarUsuario1.setText("CONSULTAR");
-        SalvarUsuario1.addActionListener(new java.awt.event.ActionListener() {
+        Codusuario.setEditable(false);
+
+        ConsultarUsuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ConsultarUsuario.setForeground(new java.awt.Color(0, 0, 102));
+        ConsultarUsuario.setText("CONSULTAR");
+        ConsultarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SalvarUsuario1ActionPerformed(evt);
+                ConsultarUsuarioActionPerformed(evt);
             }
         });
 
@@ -140,13 +143,13 @@ public class CadUsuario extends javax.swing.JFrame {
                                 .addComponent(jLabel1)
                                 .addGap(68, 68, 68)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(CadUsuarioNome, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
-                            .addComponent(CadUsuarioSenha)
+                            .addComponent(CadUsuarioSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
                             .addComponent(CadUsuarioSenhaRep, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(Codusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Codusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(CadUsuarioNome)
                                 .addGap(18, 18, 18)
-                                .addComponent(SalvarUsuario1)))))
+                                .addComponent(ConsultarUsuario)))))
                 .addContainerGap(18, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(128, 128, 128)
@@ -158,15 +161,16 @@ public class CadUsuario extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(Codusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SalvarUsuario1))
+                    .addComponent(Codusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(CadUsuarioNome, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(CadUsuarioNome, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ConsultarUsuario)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -186,7 +190,7 @@ public class CadUsuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(SalvarUsuario)
                     .addComponent(jButton2))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -196,30 +200,73 @@ public class CadUsuario extends javax.swing.JFrame {
         //SALVAR USUARIO
         String senha1 = String.valueOf(CadUsuarioSenha.getPassword());
         String senha2 = String.valueOf(CadUsuarioSenhaRep.getPassword());
+        String usuario = CadUsuarioNome.getText();
+        String senha = String.valueOf(CadUsuarioSenha.getPassword()); 
+        
         if (senha1 == null ? senha2 == null : senha1.equals(senha2)) 
         {
-            try {
-                String usuario = CadUsuarioNome.getText();
-                String senha = String.valueOf(CadUsuarioSenha.getPassword());              
-                String sql = "INSERT INTO USUARIOS(idusuario, usuario, senha, gerencia, administrativo, operacional) VALUES (NULL, '"+usuario+"', '"+senha+"', '"+gerencia+"', '"+administrativo+"', '"+operacional+"');";
-                SQLConection conection = new SQLConection();
-                conection.SqlExecution(sql);
-                JOptionPane.showMessageDialog(null, "Usuário Cadastrado");
-                this.dispose();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro na execução do SQL");
+            if (Codusuario.getText().isEmpty()) {
+                try {
+             
+                    String sql = "INSERT INTO USUARIOS(idusuario, usuario, senha, gerencia, administrativo, operacional) VALUES (NULL, '"+usuario+"', '"+senha+"', '"+gerencia+"', '"+administrativo+"', '"+operacional+"');";
+                    SQLConection conection = new SQLConection();
+                    conection.SqlExecution(sql);
+                    JOptionPane.showMessageDialog(null, "Usuário Cadastrado");
+                    this.dispose();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro na execução do SQL <CADASTRO NOVO USUÁRIO>");
+                }
+            }
+            else
+            {
+                try {
+                    String sql = "UPDATE USUARIOS SET senha = '"+senha+"' WHERE usuario LIKE '"+usuario+"';";
+                    SQLConection conection = new SQLConection();
+                    conection.SqlExecution(sql);
+                    sql = "UPDATE USUARIOS SET gerencia = '"+gerencia+"' WHERE usuario LIKE '"+usuario+"';";
+                    conection.SqlExecution(sql);
+                    sql = "UPDATE USUARIOS SET administrativo = '"+administrativo+"' WHERE usuario LIKE '"+usuario+"';";
+                    conection.SqlExecution(sql);
+                    sql = "UPDATE USUARIOS SET operacional = '"+operacional+"' WHERE usuario LIKE '"+usuario+"';";
+                    conection.SqlExecution(sql);
+                    
+                    JOptionPane.showMessageDialog(null, "Usuário Alterado");
+                    this.dispose();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Erro na execução do SQL <ALTERAÇÃO USUARIO>");
+                }
             }
         }
         else
+        {
             JOptionPane.showMessageDialog(rootPane, "As senhas digitadas não conferem");
+        }
     }//GEN-LAST:event_SalvarUsuarioActionPerformed
 
+    private void AtualizarRBs()
+    {
+        if (AdministrativoRB.isSelected())
+            administrativo = "s";
+        else
+            administrativo = "n";
+        
+        if (OperacionalRB.isSelected())
+            operacional = "s";
+        else
+            operacional = "n";
+        
+        if (GerenciaRB.isSelected())
+            gerencia = "s";
+        else
+            gerencia = "n";
+    }
+    
     private void AdministrativoRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdministrativoRBActionPerformed
         if (AdministrativoRB.isSelected()) {
                 administrativo = "s";
-            } else {
+        } else {
                 administrativo = "n";
-            }
+        }
     }//GEN-LAST:event_AdministrativoRBActionPerformed
 
     private void OperacionalRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OperacionalRBActionPerformed
@@ -254,9 +301,48 @@ public class CadUsuario extends javax.swing.JFrame {
        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void SalvarUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarUsuario1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SalvarUsuario1ActionPerformed
+    private void ConsultarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarUsuarioActionPerformed
+        try {
+            //SQL para preencher os campos Codusuario, cadUsuarioNome, AdministrativoRB, OperacionalRB e GerenciaRB
+            String codigo;
+            String gerenciaId, administrativoId, operacionalId;
+
+            String usuario = CadUsuarioNome.getText();
+            String sql = "SELECT idusuario, gerencia, administrativo, operacional FROM USUARIOS WHERE USUARIO LIKE '"+usuario+"'";
+
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            rs.next();
+            
+            codigo = Integer.toString(rs.getInt("idusuario"));
+            gerenciaId = rs.getString("gerencia");
+            administrativoId = rs.getString("administrativo");
+            operacionalId = rs.getString("operacional");
+
+            Codusuario.setText(codigo);
+            
+            if ("s".equals(administrativoId))
+                AdministrativoRB.setSelected(true);
+            else
+                AdministrativoRB.setSelected(false);
+            
+            if ("s".equals(operacionalId))
+                OperacionalRB.setSelected(true);
+            else
+                OperacionalRB.setSelected(false);
+            
+            if ("s".equals(gerenciaId))
+                GerenciaRB.setSelected(true);
+            else
+                GerenciaRB.setSelected(false); 
+            
+            AtualizarRBs();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar usuario!");
+        }
+    }//GEN-LAST:event_ConsultarUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -269,10 +355,10 @@ public class CadUsuario extends javax.swing.JFrame {
     private javax.swing.JPasswordField CadUsuarioSenhaRep;
     private javax.swing.JLabel CadUsuarioSenhaRepLabel;
     private javax.swing.JTextField Codusuario;
+    private javax.swing.JButton ConsultarUsuario;
     private javax.swing.JRadioButton GerenciaRB;
     private javax.swing.JRadioButton OperacionalRB;
     private javax.swing.JButton SalvarUsuario;
-    private javax.swing.JButton SalvarUsuario1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
