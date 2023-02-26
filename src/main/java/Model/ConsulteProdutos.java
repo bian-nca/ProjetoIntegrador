@@ -37,7 +37,7 @@ public class ConsulteProdutos extends javax.swing.JFrame {
                 }
                 con.close();
             } catch (SQLException ex) {
-                    Logger.getLogger(ConsultaBanco.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ConsulteProdutos.class.getName()).log(Level.SEVERE, null, ex);
                 }
         
         

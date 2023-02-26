@@ -55,15 +55,13 @@ public class Menu extends javax.swing.JFrame {
         CadBancos = new javax.swing.JMenuItem();
         CadProdutos = new javax.swing.JMenuItem();
         CadOperacoes = new javax.swing.JMenuItem();
-        CadTiposClientes = new javax.swing.JMenuItem();
         InfosCadClientes = new javax.swing.JMenuItem();
         InfosCot = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         InfosConfig = new javax.swing.JMenu();
         TelaPedidos = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -75,6 +73,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
 
         jMenu4.setText("File");
         jMenuBar2.add(jMenu4);
@@ -92,6 +91,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        CadadastrarEmpresa.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\companhia.png")); // NOI18N
         CadadastrarEmpresa.setText("Cadastro de Empresa");
         CadadastrarEmpresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,6 +100,7 @@ public class Menu extends javax.swing.JFrame {
         });
         InfosCad.add(CadadastrarEmpresa);
 
+        CadUsuario.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\Usuarios.png")); // NOI18N
         CadUsuario.setText("Cadastro Usuarios");
         CadUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,6 +109,7 @@ public class Menu extends javax.swing.JFrame {
         });
         InfosCad.add(CadUsuario);
 
+        CadBancos.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\banco.png")); // NOI18N
         CadBancos.setText("Cadastro de Bancos");
         CadBancos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,6 +118,7 @@ public class Menu extends javax.swing.JFrame {
         });
         InfosCad.add(CadBancos);
 
+        CadProdutos.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\materiais.png")); // NOI18N
         CadProdutos.setText("Cadastro Produtos");
         CadProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,6 +127,7 @@ public class Menu extends javax.swing.JFrame {
         });
         InfosCad.add(CadProdutos);
 
+        CadOperacoes.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\forma-de-pagamento.png")); // NOI18N
         CadOperacoes.setText("Cadastro Operações");
         CadOperacoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,14 +136,7 @@ public class Menu extends javax.swing.JFrame {
         });
         InfosCad.add(CadOperacoes);
 
-        CadTiposClientes.setText("Cadastro de Tipos de Clientes");
-        CadTiposClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CadTiposClientesActionPerformed(evt);
-            }
-        });
-        InfosCad.add(CadTiposClientes);
-
+        InfosCadClientes.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\clientes.png")); // NOI18N
         InfosCadClientes.setText("Cadastro Clientes | Fornecedores");
         InfosCadClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,8 +149,16 @@ public class Menu extends javax.swing.JFrame {
 
         InfosCot.setText("Cotação");
 
-        jMenuItem13.setText("Cotação de Produtos");
+        jMenuItem13.setText("Cotação de Compra");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
         InfosCot.add(jMenuItem13);
+
+        jMenuItem1.setText("jMenuItem1");
+        InfosCot.add(jMenuItem1);
 
         jMenuBar1.add(InfosCot);
 
@@ -169,17 +174,6 @@ public class Menu extends javax.swing.JFrame {
 
         jMenuItem12.setText("Movimento de Caixa");
         InfosConfig.add(jMenuItem12);
-
-        jMenuItem3.setText("Nota Fiscal de Terceiros");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        InfosConfig.add(jMenuItem3);
-
-        jMenuItem4.setText("Emissão de NF Eletrônica");
-        InfosConfig.add(jMenuItem4);
 
         jMenuBar1.add(InfosConfig);
 
@@ -219,6 +213,9 @@ public class Menu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu6.setText("Relatórios");
+        jMenuBar1.add(jMenu6);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -253,7 +250,7 @@ public class Menu extends javax.swing.JFrame {
         // Cadastraremos as formas de pagamento por aqui a qual irá chamar a tela de cadastro de pagamento
         if ("s".equals(gerencia) || "s".equals(administrativo)) 
         {
-            new CadOperacoes().setVisible(true);
+            new FormaPagamento().setVisible(true);
         }
         else
             JOptionPane.showMessageDialog(null, "Você não tem permissão");
@@ -280,17 +277,6 @@ public class Menu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Você não tem permissão");
     }//GEN-LAST:event_CadProdutosActionPerformed
 
-    private void CadTiposClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadTiposClientesActionPerformed
-        // chamar minha tela de cadastro de tipos de clientes
-        // Por exemplo: 1 - cliente | 2 - fornecedor \ 3 - cliente/fornecedor
-        if ("s".equals(gerencia) || "s".equals(administrativo)) 
-        {
-            new TiposClientes().setVisible(true);
-        }
-        else
-            JOptionPane.showMessageDialog(null, "Você não tem permissão");
-    }//GEN-LAST:event_CadTiposClientesActionPerformed
-
     private void CadBancosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadBancosActionPerformed
         // chamar minha tela de cadastro de bancos
         if ("s".equals(gerencia) || "s".equals(administrativo)) 
@@ -300,20 +286,6 @@ public class Menu extends javax.swing.JFrame {
         else
             JOptionPane.showMessageDialog(null, "Você não tem permissão");
     }//GEN-LAST:event_CadBancosActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        //NOTA FISCAL ELETRÔNICA DE TERCEIROS = NF EMITIDA PELO FORNENCEDOR
-        //NO CASO IREMOS CADASTRAR UMA NF QUE RECEBEMOS DE UMA COMPRA QUE FIZEMOS DE PRODUTOS 
-        //PARA ALIMENTAR NOSSO ESTOQUE TAMBEM E DEIXAR ESCRITURADA A NOTA FISCAL
-        // Tem casos que nao será feito o faturamento da nfe de terceiros apenas será lançada para escrituração
-        
-        
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void TelaPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TelaPedidosActionPerformed
-        // TODO add your handling code here:
-        new Pedidos().setVisible(true);
-    }//GEN-LAST:event_TelaPedidosActionPerformed
 
     private void CadadastrarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadadastrarEmpresaActionPerformed
         // chamar minha tela de cadstro de empresa
@@ -325,13 +297,21 @@ public class Menu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Você não tem permissão");
     }//GEN-LAST:event_CadadastrarEmpresaActionPerformed
 
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void TelaPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TelaPedidosActionPerformed
+        // TODO add your handling code here:
+        new Pedidos().setVisible(true);
+    }//GEN-LAST:event_TelaPedidosActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem CadBancos;
     private javax.swing.JMenuItem CadOperacoes;
     private javax.swing.JMenuItem CadProdutos;
-    private javax.swing.JMenuItem CadTiposClientes;
     private javax.swing.JMenuItem CadUsuario;
     private javax.swing.JMenuItem CadadastrarEmpresa;
     private javax.swing.JMenu InfosCad;
@@ -344,15 +324,15 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;

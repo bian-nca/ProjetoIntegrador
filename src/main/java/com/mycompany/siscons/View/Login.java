@@ -60,6 +60,7 @@ public class Login extends javax.swing.JFrame {
         InfoUsuario = new javax.swing.JTextField();
         EntrarSistema1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -68,7 +69,7 @@ public class Login extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Trabalho\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\compra-de-materiais-de-construcao-login.jpg")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\login.jpg")); // NOI18N
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 370));
 
@@ -89,7 +90,9 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setToolTipText("");
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, 160, 90));
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, -10, 40, 60));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\guindaste-transportando-material-de-construcao-para-um-edificio.png")); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, -10, 40, 60));
 
         UsuarioLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         UsuarioLabel.setText("Usuário:");
@@ -123,6 +126,7 @@ public class Login extends javax.swing.JFrame {
         });
         getContentPane().add(EntrarSistema1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 270, 90, 40));
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 10, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 10, 30, 60));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -217,6 +221,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 
     private boolean consultar(String login, String senha) throws SQLException {

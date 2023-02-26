@@ -38,6 +38,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="CadadastrarEmpresa">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\companhia.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro de Empresa"/>
               </Properties>
               <Events>
@@ -46,6 +49,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="CadUsuario">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\Usuarios.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro Usuarios"/>
               </Properties>
               <Events>
@@ -54,6 +60,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="CadBancos">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\banco.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro de Bancos"/>
               </Properties>
               <Events>
@@ -62,6 +71,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="CadProdutos">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\materiais.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro Produtos"/>
               </Properties>
               <Events>
@@ -70,22 +82,20 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="CadOperacoes">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\forma-de-pagamento.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro Opera&#xe7;&#xf5;es"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CadOperacoesActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="CadTiposClientes">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Cadastro de Tipos de Clientes"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CadTiposClientesActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="InfosCadClientes">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\clientes.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro Clientes | Fornecedores"/>
               </Properties>
               <Events>
@@ -101,7 +111,15 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem13">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cota&#xe7;&#xe3;o de Produtos"/>
+                <Property name="text" type="java.lang.String" value="Cota&#xe7;&#xe3;o de Compra"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem13ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="jMenuItem1"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -122,19 +140,6 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem12">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Movimento de Caixa"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Nota Fiscal de Terceiros"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Emiss&#xe3;o de NF Eletr&#xf4;nica"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -199,6 +204,11 @@
               </SubComponents>
             </Menu>
           </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu6">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
+          </Properties>
         </Menu>
       </SubComponents>
     </Menu>

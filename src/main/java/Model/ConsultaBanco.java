@@ -28,6 +28,21 @@ public class ConsultaBanco extends javax.swing.JFrame {
      */
     public ConsultaBanco() {
         initComponents();
+        try{
+                Connection con = SQLConection.getConnection();
+                String sql = "Select * from bancos";
+                PreparedStatement stmt = con.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery();
+                DefaultTableModel modelo = (DefaultTableModel) tabela_bancos.getModel();
+                modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
+                    
+                while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
+                    modelo.addRow(new Object[]{rs.getString("codbanco"), rs.getString("descricao"), rs.getString("telefone"), rs.getString("cep"), rs.getString("endereco"), rs.getString("cidade"), rs.getString("estado")});   
+                }
+                con.close();
+            } catch (SQLException ex) {
+                    Logger.getLogger(ConsultaBanco.class.getName()).log(Level.SEVERE, null, ex);
+                }
     }
 
     /**
@@ -40,7 +55,7 @@ public class ConsultaBanco extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txtpesquisa = new javax.swing.JTextField();
+        txt_pesquisa = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela_bancos = new javax.swing.JTable();
@@ -59,6 +74,7 @@ public class ConsultaBanco extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setTitle("Bancos Cadastrados");
         setResizable(false);
@@ -66,14 +82,14 @@ public class ConsultaBanco extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Descrição:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 23, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 90, 20));
 
-        txtpesquisa.addActionListener(new java.awt.event.ActionListener() {
+        txt_pesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtpesquisaActionPerformed(evt);
+                txt_pesquisaActionPerformed(evt);
             }
         });
-        getContentPane().add(txtpesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 27, 351, -1));
+        getContentPane().add(txt_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 351, -1));
 
         jButton1.setText("Pesqusiar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -81,7 +97,7 @@ public class ConsultaBanco extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(503, 27, 103, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 100, -1));
 
         tabela_bancos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -171,6 +187,14 @@ public class ConsultaBanco extends javax.swing.JFrame {
         });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(254, 277, -1, -1));
 
+        jButton5.setText("Filtrar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -230,7 +254,7 @@ public class ConsultaBanco extends javax.swing.JFrame {
             int upd = tabela_bancos.getSelectedRow();
             String updCod = tabela_bancos.getModel().getValueAt(upd, 0).toString();
           //  String update = "UPDATE BANCOS SET DESCRICAO = '"+txtdescricao.getText()+"' where codbanco = " +updCod+"";
-             String update = "UPDATE BANCOS SET DESCRICAO = '"+txtdescricao.getText()+"', TELEFONE = '"+txttelefone.getText()+"', CEP = '"+txtcep.getText()+"', ENDERECO = '"+txtendereco.getText()+"', CIDADE = '"+txtcidade.getText()+"', ESTADO = '"+txtestado.getText()+"'  where codbanco = " +updCod+"";
+            String update = "UPDATE BANCOS SET DESCRICAO = '"+txtdescricao.getText()+"', TELEFONE = '"+txttelefone.getText()+"', CEP = '"+txtcep.getText()+"', ENDERECO = '"+txtendereco.getText()+"', CIDADE = '"+txtcidade.getText()+"', ESTADO = '"+txtestado.getText()+"'  where codbanco = " +updCod+"";
             conection.SqlExecution(update);
             JOptionPane.showMessageDialog(rootPane, "REGISTRO ATUALIZADO COM SUCESSO!");          
         } catch (Exception ex) {
@@ -255,15 +279,36 @@ public class ConsultaBanco extends javax.swing.JFrame {
         txtestado.setText(adress.getUf());
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void txtpesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpesquisaActionPerformed
+    private void txt_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_pesquisaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtpesquisaActionPerformed
+    }//GEN-LAST:event_txt_pesquisaActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // filtrando pesqusia
+            try{
+                String desc = txt_pesquisa.getText();
+                Connection con = SQLConection.getConnection();
+                String sql = "Select * from bancos where descricao = " +desc+"";
+                PreparedStatement stmt = con.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery();
+                DefaultTableModel modelo = (DefaultTableModel) tabela_bancos.getModel();
+                modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
+                   
+                while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
+                    modelo.addRow(new Object[]{rs.getString("codbanco"), rs.getString("descricao"), rs.getString("telefone"), rs.getString("cep"), rs.getString("endereco"), rs.getString("cidade"), rs.getString("estado")});   
+                }
+                con.close();
+            } catch (SQLException ex) {
+                    Logger.getLogger(ConsultaBanco.class.getName()).log(Level.SEVERE, null, ex);
+                }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -273,12 +318,12 @@ public class ConsultaBanco extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabela_bancos;
+    private javax.swing.JTextField txt_pesquisa;
     private javax.swing.JTextField txtcep;
     private javax.swing.JTextField txtcidade;
     private javax.swing.JTextField txtdescricao;
     private javax.swing.JTextField txtendereco;
     private javax.swing.JTextField txtestado;
-    private javax.swing.JTextField txtpesquisa;
     private javax.swing.JTextField txttelefone;
     // End of variables declaration//GEN-END:variables
 }
