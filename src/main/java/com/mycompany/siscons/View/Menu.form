@@ -54,21 +54,10 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="CadBancos">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Trabalho\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\banco.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro de Bancos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CadBancosActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="CadMarca">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Cadastro de Marca"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CadMarcaActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="CadProdutos">
@@ -87,28 +76,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CadOperacoesActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="CadRubrica">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Cadastro de Rubrica"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CadRubricaActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="CadTiposClientes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cadastro de Tipos de Clientes"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CadTiposClientesActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="CadCentroCusto">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Cadastro de Centro de Custos"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CadCentroCustoActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="InfosCadClientes">

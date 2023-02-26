@@ -53,12 +53,9 @@ public class Menu extends javax.swing.JFrame {
         CadadastrarEmpresa = new javax.swing.JMenuItem();
         CadUsuario = new javax.swing.JMenuItem();
         CadBancos = new javax.swing.JMenuItem();
-        CadMarca = new javax.swing.JMenuItem();
         CadProdutos = new javax.swing.JMenuItem();
         CadOperacoes = new javax.swing.JMenuItem();
-        CadRubrica = new javax.swing.JMenuItem();
         CadTiposClientes = new javax.swing.JMenuItem();
-        CadCentroCusto = new javax.swing.JMenuItem();
         InfosCadClientes = new javax.swing.JMenuItem();
         InfosCot = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
@@ -111,7 +108,6 @@ public class Menu extends javax.swing.JFrame {
         });
         InfosCad.add(CadUsuario);
 
-        CadBancos.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Trabalho\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\banco.png")); // NOI18N
         CadBancos.setText("Cadastro de Bancos");
         CadBancos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,14 +115,6 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         InfosCad.add(CadBancos);
-
-        CadMarca.setText("Cadastro de Marca");
-        CadMarca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CadMarcaActionPerformed(evt);
-            }
-        });
-        InfosCad.add(CadMarca);
 
         CadProdutos.setText("Cadastro Produtos");
         CadProdutos.addActionListener(new java.awt.event.ActionListener() {
@@ -144,14 +132,6 @@ public class Menu extends javax.swing.JFrame {
         });
         InfosCad.add(CadOperacoes);
 
-        CadRubrica.setText("Cadastro de Rubrica");
-        CadRubrica.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CadRubricaActionPerformed(evt);
-            }
-        });
-        InfosCad.add(CadRubrica);
-
         CadTiposClientes.setText("Cadastro de Tipos de Clientes");
         CadTiposClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,14 +139,6 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         InfosCad.add(CadTiposClientes);
-
-        CadCentroCusto.setText("Cadastro de Centro de Custos");
-        CadCentroCusto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CadCentroCustoActionPerformed(evt);
-            }
-        });
-        InfosCad.add(CadCentroCusto);
 
         InfosCadClientes.setText("Cadastro Clientes | Fornecedores");
         InfosCadClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -308,16 +280,6 @@ public class Menu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Você não tem permissão");
     }//GEN-LAST:event_CadProdutosActionPerformed
 
-    private void CadMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadMarcaActionPerformed
-        // chamar minha tela de cadastro de marcas
-        if ("s".equals(gerencia) || "s".equals(administrativo)) 
-        {
-            new Marca().setVisible(true);
-        }
-        else
-            JOptionPane.showMessageDialog(null, "Você não tem permissão");
-    }//GEN-LAST:event_CadMarcaActionPerformed
-
     private void CadTiposClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadTiposClientesActionPerformed
         // chamar minha tela de cadastro de tipos de clientes
         // Por exemplo: 1 - cliente | 2 - fornecedor \ 3 - cliente/fornecedor
@@ -363,35 +325,12 @@ public class Menu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Você não tem permissão");
     }//GEN-LAST:event_CadadastrarEmpresaActionPerformed
 
-    private void CadCentroCustoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadCentroCustoActionPerformed
-        // TODO add your handling code here:
-        if ("s".equals(gerencia) || "s".equals(administrativo)) 
-        {
-            new CentroCusto().setVisible(true);
-        }
-        else
-            JOptionPane.showMessageDialog(null, "Você não tem permissão");        
-    }//GEN-LAST:event_CadCentroCustoActionPerformed
-
-    private void CadRubricaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadRubricaActionPerformed
-        // TODO add your handling code here:
-        if ("s".equals(gerencia) || "s".equals(administrativo)) 
-        {
-            new Rubrica().setVisible(true);
-        }
-        else
-            JOptionPane.showMessageDialog(null, "Você não tem permissão"); 
-    }//GEN-LAST:event_CadRubricaActionPerformed
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem CadBancos;
-    private javax.swing.JMenuItem CadCentroCusto;
-    private javax.swing.JMenuItem CadMarca;
     private javax.swing.JMenuItem CadOperacoes;
     private javax.swing.JMenuItem CadProdutos;
-    private javax.swing.JMenuItem CadRubrica;
     private javax.swing.JMenuItem CadTiposClientes;
     private javax.swing.JMenuItem CadUsuario;
     private javax.swing.JMenuItem CadadastrarEmpresa;
