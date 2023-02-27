@@ -145,11 +145,12 @@ public class FormaPagamento extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(descricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton3)
-                    .addComponent(jButton2)
-                    .addComponent(jButton5))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(jButton2)
+                        .addComponent(jButton5)))
                 .addGap(8, 8, 8))
         );
 
@@ -165,6 +166,7 @@ public class FormaPagamento extends javax.swing.JFrame {
                 conection.SqlExecution(sql);
                 JOptionPane.showMessageDialog(null, "Forma de pagamento cadastrado!");
                 this.dispose();    
+                new FormaPagamento().setVisible(true);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro na execução do SQL");
                 JOptionPane.showMessageDialog(null, "NÃO FOI POSSÍVEL ESTABELECER CONEXÃO COM O BANCO DE DADOS");
@@ -218,6 +220,7 @@ public class FormaPagamento extends javax.swing.JFrame {
             conection.SqlExecution(sql);
             JOptionPane.showMessageDialog(null, "FORMA DE PAGAMENTO DELETADO COM SUCESSO!");
             this.dispose();
+            new FormaPagamento().setVisible(true);
             } catch (SQLException ex) {
                JOptionPane.showMessageDialog(null, "Erro ao deletar forma de pagamento!");     
             }
@@ -235,6 +238,7 @@ public class FormaPagamento extends javax.swing.JFrame {
                     
             JOptionPane.showMessageDialog(null, "FORMA DE PAGAMENTO ALTERADO COM SUCESSO");
             this.dispose();
+            new FormaPagamento().setVisible(true);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "ERRO AO ATUALIZAR REGISTRO");
             
