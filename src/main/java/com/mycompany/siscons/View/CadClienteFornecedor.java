@@ -5,9 +5,6 @@
 package com.mycompany.siscons.View;
 
 import DAO.SQLConection;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;

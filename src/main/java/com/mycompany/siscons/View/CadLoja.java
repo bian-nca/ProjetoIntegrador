@@ -2,8 +2,6 @@ package com.mycompany.siscons.View;
 
 import DAO.SQLConection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class CadLoja extends javax.swing.JFrame {
@@ -602,6 +600,27 @@ public class CadLoja extends javax.swing.JFrame {
     }//GEN-LAST:event_cepCadLojaActionPerformed
 
     private void SalvarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarButtonActionPerformed
+        
+        /*
+        CREATE TABLE empresas(
+            idEMPRESA INT PRIMARY KEY AUTO_INCREMENT,
+            nomeF VARCHAR(200) NOT NULL unique,
+            cnpj VARCHAR(40) NOT NULL unique,
+            inscricaomun VARCHAR(50) NOT NULL unique,
+            inscricaoe VARCHAR(50) NOT NULL unique,
+            cnae VARCHAR(40),
+            endereco VARCHAR(200),
+            complemento VARCHAR(200),
+            numero VARCHAR(10),
+            bairro VARCHAR(100),
+            cidade VARCHAR(100),
+            estado VARCHAR(10),
+            cep VARCHAR(15),
+            ibge VARCHAR(50),
+            telefone VARCHAR(20),
+            suframa VARCHAR(100)
+	);
+        */
         try {
             String nomeF, cep, endereco, numero, bairro, cidade, estado, ibge, cnae, cnpj, complemento, telefone, inscricaoE, suframa, inscricaoM;
             nomeF = nomeFCadLoja.getText();
