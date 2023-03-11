@@ -55,10 +55,11 @@ public class Menu extends javax.swing.JFrame {
         CadBancos = new javax.swing.JMenuItem();
         CadProdutos = new javax.swing.JMenuItem();
         CadOperacoes = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         InfosCadClientes = new javax.swing.JMenuItem();
         InfosCot = new javax.swing.JMenu();
-        jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
         InfosConfig = new javax.swing.JMenu();
         TelaPedidos = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
@@ -136,6 +137,15 @@ public class Menu extends javax.swing.JFrame {
         });
         InfosCad.add(CadOperacoes);
 
+        jMenuItem3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\vendedora.png")); // NOI18N
+        jMenuItem3.setText("Cadastro de Vendedores");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        InfosCad.add(jMenuItem3);
+
         InfosCadClientes.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\clientes.png")); // NOI18N
         InfosCadClientes.setText("Cadastro Clientes | Fornecedores");
         InfosCadClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -149,16 +159,16 @@ public class Menu extends javax.swing.JFrame {
 
         InfosCot.setText("Cotação");
 
-        jMenuItem13.setText("Cotação de Compra");
+        jMenuItem1.setText("Cotação de Vendas");
+        InfosCot.add(jMenuItem1);
+
+        jMenuItem13.setText("Cotação de Compras");
         jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem13ActionPerformed(evt);
             }
         });
         InfosCot.add(jMenuItem13);
-
-        jMenuItem1.setText("jMenuItem1");
-        InfosCot.add(jMenuItem1);
 
         jMenuBar1.add(InfosCot);
 
@@ -306,6 +316,11 @@ public class Menu extends javax.swing.JFrame {
         new Pedidos().setVisible(true);
     }//GEN-LAST:event_TelaPedidosActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        new Vendedores().setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -333,6 +348,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;

@@ -177,3 +177,17 @@ create table bancos(
 | cidade    | varchar(100) | YES  |     | NULL    |                |
 | estado    | char(2)      | YES  |     | NULL    |                |
 +-----------+--------------+------+-----+---------+----------------+
+
+
+create table vendedores(
+	idvendedor int primary key auto_increment not null,
+	nome varchar(100) not null
+);
+
+desc vendedores;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| idvendedor | int          | NO   | PRI | NULL    | auto_increment |
+| nome       | varchar(100) | NO   |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
