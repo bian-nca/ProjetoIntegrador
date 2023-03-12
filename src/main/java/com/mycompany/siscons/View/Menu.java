@@ -174,6 +174,7 @@ public class Menu extends javax.swing.JFrame {
 
         InfosConfig.setText("Operação");
 
+        TelaPedidos.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\crescimento.png")); // NOI18N
         TelaPedidos.setText("Vendas");
         TelaPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
