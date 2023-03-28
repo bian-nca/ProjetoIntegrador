@@ -9,6 +9,7 @@ import Model.ConsultaBanco;
 import Model.ConsulteClientes;
 import Model.ConsulteProdutos;
 import Model.ConsulteVendedores;
+import Model.Faturamento;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -96,7 +97,7 @@ public class Pedidos extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(34, 574, 158, 84));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 540, 158, 84));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 0, 0));
@@ -106,11 +107,11 @@ public class Pedidos extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 574, 148, 84));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 540, 148, 84));
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton3.setText("REIMPRESSÃO");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 574, 167, 84));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 540, 167, 84));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("VENDAS");
@@ -332,7 +333,7 @@ public class Pedidos extends javax.swing.JFrame {
             }
         });
 
-        jButton9.setText("Consultar");
+        jButton9.setText("Buscar");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -391,13 +392,13 @@ public class Pedidos extends javax.swing.JFrame {
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 460, -1, -1));
 
         jTextField7.setEditable(false);
-        getContentPane().add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(469, 464, 173, -1));
+        getContentPane().add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 460, 173, -1));
 
         txt_tot.setEditable(false);
         getContentPane().add(txt_tot, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 502, 173, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\Siscons\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\carrinho-carrinho.png")); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(555, 594, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 550, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -412,6 +413,36 @@ public class Pedidos extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Chamar tela de faturamento onde a pessoa vai preencher onde o dinheiro irá cair  
+        String message = "Deseja confirmar a venda?";
+        String title = "Confirmação";
+        //Exibe caixa de dialogo (veja figura) solicitando confirmação ou não. 
+        //Se o usuário clicar em "Sim" retorna 0 pra variavel reply, se informado não retorna 1
+        /* possivel tabela;
+        crete database venda(
+	idvenda int primary key auto_increment not null,
+	idcli int not null,
+	cliente varchar(100) not null,
+	endereco varchar(100),
+	bairro varchar(100),
+	cidade varchar(100),
+	numero int(5),
+	idvend int not null,
+	vendedor varchar(100) not null,
+	idprod int not null,
+	produto varchar(100) not null,
+	quant int not null,
+	valor_unt float not null,
+	desconto float,
+	total float not null
+);
+        */
+       
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+          if (reply == JOptionPane.YES_OPTION)
+          {
+              new Faturamento().setVisible(true);
+          }
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
