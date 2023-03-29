@@ -15,12 +15,12 @@ import java.sql.ResultSet;
  *
  * @author Bianca
  */
-public class CadLoja extends javax.swing.JFrame {
+public class CadEmpresa extends javax.swing.JFrame {
 
     /**
      * Creates new form CadLoja
      */
-    public CadLoja() {
+    public CadEmpresa() {
         initComponents();
     }
 
@@ -59,14 +59,14 @@ public class CadLoja extends javax.swing.JFrame {
         ibgeloja = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        cnpjloja = new javax.swing.JTextField();
         complementoloja = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         ieloja = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        telefoneloja = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         codregimetributario = new javax.swing.JTextField();
+        telefoneloja = new javax.swing.JFormattedTextField();
+        cnpjloja = new javax.swing.JFormattedTextField();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -149,7 +149,6 @@ public class CadLoja extends javax.swing.JFrame {
 
         jLabel12.setText("CNPJ:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
-        jPanel1.add(cnpjloja, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 310, -1));
         jPanel1.add(complementoloja, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 310, -1));
 
         jLabel13.setText("Inscrição Estadual:");
@@ -159,12 +158,25 @@ public class CadLoja extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel14.setText("Telefone:");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
-        jPanel1.add(telefoneloja, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 180, -1));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel15.setText("Regime Tributário:");
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, -1, -1));
         jPanel1.add(codregimetributario, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, 210, -1));
+
+        try {
+            telefoneloja.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) # ####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanel1.add(telefoneloja, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 180, -1));
+
+        try {
+            cnpjloja.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanel1.add(cnpjloja, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 310, -1));
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton4.setForeground(new java.awt.Color(102, 0, 0));
@@ -259,7 +271,7 @@ public class CadLoja extends javax.swing.JFrame {
 	CNPJ varchar(20) not null,
 	CEP varchar(10),
 	rua varchar(40),
-	bairro varchar(40)
+	bairro varchar(40),
         numero int(5),
 	cidade varchar(40),
 	estado char(2),
@@ -287,7 +299,7 @@ public class CadLoja extends javax.swing.JFrame {
                 inscricaoe = ieloja.getText();
                 telefone = telefoneloja.getText();
                 regimetributario = codregimetributario.getText();
-                String sql = "INSERT INTO EMPRESA(idempresa, descricao, fantasia, cnpj, cep, rua, numero, bairro, cidade, estado, complemento, ibge, inscricao, regimetrib, telefone) VALUES "  + "(NULL, '"+nome+"','"+fantasia+"', '"+cnpj+"', '"+cep+"', '"+rua+"', '"+numero+"', '"+bairro+"', '"+cidade+"', '"+estado+"', '"+complemento+"', '"+ibge+"', '"+inscricaoe+"', '"+regimetributario+"', '"+telefone+"')";
+                String sql = "INSERT INTO EMPRESA(codigo, descricao, fantasia, cnpj, cep, rua, bairro, numero, cidade, estado, complemento, ibge, inscricao, regimetrib, telefone) VALUES "  + "(NULL, '"+nome+"','"+fantasia+"', '"+cnpj+"', '"+cep+"', '"+rua+"', '"+bairro+"', '"+numero+"', '"+cidade+"', '"+estado+"', '"+complemento+"', '"+ibge+"', '"+inscricaoe+"', '"+regimetributario+"', '"+telefone+"')";
                 SQLConection conection = new SQLConection();
                 conection.SqlExecution(sql);
                 JOptionPane.showMessageDialog(null, "Empresa Cadastrada!");
@@ -391,46 +403,11 @@ public class CadLoja extends javax.swing.JFrame {
      
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadLoja.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadLoja.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadLoja.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadLoja.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CadLoja().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField bairroloja;
     private javax.swing.JTextField ceploja;
     private javax.swing.JTextField cidadeloja;
-    private javax.swing.JTextField cnpjloja;
+    private javax.swing.JFormattedTextField cnpjloja;
     private javax.swing.JTextField codloja;
     private javax.swing.JTextField codregimetributario;
     private javax.swing.JTextField complementoloja;
@@ -463,6 +440,6 @@ public class CadLoja extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField nomefantasia;
     private javax.swing.JTextField numeroloja;
-    private javax.swing.JTextField telefoneloja;
+    private javax.swing.JFormattedTextField telefoneloja;
     // End of variables declaration//GEN-END:variables
 }

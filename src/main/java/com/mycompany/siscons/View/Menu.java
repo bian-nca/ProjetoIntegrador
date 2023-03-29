@@ -302,7 +302,7 @@ public class Menu extends javax.swing.JFrame {
         // chamar minha tela de cadstro de empresa
         if ("s".equals(gerencia) || "s".equals(administrativo)) 
         {
-            new CadLoja().setVisible(true);
+            new CadEmpresa().setVisible(true);
         }
         else
             JOptionPane.showMessageDialog(null, "Você não tem permissão");
