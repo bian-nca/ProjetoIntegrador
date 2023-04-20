@@ -198,6 +198,17 @@ public class Bancos extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // salvando os dados do banco 
         
+      /*  create table bancos(
+             codbanco int primary key not null auto_increment,
+             descricao varchar(100) not null,
+             telefone varchar(20),
+             cep varchar(10),
+             endereco varchar(200),
+             cidade varchar(100),
+             estado char(2)
+);
+        */
+        
          try {
                 String bancos = Descbanco.getText();
                 String telefone = Fonebanco.getText();

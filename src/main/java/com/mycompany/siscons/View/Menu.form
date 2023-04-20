@@ -39,7 +39,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="CadadastrarEmpresa">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\companhia.png"/>
+                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\companhia.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro de Empresa"/>
               </Properties>
@@ -50,7 +50,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="CadUsuario">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\Usuarios.png"/>
+                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\Usuarios.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro Usuarios"/>
               </Properties>
@@ -61,7 +61,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="CadBancos">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\banco.png"/>
+                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\banco.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro de Bancos"/>
               </Properties>
@@ -72,7 +72,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="CadProdutos">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\materiais.png"/>
+                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\materiais.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro Produtos"/>
               </Properties>
@@ -83,7 +83,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="CadOperacoes">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\forma-de-pagamento.png"/>
+                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\dinheiro.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro Opera&#xe7;&#xf5;es"/>
               </Properties>
@@ -94,7 +94,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\vendedora.png"/>
+                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\vendedora.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro de Vendedores"/>
               </Properties>
@@ -105,7 +105,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="InfosCadClientes">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\clientes.png"/>
+                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\clientes.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cadastro Clientes | Fornecedores"/>
               </Properties>
@@ -142,9 +142,6 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="TelaPedidos">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\crescimento.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Vendas"/>
               </Properties>
               <Events>

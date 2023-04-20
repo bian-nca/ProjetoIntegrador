@@ -159,6 +159,17 @@ public class FormaPagamento extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        /*
+        create table pagamentos(
+         codigo int primary key not null auto_increment,
+         descricao varchar(100) not null
+);
+        
+        
+        
+        
+        
+        */
          try {
                 String pagamento = descricao.getText();
                 String sql = "INSERT INTO PAGAMENTOS(codigo, descricao) VALUES (NULL, '"+pagamento+"')";

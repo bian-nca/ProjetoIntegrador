@@ -82,22 +82,22 @@ public class ConsultaBanco extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Descrição:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 90, 20));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 90, 20));
 
         txt_pesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_pesquisaActionPerformed(evt);
             }
         });
-        getContentPane().add(txt_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 351, -1));
+        getContentPane().add(txt_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 351, -1));
 
-        jButton1.setText("Pesqusiar");
+        jButton1.setText("Lista Completa");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 100, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 30, 110, -1));
 
         tabela_bancos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -193,7 +193,7 @@ public class ConsultaBanco extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -213,25 +213,6 @@ public class ConsultaBanco extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "ERRO AO EXCLUIR O REGISTRO SELECIONADO!");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // PUXANDO TODOS OS MEUS REGISTROS CADASTRADOS
-        try{
-                Connection con = SQLConection.getConnection();
-                String sql = "Select * from bancos";
-                PreparedStatement stmt = con.prepareStatement(sql);
-                ResultSet rs = stmt.executeQuery();
-                DefaultTableModel modelo = (DefaultTableModel) tabela_bancos.getModel();
-                modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
-                    
-                while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
-                    modelo.addRow(new Object[]{rs.getString("codbanco"), rs.getString("descricao"), rs.getString("telefone"), rs.getString("cep"), rs.getString("endereco"), rs.getString("cidade"), rs.getString("estado")});   
-                }
-                con.close();
-            } catch (SQLException ex) {
-                    Logger.getLogger(ConsultaBanco.class.getName()).log(Level.SEVERE, null, ex);
-                }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tabela_bancosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabela_bancosMouseClicked
         // Pegar a linha que foi selecionada
@@ -301,7 +282,27 @@ public class ConsultaBanco extends javax.swing.JFrame {
             } catch (SQLException ex) {
                     Logger.getLogger(ConsultaBanco.class.getName()).log(Level.SEVERE, null, ex);
                 }
+           
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // PUXANDO TODOS OS MEUS REGISTROS CADASTRADOS
+        try{
+            Connection con = SQLConection.getConnection();
+            String sql = "Select * from bancos";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            DefaultTableModel modelo = (DefaultTableModel) tabela_bancos.getModel();
+            modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
+
+            while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
+                modelo.addRow(new Object[]{rs.getString("codbanco"), rs.getString("descricao"), rs.getString("telefone"), rs.getString("cep"), rs.getString("endereco"), rs.getString("cidade"), rs.getString("estado")});
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultaBanco.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

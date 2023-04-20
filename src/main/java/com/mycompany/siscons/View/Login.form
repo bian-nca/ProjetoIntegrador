@@ -36,7 +36,7 @@
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\login.jpg"/>
+          <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\login.jpg"/>
         </Property>
         <Property name="text" type="java.lang.String" value="jLabel1"/>
       </Properties>
@@ -89,11 +89,6 @@
       </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\Siscons\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\guindaste-transportando-material-de-construcao-para-um-edificio.png"/>
-        </Property>
-      </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="720" y="-10" width="40" height="60"/>
