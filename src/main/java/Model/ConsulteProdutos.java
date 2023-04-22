@@ -176,7 +176,7 @@ public class ConsulteProdutos extends javax.swing.JFrame {
          try{
                 String desc = txt_pesquisa.getText();
                 Connection con = SQLConection.getConnection();             
-                String sql = "Select * from produtos where descricao LIKE = '"+desc+"';";
+                String sql = "Select * from produtos where descricao LIKE '"+desc+"';";
                 PreparedStatement stmt = con.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery();
                 DefaultTableModel modelo = (DefaultTableModel) tabela_produtos.getModel();
@@ -195,15 +195,14 @@ public class ConsulteProdutos extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // selecionar por filtragem
-        try{
+       try{
                 String desc = txt_pesquisa.getText();
-                Connection con = SQLConection.getConnection();
-                String sql = "Select * from produtos where descricao = " +desc+"";
+                Connection con = SQLConection.getConnection();             
+                String sql = "Select * from produos where descricao LIKE '"+desc+"';";
                 PreparedStatement stmt = con.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery();
                 DefaultTableModel modelo = (DefaultTableModel) tabela_produtos.getModel();
-                modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
-                    
+                modelo.setNumRows(0); 
                 while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
                     modelo.addRow(new Object[]{rs.getString("codigo"), rs.getString("descricao"), rs.getString("ncm"), rs.getString("cest"), rs.getString("tipo_item"), rs.getString("qtd_estoque"), rs.getString("unidade"), rs.getString("marca"),rs.getString("vlr_custo"), rs.getString("vlr_venda_vista"),rs.getString("vlr_venda_prazo")});   
                 }
