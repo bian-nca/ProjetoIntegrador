@@ -269,7 +269,7 @@ public class ConsultaBanco extends javax.swing.JFrame {
             try{
                 String desc = txt_pesquisa.getText();
                 Connection con = SQLConection.getConnection();
-                String sql = "Select * from bancos where descricao = " +desc+"";
+                String sql = "Select * from bancos where descricao LIKE " +desc+"";
                 PreparedStatement stmt = con.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery();
                 DefaultTableModel modelo = (DefaultTableModel) tabela_bancos.getModel();

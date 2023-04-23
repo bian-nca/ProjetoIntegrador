@@ -117,7 +117,7 @@ public class ConsulteEmpresa extends javax.swing.JFrame {
                 PreparedStatement stmt = con.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery();
                 DefaultTableModel modelo = (DefaultTableModel) tabela_empresa.getModel();
-                modelo.setNumRows(0); 
+                
                 while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
                     modelo.addRow(new Object[]{rs.getString("idempresa"), rs.getString("DESCRICAO"), rs.getString("fantasia"), rs.getString("CNPJ"), rs.getString("CEP"), rs.getString("rua"), rs.getString("numero"), rs.getString("bairro"),rs.getString("cidade"), rs.getString("estado"),rs.getString("complemento"), rs.getString("IBGE"), rs.getString("inscricao"), rs.getString("regimetrib"), rs.getString("telefone")});   
                  }

@@ -188,8 +188,7 @@ public class ConsulteProdutos extends javax.swing.JFrame {
             } catch (SQLException ex) {
                     Logger.getLogger(ConsultaBanco.class.getName()).log(Level.SEVERE, null, ex);
                 }
-        
-        
+
         
     }//GEN-LAST:event_jButton2ActionPerformed
 

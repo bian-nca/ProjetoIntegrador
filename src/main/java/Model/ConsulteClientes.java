@@ -58,7 +58,6 @@ public class ConsulteClientes extends javax.swing.JFrame {
         table_clie = new javax.swing.JTable();
 
         setTitle("Consulta de Clientes");
-        setPreferredSize(new java.awt.Dimension(756, 400));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -117,7 +116,7 @@ public class ConsulteClientes extends javax.swing.JFrame {
         try{
                 String nome = txt_cliente.getText();
                 Connection con = SQLConection.getConnection();
-                String sql = "Select * from pessoafisica where nome = " +nome+"";
+                String sql = "Select * from pessoafisica where nome LIKE " +nome+"";
                 PreparedStatement stmt = con.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery();
                 DefaultTableModel modelo = (DefaultTableModel) table_clie.getModel();

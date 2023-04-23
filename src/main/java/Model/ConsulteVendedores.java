@@ -150,7 +150,7 @@ public class ConsulteVendedores extends javax.swing.JFrame {
          try{
                 String desc = txt_pesquisa.getText();
                 Connection con = SQLConection.getConnection();
-                String sql = "Select * from vendedores where nome = " +desc+"";
+                String sql = "Select * from vendedores where nome LIKE "+desc+"";
                 PreparedStatement stmt = con.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery();
                 DefaultTableModel modelo = (DefaultTableModel) tabela_vendedores.getModel();

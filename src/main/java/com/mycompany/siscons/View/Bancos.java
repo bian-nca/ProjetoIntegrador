@@ -6,6 +6,9 @@ package com.mycompany.siscons.View;
 
 import DAO.SQLConection;
 import Model.ConsultaBanco;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -39,7 +42,6 @@ public class Bancos extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        CodBanco = new javax.swing.JComboBox<>();
         Descbanco = new javax.swing.JTextField();
         Fonebanco = new javax.swing.JTextField();
         cepCadBanco = new javax.swing.JTextField();
@@ -49,6 +51,8 @@ public class Bancos extends javax.swing.JFrame {
         ConsultaCepBanco = new javax.swing.JButton();
         EstadoBanco = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        CodBanco = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
 
         setTitle("Cadastro Bancos");
         setResizable(false);
@@ -101,6 +105,15 @@ public class Bancos extends javax.swing.JFrame {
             }
         });
 
+        CodBanco.setEditable(false);
+
+        jButton3.setText("Pesquisar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,8 +147,6 @@ public class Bancos extends javax.swing.JFrame {
                                             .addComponent(jLabel4))))
                                 .addGap(30, 30, 30)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(CodBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Descbanco, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
                             .addComponent(Fonebanco, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
                             .addComponent(CidadeBanco, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
@@ -143,7 +154,12 @@ public class Bancos extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(ConsultaCepBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(Enderbanco)
-                            .addComponent(EstadoBanco)))
+                            .addComponent(EstadoBanco)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Descbanco, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton3))
+                            .addComponent(CodBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(126, 126, 126)
                         .addComponent(jButton1)
@@ -161,8 +177,9 @@ public class Bancos extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(Descbanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
+                    .addComponent(Descbanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Fonebanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
@@ -252,13 +269,49 @@ public class Bancos extends javax.swing.JFrame {
         new ConsultaBanco().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        //trazendo informações de produto ja cadastrado 
+         try {
+            String cod,desc, phone,cep_banco, logradouro, cidade, estado;
+            
+            String banco = Descbanco.getText();
+            String sql = "SELECT codbanco, descricao, telefone, cep, endereco, cidade, estado FROM BANCOS WHERE DESCRICAO LIKE '"+banco+"'";
+
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            rs.next();
+            
+            cod = Integer.toString(rs.getInt("codbanco"));
+            desc = rs.getString("descricao");
+            phone = rs.getString("telefone");
+            cep_banco =rs.getString("cep");
+            logradouro = rs.getString("endereco");
+            cidade = rs.getString("cidade");
+            estado = rs.getString("estado");
+   
+            CodBanco.setText(cod);
+            Descbanco.setText(desc);
+            Fonebanco.setText(phone);
+            cepCadBanco.setText(cep_banco);
+            Enderbanco.setToolTipText(logradouro);
+            CidadeBanco.setText(cidade);
+            EstadoBanco.setText(estado);
+          
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar banco!");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CidadeBanco;
-    private javax.swing.JComboBox<String> CodBanco;
+    private javax.swing.JTextField CodBanco;
     private javax.swing.JButton ConsultaCepBanco;
     private javax.swing.JTextField Descbanco;
     private javax.swing.JTextField Enderbanco;
@@ -267,6 +320,7 @@ public class Bancos extends javax.swing.JFrame {
     private javax.swing.JTextField cepCadBanco;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
