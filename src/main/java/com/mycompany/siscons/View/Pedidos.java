@@ -12,18 +12,25 @@ import Model.ConsulteVendedores;
 import Model.Faturamento;
 import Model.ListaItens;
 import java.awt.List;
+import static java.lang.ModuleLayer.empty;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import static javax.swing.UIManager.getInt;
 import static javax.swing.UIManager.getString;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -34,7 +41,13 @@ public class Pedidos extends javax.swing.JFrame {
     /**
      * Creates new form Pedidos
      */
+    MaskFormatter mfdata; //para inserir a mascara para data no meu jfield;
     public Pedidos() {
+        try {
+            mfdata = new MaskFormatter("##/##/####");
+        } catch (ParseException ex) {
+            System.out.println("Insira uma data válida!");
+        }
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -50,7 +63,7 @@ public class Pedidos extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        btn_confirmar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -102,12 +115,18 @@ public class Pedidos extends javax.swing.JFrame {
         totalizando = new javax.swing.JTextField();
         btn_soma = new javax.swing.JButton();
         botao_rmv = new javax.swing.JButton();
+        jLabel21 = new javax.swing.JLabel();
+        txt_estoque = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jLabel20 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        data_venda = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
+        data_venda = new javax.swing.JFormattedTextField(mfdata);
+        jButton8 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela_vendas = new javax.swing.JTable();
+        jLabel19 = new javax.swing.JLabel();
+        txt_pesquisa = new javax.swing.JTextField();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -115,15 +134,15 @@ public class Pedidos extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 102, 0));
-        jButton1.setText("CONFIRMAR ");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_confirmar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn_confirmar.setForeground(new java.awt.Color(0, 102, 0));
+        btn_confirmar.setText("CONFIRMAR ");
+        btn_confirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_confirmarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 560, 190, 40));
+        getContentPane().add(btn_confirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 600, 190, 40));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 0, 0));
@@ -133,16 +152,16 @@ public class Pedidos extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 560, 190, 40));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 600, 190, 40));
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton3.setText("REIMPRESSÃO");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 560, 167, 40));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 600, 167, 40));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 102, 51));
         jLabel1.setText("VENDAS");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, 110, 50));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -179,7 +198,7 @@ public class Pedidos extends javax.swing.JFrame {
 
         txt_cidadecli.setEditable(false);
         jPanel1.add(txt_cidadecli, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 60, 346, -1));
-        jPanel1.add(txt_nomevend, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 397, 30));
+        jPanel1.add(txt_nomevend, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 390, 30));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 90, 800, 10));
 
         txt_codigocli.addActionListener(new java.awt.event.ActionListener() {
@@ -245,12 +264,12 @@ public class Pedidos extends javax.swing.JFrame {
         });
         jPanel1.add(bairrocli, new org.netbeans.lib.awtextra.AbsoluteConstraints(495, 36, 210, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 38, 802, 160));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 802, 160));
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 578, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Valor Total: ");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 560, -1, -1));
 
         valor_tot.setEditable(false);
         valor_tot.addActionListener(new java.awt.event.ActionListener() {
@@ -258,21 +277,21 @@ public class Pedidos extends javax.swing.JFrame {
                 valor_totActionPerformed(evt);
             }
         });
-        getContentPane().add(valor_tot, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 490, 173, -1));
+        getContentPane().add(valor_tot, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 560, 120, -1));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Valor:");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 490, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 560, -1, -1));
 
         desconto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 descontoActionPerformed(evt);
             }
         });
-        getContentPane().add(desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 490, 173, -1));
+        getContentPane().add(desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 530, 130, -1));
 
         txt_tot.setEditable(false);
-        getContentPane().add(txt_tot, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 520, 173, -1));
+        getContentPane().add(txt_tot, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 560, 130, -1));
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 550, -1, -1));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -311,6 +330,11 @@ public class Pedidos extends javax.swing.JFrame {
         jLabel13.setText("Quantidade:");
 
         vlr_unitario.setEditable(false);
+        vlr_unitario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vlr_unitarioActionPerformed(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel15.setText("Valor Unitário:");
@@ -355,6 +379,23 @@ public class Pedidos extends javax.swing.JFrame {
             }
         });
 
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel21.setText("Estoque");
+
+        txt_estoque.setEditable(false);
+        txt_estoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_estoqueActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Att");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -368,42 +409,49 @@ public class Pedidos extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txt_prod, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(txt_descprod, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_descprod, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton11)
+                        .addGap(32, 32, 32))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel17))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addGap(34, 34, 34)
                                 .addComponent(codigo_produto, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel18))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(qtd_vendas, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel15)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(produto_descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(vlr_unitario, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel16)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(totalizando, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn_soma)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(botao_add)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botao_rmv)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addComponent(botao_rmv)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel21)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txt_estoque, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(produto_descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(qtd_vendas, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1)))
+                        .addContainerGap(26, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -419,37 +467,52 @@ public class Pedidos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(codigo_produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel18)
+                            .addComponent(produto_descricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13)
+                            .addComponent(qtd_vendas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(codigo_produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel18)
-                    .addComponent(produto_descricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(qtd_vendas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13)
                     .addComponent(jLabel15)
                     .addComponent(vlr_unitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botao_add)
-                    .addComponent(jLabel16)
-                    .addComponent(totalizando, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_soma)
-                    .addComponent(botao_rmv))
-                .addContainerGap(32, Short.MAX_VALUE))
+                    .addComponent(botao_add)
+                    .addComponent(botao_rmv)
+                    .addComponent(totalizando, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel21)
+                    .addComponent(txt_estoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 203, 800, 130));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 800, 130));
 
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel20.setText("Desconto:");
-        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 490, -1, -1));
+        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 530, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Data da Venda:");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 490, -1, -1));
-        getContentPane().add(data_venda, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 490, 130, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, -1, -1));
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        new javax.swing.JFormattedTextField(mfdata);
+        getContentPane().add(data_venda, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 40, 100, -1));
+
+        jButton8.setText("Gravar");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 530, 120, -1));
 
         tabela_vendas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -467,20 +530,29 @@ public class Pedidos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tabela_vendas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabela_vendasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabela_vendas);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 796, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, -1, 130));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 790, 110));
+
+        jLabel19.setText("Nº:");
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, -1, -1));
+        getContentPane().add(txt_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 10, 100, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -493,39 +565,20 @@ public class Pedidos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_ncli1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confirmarActionPerformed
         // Chamar tela de faturamento onde a pessoa vai preencher onde o dinheiro irá cair  
         String message = "Deseja confirmar a venda?";
         String title = "Confirmação";
-        //Exibe caixa de dialogo (veja figura) solicitando confirmação ou não. 
-        //Se o usuário clicar em "Sim" retorna 0 pra variavel reply, se informado não retorna 1
-        /* possivel tabela;
-        crete database venda(
-	idvenda int primary key auto_increment not null,
-	idcli int not null,
-	cliente varchar(100) not null,
-	endereco varchar(100),
-	bairro varchar(100),
-	cidade varchar(100),
-	numero int(5),
-	idvend int not null,
-	vendedor varchar(100) not null,
-	idprod int not null,
-	produto varchar(100) not null,
-	quant int not null,
-	valor_unt float not null,
-	desconto float,
-	total float not null
-);
-        */
+        
        
         int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
           if (reply == JOptionPane.YES_OPTION)
           {
+              
               new Faturamento().setVisible(true);
           }
        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btn_confirmarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -617,11 +670,11 @@ public class Pedidos extends javax.swing.JFrame {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // 
         try {
-            String codigo, produto, quantidade, vlr; 
+            String codigo, produto, quantidade, vlr, est; 
             String codprod = txt_prod.getText();
-            String sql = "SELECT codigo, descricao, vlr_venda_vista  FROM PRODUTOS WHERE CODIGO LIKE '"+codprod+"'";
+            String sql = "SELECT codigo, descricao, vlr_venda_vista, qtd_estoque FROM PRODUTOS WHERE CODIGO LIKE '"+codprod+"'";
            
-
+            
             Connection con = SQLConection.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery(sql);
@@ -631,14 +684,15 @@ public class Pedidos extends javax.swing.JFrame {
             codigo = Integer.toString(rs.getInt("codigo"));
             produto = rs.getString("descricao");
             vlr = Float.toString(rs.getFloat("vlr_venda_vista"));
+            est = Integer.toString(rs.getInt("qtd_estoque"));
             txt_descprod.setText(produto);
             codigo_produto.setText(codigo);
             produto_descricao.setText(produto);     
             vlr_unitario.setText(vlr);
+            txt_estoque.setText(est);
             
 
-            
-                    
+                               
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "ERRO AO BUSCAR O PRODUTO!");
             JOptionPane.showMessageDialog(null, "Consulte o suporte técnico para mais informações!");
@@ -655,36 +709,52 @@ public class Pedidos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_prodActionPerformed
 
-    private void descontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descontoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_descontoActionPerformed
-
     private void bairrocliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bairrocliActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bairrocliActionPerformed
 
     private void botao_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_addActionPerformed
-      
-        String coditem, descitem, qtditem, vlr_unit_item, ttitem;
-            coditem = codigo_produto.getText();
-            descitem = produto_descricao.getText();
-            qtditem = qtd_vendas.getText();
-            vlr_unit_item = vlr_unitario.getText();
-            Float totalizando_soma_itens;
-            totalizando_soma_itens = (Float.valueOf(qtditem)) * (Float.valueOf(vlr_unit_item));
-            String somatoria_totalitens = String.valueOf(totalizando_soma_itens);
-            ttitem = totalizando.getText();
-            if(botao_add.isEnabled()) {
-               //  ArrayList<ListaItens> produtositens = new ArrayList();
-               //   produtositens.add(descitem);
-                DefaultTableModel modelo = (DefaultTableModel) tabela_vendas.getModel();
-                /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
-               // Object[] dados = {codigo_produto.getText(), produto_descricao.getText(), qtd_vendas.getText(), vlr_unitario.getText(), totalizando.getText()};
-                // tabela_vendas.addRowSelectionInterval(0,0);
-                modelo.addRow(new Object[]{codigo_produto.getText(),produto_descricao.getText(), qtd_vendas.getText(), vlr_unitario.getText(), totalizando.getText()}); 
-                
-                
-            }      
+        /*Aqui é onde faremos a nossa venda em relação ao produto, ou seja, onde vamos buscar o nosso produto desejado,
+        inserir a quantidade desse produto, fazer a soma da equação valor unitario * quantidade desejada do produto 
+        e adicionar o item na tabela, entretanto, precisamos validar o saldo desses produtos tambem.
+        Ou seja, caso haja saldo na tabela produto atributo quantidade então poderemos prosseguir com a venda,
+        caso não haja, iremos validar a condição de não poder continuar com a ocmpra.
+        */ 
+           String qitdem = qtd_vendas.getText(); //pegando o valor do meu campo de quantidade a ser vendido do determinado produto
+           String saldo = txt_estoque.getText(); //pegando o saldo do meu banco que foi informado para o cliente
+           int qtd_vend, qtd_estoq; 
+           qtd_vend = Integer.valueOf(qitdem); //transformando minha variavel String qitdem em inteiro e armazando na variavel qtd_vend
+           qtd_estoq = Integer.valueOf(saldo); //transformando minha variavel String saldo em inteiro e armazenando na variavel qtd_estoq
+            if(botao_add.isEnabled()) {  
+                if(qtd_vend <= qtd_estoq) { //está validando se o usuario está inserindo uma quantidade maior do que o saldo existente no produto.
+                DefaultTableModel modelo = (DefaultTableModel) tabela_vendas.getModel();          
+                modelo.addRow(new Object[]{codigo_produto.getText(),produto_descricao.getText(), qtd_vendas.getText(), vlr_unitario.getText() , totalizando.getText()});   
+                /* quando o botao botao_add foi apertado, acrescentar o valor no field e ir somando conforme vou apertando.*/
+                /*Agora farei com que diminua o meu estoque apos adicionar na lista e atualizar no meu banco de dados*/
+                int subt = qtd_estoq - qtd_vend;
+                //Connection con = SQLConection.getConnection();
+                SQLConection conection = new SQLConection();
+                String sql1 = "UPDATE produtos SET qtd_estoque = " + subt + " WHERE codigo = '" + codigo_produto.getText()+ "'";
+                    try {
+                        conection.SqlExecution(sql1);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "SALDO INSUFICIENTE");
+                    JOptionPane.showMessageDialog(null, "Verifique o estoque do seu produto");
+                }
+            }
+           codigo_produto.setText(null);
+           produto_descricao.setText(null);
+           qtd_vendas.setText(null);
+           vlr_unitario.setText(null);
+           totalizando.setText(null);
+           txt_estoque.setText(null);
+           txt_prod.setText(null);
+           txt_descprod.setText(null);
+            
     }//GEN-LAST:event_botao_addActionPerformed
 
     private void btn_somaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_somaActionPerformed
@@ -693,12 +763,13 @@ public class Pedidos extends javax.swing.JFrame {
         descitem = produto_descricao.getText();
         qtditem = qtd_vendas.getText();
         vlrofitem = vlr_unitario.getText();
+        
         Float soma_itens;
-        soma_itens = (Float.valueOf(qtditem)) * (Float.valueOf(vlrofitem));
+        soma_itens = ((Float.valueOf((qtditem)) * (Float.valueOf(vlrofitem))));
         String somatoria = String.valueOf(soma_itens);
         if(btn_soma.isEnabled()) {
             totalizando.setText(somatoria);
-        }
+            }
          
     }//GEN-LAST:event_btn_somaActionPerformed
 
@@ -710,14 +781,116 @@ public class Pedidos extends javax.swing.JFrame {
 
     private void botao_rmvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_rmvActionPerformed
         // excluir meu item selecionado da tabela
-         
+
+           String qitdem = qtd_vendas.getText(); //pegando o valor do meu campo de quantidade a ser vendido do determinado produto
+           String saldo = txt_estoque.getText(); //pegando o saldo do meu banco que foi informado para o cliente
+           int qtd_vend, qtd_estoq; 
+           qtd_vend = Integer.valueOf(qitdem); //transformando minha variavel String qitdem em inteiro e armazando na variavel qtd_vend
+           qtd_estoq = Integer.valueOf(saldo); //transformando minha variavel String saldo em inteiro e armazenando na variavel qtd_estoq
+       
             if(botao_rmv.isEnabled()){
                 DefaultTableModel modelo = (DefaultTableModel) tabela_vendas.getModel();
                 modelo.removeRow(tabela_vendas.getSelectedRow());
                 tabela_vendas.setModel(modelo);
-                JOptionPane.showMessageDialog(null,"item excluido");
-            }      
+                int soma = Integer.valueOf(qtd_vendas.getText()) + Integer.valueOf(txt_estoque.getText());
+                SQLConection conection = new SQLConection();
+                String sql1 = "UPDATE produtos SET qtd_estoque = " + soma + " WHERE codigo = '" + codigo_produto.getText()+ "'";
+                    try {
+                                conection.SqlExecution(sql1);
+                                JOptionPane.showMessageDialog(null,"item excluido");
+                                JOptionPane.showMessageDialog(null, "saldo voltado para o estoque");
+                        } catch (SQLException ex) {
+                                 Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+            
+            }
+           codigo_produto.setText(null);
+           produto_descricao.setText(null);
+           qtd_vendas.setText(null);
+           vlr_unitario.setText(null);
+           totalizando.setText(null);
+           txt_estoque.setText(null);
+           txt_prod.setText(null);
+           txt_descprod.setText(null);
     }//GEN-LAST:event_botao_rmvActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        //salvando todos os valores da minha coluna de total para mostrar no campo de total no valor unitario
+        //fazendo o field do meu desconto ser calculado e abatido no valor total 
+        //mostrando o valor total com o desconto
+        
+ 
+        //dvalor unitario total sem desconto
+        int totvalunit = tabela_vendas.getRowCount();
+        double tot = 0;
+        for(int i = 0; i<totvalunit; i++){
+            double descvalue = Double.valueOf(tabela_vendas.getValueAt(i,4).toString());
+            tot += descvalue;
+        }
+        valor_tot.setText(Double.toString(tot));
+        
+        
+        //soma total com desconto
+       int sumtot = tabela_vendas.getRowCount();
+       double sumt = 0;
+       for(int i=0; i<sumtot; i++) {
+        double smt = Double.valueOf(tabela_vendas.getValueAt(i, 4).toString());
+        sumt += smt;
+    }
+       String descontinho;
+       descontinho = desconto.getText();
+       Float dsct = Float.valueOf(descontinho);
+       txt_tot.setText(Double.toString(sumt -dsct));
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void descontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descontoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_descontoActionPerformed
+
+    private void txt_estoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_estoqueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_estoqueActionPerformed
+
+    private void tabela_vendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabela_vendasMouseClicked
+        // para quando eu for excluir ele voltar o estoque para o produto certo
+                
+                String qitdem = qtd_vendas.getText(); //pegando o valor do meu campo de quantidade a ser vendido do determinado produto
+                String saldo = txt_estoque.getText(); //pegando o saldo do meu banco que foi informado para o cliente
+                int i = tabela_vendas.getSelectedRow();
+                TableModel model = tabela_vendas.getModel();
+                codigo_produto.setText(model.getValueAt(i, 0).toString());
+                produto_descricao.setText(model.getValueAt(i,1).toString());
+                qtd_vendas.setText(model.getValueAt(i,2).toString());
+                vlr_unitario.setText(model.getValueAt(i, 3).toString());
+                totalizando.setText(model.getValueAt(i, 4).toString());
+                
+    }//GEN-LAST:event_tabela_vendasMouseClicked
+
+    private void vlr_unitarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vlr_unitarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_vlr_unitarioActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // 
+        try {
+            String est; 
+            String sql = "SELECT codigo, descricao, vlr_venda_vista, qtd_estoque FROM PRODUTOS WHERE CODIGO LIKE '"+codigo_produto.getText()+"'";
+           
+
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            rs.next();
+   
+            est = Integer.toString(rs.getInt("qtd_estoque"));
+            txt_estoque.setText(est);
+                                           
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERRO AO BUSCAR O SALDO DO PRODUTO!");
+            JOptionPane.showMessageDialog(null, "Consulte o suporte técnico para mais informações!");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -727,6 +900,7 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JTextField bairrocli;
     private javax.swing.JButton botao_add;
     private javax.swing.JButton botao_rmv;
+    private javax.swing.JButton btn_confirmar;
     private javax.swing.JButton btn_soma;
     private javax.swing.JTextField codigo_produto;
     private javax.swing.JTextField data_venda;
@@ -740,6 +914,7 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -750,8 +925,10 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -762,7 +939,7 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -775,10 +952,12 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JTextField txt_codigocli;
     private javax.swing.JTextField txt_codvend;
     private javax.swing.JTextField txt_descprod;
+    private javax.swing.JTextField txt_estoque;
     private javax.swing.JTextField txt_ncli;
     private javax.swing.JTextField txt_ncli1;
     private javax.swing.JTextField txt_nomecli;
     private javax.swing.JTextField txt_nomevend;
+    private javax.swing.JTextField txt_pesquisa;
     private javax.swing.JTextField txt_prod;
     private javax.swing.JTextField txt_ruacli;
     private javax.swing.JTextField txt_tot;

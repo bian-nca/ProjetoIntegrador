@@ -116,7 +116,7 @@ public class ConsulteClientes extends javax.swing.JFrame {
         try{
                 String nome = txt_cliente.getText();
                 Connection con = SQLConection.getConnection();
-                String sql = "Select * from pessoafisica where nome LIKE " +nome+"";
+                String sql = "Select * from pessoafisica where nome LIKE '"+nome+"'";
                 PreparedStatement stmt = con.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery();
                 DefaultTableModel modelo = (DefaultTableModel) table_clie.getModel();
