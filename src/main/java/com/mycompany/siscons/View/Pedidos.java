@@ -47,9 +47,10 @@ public class Pedidos extends javax.swing.JFrame {
             mfdata = new MaskFormatter("##/##/####");
         } catch (ParseException ex) {
             System.out.println("Insira uma data válida!");
-        }
+        } 
         initComponents();
         setLocationRelativeTo(null);
+        data_venda.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(System.currentTimeMillis())));
     }
 
     /**
@@ -65,7 +66,6 @@ public class Pedidos extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         btn_confirmar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -77,7 +77,7 @@ public class Pedidos extends javax.swing.JFrame {
         txt_cidadecli = new javax.swing.JTextField();
         txt_nomevend = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        txt_codigocli = new javax.swing.JTextField();
+        txtcodcli = new javax.swing.JTextField();
         txt_codvend = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -127,6 +127,7 @@ public class Pedidos extends javax.swing.JFrame {
         tabela_vendas = new javax.swing.JTable();
         jLabel19 = new javax.swing.JLabel();
         txt_pesquisa = new javax.swing.JTextField();
+        jButton9 = new javax.swing.JButton();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -142,7 +143,7 @@ public class Pedidos extends javax.swing.JFrame {
                 btn_confirmarActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_confirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 600, 190, 40));
+        getContentPane().add(btn_confirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 600, 190, 40));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 0, 0));
@@ -152,11 +153,7 @@ public class Pedidos extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 600, 190, 40));
-
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton3.setText("REIMPRESSÃO");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 600, 167, 40));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 600, 190, 40));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 102, 51));
@@ -201,12 +198,12 @@ public class Pedidos extends javax.swing.JFrame {
         jPanel1.add(txt_nomevend, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 390, 30));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 90, 800, 10));
 
-        txt_codigocli.addActionListener(new java.awt.event.ActionListener() {
+        txtcodcli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_codigocliActionPerformed(evt);
+                txtcodcliActionPerformed(evt);
             }
         });
-        jPanel1.add(txt_codigocli, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 7, 125, -1));
+        jPanel1.add(txtcodcli, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 7, 125, -1));
         jPanel1.add(txt_codvend, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 114, -1));
 
         jButton4.setText("Filtrar");
@@ -268,8 +265,8 @@ public class Pedidos extends javax.swing.JFrame {
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 578, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setText("Valor Total: ");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 560, -1, -1));
+        jLabel6.setText("Valor Total (R$): ");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 560, 110, 20));
 
         valor_tot.setEditable(false);
         valor_tot.addActionListener(new java.awt.event.ActionListener() {
@@ -280,18 +277,18 @@ public class Pedidos extends javax.swing.JFrame {
         getContentPane().add(valor_tot, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 560, 120, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setText("Valor:");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 560, -1, -1));
+        jLabel7.setText("Valor: (R$)");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 560, -1, -1));
 
         desconto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 descontoActionPerformed(evt);
             }
         });
-        getContentPane().add(desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 530, 130, -1));
+        getContentPane().add(desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 530, 130, -1));
 
         txt_tot.setEditable(false);
-        getContentPane().add(txt_tot, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 560, 130, -1));
+        getContentPane().add(txt_tot, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 560, 130, -1));
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 550, -1, -1));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -490,21 +487,26 @@ public class Pedidos extends javax.swing.JFrame {
                     .addComponent(jLabel16)
                     .addComponent(jLabel21)
                     .addComponent(txt_estoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 800, 130));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel20.setText("Desconto:");
-        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 530, -1, -1));
+        jLabel20.setText("Desconto (R$):");
+        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 530, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Data da Venda:");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, -1, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 40, -1, -1));
 
         new javax.swing.JFormattedTextField(mfdata);
-        getContentPane().add(data_venda, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 40, 100, -1));
+        data_venda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                data_vendaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(data_venda, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, 100, -1));
 
         jButton8.setText("Gravar");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -551,8 +553,11 @@ public class Pedidos extends javax.swing.JFrame {
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 790, 110));
 
         jLabel19.setText("Nº:");
-        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, -1, -1));
-        getContentPane().add(txt_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 10, 100, -1));
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 10, -1, -1));
+        getContentPane().add(txt_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, 100, -1));
+
+        jButton9.setText("Consultar");
+        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 10, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -567,13 +572,70 @@ public class Pedidos extends javax.swing.JFrame {
 
     private void btn_confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confirmarActionPerformed
         // Chamar tela de faturamento onde a pessoa vai preencher onde o dinheiro irá cair  
+        /*
+        tabela a ser criada no banco
+        create table vendas(
+	idvenda int primary key auto_increment,
+	datavenda varchar(11),
+	id_cliente int unique,
+	nome_cli varchar(200),
+	rua varchar(100),
+	bairro varchar(100),
+	numero varchar(8),
+	cidade varchar(100),
+	id_vendedor int unique,
+	nomevend varchar(100),
+	valor_wth_desc float,
+	desconto float,
+	vlr_total float,
+
+	FOREIGN KEY(id_cliente)
+	REFERENCES PESSOAFISICA(idpf),
+
+	FOREIGN KEY(id_vendedor)
+	REFERENCES VENDEDORES(idvendedor)
+
+);
+        
+        
+        
+        
+        
+        
+        */
+
         String message = "Deseja confirmar a venda?";
         String title = "Confirmação";
+        
         
        
         int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
           if (reply == JOptionPane.YES_OPTION)
           {
+               try {
+                
+                String clienteid = txtcodcli.getText();
+                String data = data_venda.getText();
+                String clientenome = txt_nomecli.getText();
+                String enderecocli = txt_ruacli.getText();
+                String bairro = bairrocli.getText();
+                String numero = txt_ncli1.getText();
+                String cidade = txt_cidadecli.getText();
+                String idvend = txt_codvend.getText();
+                String nomevend = txt_nomevend.getText();
+                String valor_unit = valor_tot.getText();
+                String descontinho = desconto.getText();
+                String vlr_total = txt_tot.getText();
+                SQLConection conection = new SQLConection();
+                String sql = "INSERT INTO VENDAS(idvenda, datavenda, id_cliente, nome_cli, rua, bairro, numero, cidade, id_vendedor, nomevend, valor_wth_desc, desconto, vlr_total) VALUES (NULL, '"+data+"','"+clienteid+"', '"+clientenome+"', '"+enderecocli+"', '"+bairro+"', '"+numero+"', '"+cidade+"', '"+idvend+"', '"+nomevend+"', '"+valor_unit+"', '"+descontinho+"','"+vlr_total+"')";
+               
+                conection.SqlExecution(sql);
+                
+                this.dispose();    
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro na execução do SQL");
+                JOptionPane.showMessageDialog(null, "NÃO FOI POSSÍVEL ESTABELECER CONEXÃO COM O BANCO DE DADOS");
+            }
               
               new Faturamento().setVisible(true);
           }
@@ -584,9 +646,9 @@ public class Pedidos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void txt_codigocliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_codigocliActionPerformed
+    private void txtcodcliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcodcliActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_codigocliActionPerformed
+    }//GEN-LAST:event_txtcodcliActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
           // chamando minha tela onde irei consultar meus vendedores cadastrados;
@@ -624,7 +686,7 @@ public class Pedidos extends javax.swing.JFrame {
        try {
             String codigo, cliente, rua, bairro, cidade, numero; 
             
-            String clientes = txt_codigocli.getText();
+            String clientes = txtcodcli.getText();
             String sql = "SELECT idpf, nome, rua, bairro, cidade, numero  FROM PESSOAFISICA WHERE IDPF LIKE '"+clientes+"'";
 
             Connection con = SQLConection.getConnection();
@@ -640,7 +702,7 @@ public class Pedidos extends javax.swing.JFrame {
             cidade = rs.getString("cidade");
             numero = rs.getString("numero");
            
-            txt_codigocli.setText(codigo);
+            txtcodcli.setText(codigo);
             txt_nomecli.setText(cliente);
             txt_ruacli.setText(rua);
             bairrocli.setText(bairro);
@@ -892,6 +954,10 @@ public class Pedidos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void data_vendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_data_vendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_data_vendaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -909,12 +975,12 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -949,7 +1015,6 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JTable tabela_vendas;
     private javax.swing.JTextField totalizando;
     private javax.swing.JTextField txt_cidadecli;
-    private javax.swing.JTextField txt_codigocli;
     private javax.swing.JTextField txt_codvend;
     private javax.swing.JTextField txt_descprod;
     private javax.swing.JTextField txt_estoque;
@@ -961,6 +1026,7 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JTextField txt_prod;
     private javax.swing.JTextField txt_ruacli;
     private javax.swing.JTextField txt_tot;
+    private javax.swing.JTextField txtcodcli;
     private javax.swing.JTextField valor_tot;
     private javax.swing.JTextField vlr_unitario;
     // End of variables declaration//GEN-END:variables

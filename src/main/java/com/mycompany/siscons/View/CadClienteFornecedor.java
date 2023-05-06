@@ -5,6 +5,11 @@
 package com.mycompany.siscons.View;
 
 import DAO.SQLConection;
+import Model.ConsulteClientes;
+import Model.ConsulteFornecedores;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -80,11 +85,6 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         CadClienteIE = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
         jLabel19 = new javax.swing.JLabel();
         CadClienteIBGE = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
@@ -94,6 +94,13 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
         CadClienteCGC = new javax.swing.JFormattedTextField();
         CadClienteNasc = new javax.swing.JFormattedTextField();
         CadClienteTelefone = new javax.swing.JFormattedTextField();
+        jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        codigo = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setTitle("Cadastro de Clientes/Fornecedores");
         setResizable(false);
@@ -101,61 +108,61 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Nome:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 23, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, -1, 40));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Telefone:");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 264, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("E-mail:");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 298, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setText("CEP:");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 126, 89, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 40, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setText("Rua:");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 162, -1, -1));
-        getContentPane().add(CadClienteNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 23, 580, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
+        getContentPane().add(CadClienteNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, 330, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("CPF:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 91, 89, -1));
-        getContentPane().add(CadClienteEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 298, 286, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 40, -1));
+        getContentPane().add(CadClienteEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 350, 286, -1));
 
         CadClienteCEP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CadClienteCEPActionPerformed(evt);
             }
         });
-        getContentPane().add(CadClienteCEP, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 126, 134, -1));
+        getContentPane().add(CadClienteCEP, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 134, -1));
 
         CadClienteRua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CadClienteRuaActionPerformed(evt);
             }
         });
-        getContentPane().add(CadClienteRua, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 162, 286, -1));
+        getContentPane().add(CadClienteRua, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 286, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setText("Bairro:");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 196, -1, -1));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel11.setText("Nº:");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(498, 162, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 210, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setText("Cidade:");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(468, 196, -1, -1));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 240, -1, -1));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel13.setText("Pais:");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 230, -1, -1));
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, -1, -1));
 
-        CadClienteSalvar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        CadClienteSalvar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         CadClienteSalvar.setForeground(new java.awt.Color(0, 102, 0));
         CadClienteSalvar.setText("SALVAR");
         CadClienteSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -163,29 +170,29 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
                 CadClienteSalvarActionPerformed(evt);
             }
         });
-        getContentPane().add(CadClienteSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(444, 382, 87, 33));
+        getContentPane().add(CadClienteSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 400, 87, 33));
 
         CadClienteBairro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CadClienteBairroActionPerformed(evt);
             }
         });
-        getContentPane().add(CadClienteBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 196, 286, -1));
+        getContentPane().add(CadClienteBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 286, -1));
 
         CadClienteNumero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CadClienteNumeroActionPerformed(evt);
             }
         });
-        getContentPane().add(CadClienteNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(545, 162, 142, -1));
-        getContentPane().add(CadClienteCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(545, 196, 142, -1));
+        getContentPane().add(CadClienteNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, 142, -1));
+        getContentPane().add(CadClienteCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, 142, -1));
 
         CadClientePais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CadClientePaisActionPerformed(evt);
             }
         });
-        getContentPane().add(CadClientePais, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 230, 286, -1));
+        getContentPane().add(CadClientePais, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 286, -1));
 
         CadClienteTipo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -231,74 +238,34 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(CadClienteTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 60, -1, -1));
+        getContentPane().add(CadClienteTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, -1, -1));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel15.setText("Fantasia:");
-        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 57, 89, -1));
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 70, -1));
 
         CadClienteFantasia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CadClienteFantasiaActionPerformed(evt);
             }
         });
-        getContentPane().add(CadClienteFantasia, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 57, 580, -1));
+        getContentPane().add(CadClienteFantasia, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 57, 530, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Estado:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(471, 230, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, -1, -1));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel16.setText("IE:");
-        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(504, 298, -1, -1));
-        getContentPane().add(CadClienteIE, new org.netbeans.lib.awtextra.AbsoluteConstraints(545, 298, 141, -1));
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel17.setText("Indicador IE:");
-
-        jRadioButton3.setText("Contribuinte ICMS");
-
-        jRadioButton4.setText("Contribuinte Isento");
-
-        jRadioButton5.setText("Não Contribuinte");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jRadioButton5))
-                .addContainerGap(80, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel17)
-                .addGap(18, 18, 18)
-                .addComponent(jRadioButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton5)
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 160, -1, -1));
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 350, -1, -1));
+        getContentPane().add(CadClienteIE, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 350, 141, -1));
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel19.setText("IBGE:");
-        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(485, 264, -1, -1));
-        getContentPane().add(CadClienteIBGE, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 264, 140, -1));
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 310, -1, -1));
+        getContentPane().add(CadClienteIBGE, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 310, 140, -1));
         getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-        getContentPane().add(CliEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(547, 230, 140, -1));
+        getContentPane().add(CliEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, 140, -1));
 
         BuscaCep.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BuscaCep.setForeground(new java.awt.Color(0, 0, 102));
@@ -308,11 +275,11 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
                 BuscaCepActionPerformed(evt);
             }
         });
-        getContentPane().add(BuscaCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 123, -1, -1));
+        getContentPane().add(BuscaCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel14.setText("Nascimento:");
-        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(436, 91, -1, -1));
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
         CadClienteCGC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -326,14 +293,68 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        getContentPane().add(CadClienteNasc, new org.netbeans.lib.awtextra.AbsoluteConstraints(545, 91, 142, -1));
+        getContentPane().add(CadClienteNasc, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 142, -1));
 
         try {
             CadClienteTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        getContentPane().add(CadClienteTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 264, 286, -1));
+        getContentPane().add(CadClienteTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 286, -1));
+
+        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton4.setText("EDITAR");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 400, -1, -1));
+
+        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(102, 0, 0));
+        jButton6.setText("EXCLUIR");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 400, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setText("Código:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
+        getContentPane().add(codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 100, -1));
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 102));
+        jButton1.setText("BUSCAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, -1, -1));
+
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 0, 102));
+        jButton2.setText("PF");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 100, -1, -1));
+
+        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(0, 0, 102));
+        jButton3.setText("PJ");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 140, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -522,6 +543,271 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CadClienteCGCActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // editando os dados dos meus clientes e fornecedores
+        if (ClienteFisico.isSelected()) { //Se meu Tipo for Pessoa Fisica selecionada irei fazer consulta no meu banco na tabela de pessoa fisica
+            try {
+                
+                String cod, nome, cgc, nasc, cep, rua, bairro, numero, cidade, pais, estado, telefone, ibge, email;
+                cod = codigo.getText();
+                nome = CadClienteNome.getText();
+                cgc = CadClienteCGC.getText();
+                nasc = CadClienteNasc.getText();
+                cep = CadClienteCEP.getText();
+                rua = CadClienteRua.getText();
+                numero = CadClienteNumero.getText();
+                bairro = CadClienteBairro.getText();
+                cidade = CadClienteCidade.getText();
+                pais = CadClientePais.getText();
+                estado = CliEstado.getText();
+                telefone = CadClienteTelefone.getText();
+                ibge = CadClienteIBGE.getText();
+                email = CadClienteEmail.getText();
+
+                String sql = "UPDATE PESSOAFISICA SET NOME = '"+nome+"' WHERE idpf = '"+cod+"';";
+                    SQLConection conection = new SQLConection();
+                    conection.SqlExecution(sql);
+                    String sql1 = "UPDATE PESSOAFISICA SET CPF = '"+cgc+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql1);
+                    String sql2 = "UPDATE PESSOAFISICA SET NASCIMENTO = '"+nasc+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql2);
+                    String sql3 = "UPDATE PESSOAFISICA SET CEP = '"+cep+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql3);
+                    String sql4 = "UPDATE PESSOAFISICA SET RUA = '"+rua+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql4);
+                    String sql5 = "UPDATE PESSOAFISICA SET NUMERO = '"+numero+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql5);
+                    String sql6 = "UPDATE PESSOAFISICA SET BAIRRO = '"+bairro+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql6);
+                    String sql33 = "UPDATE PESSOAFISICA SET PAIS = '"+pais+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql33);
+                    String sql7 = "UPDATE PESSOAFISICA SET CIDADE = '"+cidade+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql7);
+                    String sql8 = "UPDATE PESSOAFISICA SET ESTADO = '"+estado+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql8);
+                    String sql9 = "UPDATE PESSOAFISICA SET TELEFONE = '"+telefone+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql9);
+                    String sq20 = "UPDATE PESSOAFISICA SET IBGE = '"+ibge+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sq20);
+                    String sq21 = "UPDATE PESSOAFISICA SET email = '"+email+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sq21);
+                    
+                    JOptionPane.showMessageDialog(null, "CLIENTE ALTERADO COM SUCESSO");
+                    
+                    this.dispose();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao editar o registro da Pessoa Física");
+                JOptionPane.showMessageDialog(null, "Contate seu suporte técnico");
+            }
+        }  
+        
+        else if (ClienteJuridico.isSelected()) {
+           try {
+           String cod, razao, fantasia, cnpj, cep, rua, bairro, numero, pais, estado, cidade, ibge, telefone, IE, email;
+                cod = codigo.getText();
+                razao = CadClienteNome.getText();
+                fantasia = CadClienteFantasia.getText();
+                cnpj = CadClienteCGC.getText();
+                cep = CadClienteCEP.getText();
+                rua = CadClienteRua.getText();
+                bairro = CadClienteBairro.getText();
+                numero = CadClienteNumero.getText();
+                pais = CadClientePais.getText();  
+                estado = CliEstado.getText();
+                cidade = CadClienteCidade.getText();
+                ibge = CadClienteIBGE.getText();
+                telefone = CadClienteTelefone.getText();
+                IE = CadClienteIE.getText();
+                email = CadClienteEmail.getText();
+
+                String sql = "UPDATE PESSOAJURIDICA SET razao = '"+razao+"' WHERE idpj = '"+cod+"';";
+                SQLConection conection = new SQLConection();
+                conection.SqlExecution(sql);
+                String sql1 = "UPDATE PESSOAJURIDICA SET fantasia = '"+fantasia+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sql1);
+                String sq122 = "UPDATE PESSOAJURIDICA SET CNPJ = '"+cnpj+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sq122);
+                String sql3 = "UPDATE PESSOAJURIDICA SET cep = '"+cep+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sql3);
+                String sql4 = "UPDATE PESSOAJURIDICA SET RUA = '"+rua+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sql4);
+                String sql5 = "UPDATE PESSOAJURIDICA SET NUMERO = '"+numero+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sql5);
+                String sql6 = "UPDATE PESSOAJURIDICA SET BAIRRO = '"+bairro+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sql6);
+                String sql33 = "UPDATE PESSOAJURIDICA SET PAIS = '"+pais+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sql33);
+                String sql7 = "UPDATE PESSOAJURIDICA SET CIDADE = '"+cidade+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sql7);
+                String sql8 = "UPDATE PESSOAJURIDICA SET ESTADO = '"+estado+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sql8);
+                String sql9 = "UPDATE PESSOAJURIDICA SET TELEFONE = '"+telefone+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sql9);
+                String sq20 = "UPDATE PESSOAJURIDICA SET IBGE = '"+ibge+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sq20);
+                String sq21 = "UPDATE PESSOAJURIDICA SET email = '"+email+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sq21);
+                String sql22 = "UPDATE PESSOAJURIDICA SET IE = '"+IE+"' WHERE idpj = '"+cod+"';"; 
+                conection.SqlExecution(sql22);
+                JOptionPane.showMessageDialog(null, "FORNECEDOR ALTERADO COM SUCESSO");
+                    
+                this.dispose();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao editar o registro da Pessoa Juridica");
+                JOptionPane.showMessageDialog(null, "Contate seu suporte técnico");
+            }
+        }
+
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+       //Excluindo registros dos meus clientes e fornecedores desejados
+        String message = "Deseja deletar o registro Selecionado?";
+        String title = "Confirmação";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+          if (reply == JOptionPane.YES_OPTION)
+          {
+            if(ClienteFisico.isSelected()) {
+                try {
+                    String pessoafis = codigo.getText();
+                    String sql = "DELETE FROM PESSOAFISICA WHERE IDPF = "+pessoafis+"";
+                    SQLConection conection = new SQLConection();
+                    conection.SqlExecution(sql);
+                    JOptionPane.showMessageDialog(null, "REGISTRO DELETADO COM SUCESSO!");
+                    this.dispose();
+                } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao deletar registro!");     
+            }
+            } else if (ClienteJuridico.isSelected()) {
+                 try {
+                    String pessoajuri = codigo.getText();
+                    String sql = "DELETE FROM PESSOAJURIDICA WHERE IDPJ = "+pessoajuri+"";
+                    SQLConection conection = new SQLConection();
+                    conection.SqlExecution(sql);
+                    JOptionPane.showMessageDialog(null, "REGISTRO DELETADO COM SUCESSO!");
+                    this.dispose();
+                } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao deletar registro!");     
+            }
+          }
+
+      }     
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //trazendo informações dos meus clientes e fornecedores cadastrados.
+         if (ClienteFisico.isSelected()) { //Se meu Tipo for Pessoa Fisica selecionada irei fazer consulta no meu banco na tabela de pessoa fisica
+            try {
+                String cod,name, pfcpf, pfcep, pfrua, pfbairro, pfnumero, pfpais, pfestado, pfcidade, pfibge, pftelefone, pfemail, pfnascimento;
+            
+            String clientepf = codigo.getText();
+            String sql = "SELECT idpf, nome, cpf, cep, rua, bairro, numero, pais, estado, cidade, ibge, telefone, email, nascimento  FROM PESSOAFISICA WHERE IDPF LIKE '"+clientepf+"'";
+
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            rs.next();
+
+            cod = Integer.toString(rs.getInt("idpf"));
+            name = rs.getString("nome");
+            pfcpf = rs.getString("cpf");
+            pfcep = rs.getString("cep");
+            pfrua = rs.getString("rua");
+            pfbairro = rs.getString("bairro");
+            pfnumero = rs.getString("numero");
+            pfpais = rs.getString("pais");
+            pfestado = rs.getString("estado");
+            pfcidade = rs.getString("cidade");
+            pfibge = rs.getString("ibge");
+            pftelefone = rs.getString("telefone");
+            pfemail = rs.getString("email");
+            pfnascimento = rs.getString("nascimento");
+            
+            codigo.setText(cod);
+            CadClienteNome.setText(name);
+            CadClienteCGC.setText(pfcpf);
+            CadClienteNasc.setText(pfnascimento);
+            CadClienteCEP.setText(pfcep);
+            CadClienteRua.setText(pfrua);
+            CadClienteNumero.setText(pfnumero);
+            CadClienteBairro.setText(pfbairro);
+            CadClienteCidade.setText(pfcidade);
+            CadClientePais.setText(pfpais);
+            CliEstado.setText(pfestado);
+            CadClienteTelefone.setText(pftelefone);
+            CadClienteIBGE.setText(pfibge);
+            CadClienteEmail.setText(pfemail);
+            
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao buscar Pessoa Física");
+                 JOptionPane.showMessageDialog(null, "Verifique se o cliente está cadastrado");
+            }
+        }  
+        
+        else if (ClienteJuridico.isSelected()) {
+           try {
+            String cod, razaopj, fantasiapj, cnpjpj, pjcep, pjrua, pjbairro, pjnumero, pjpais, pjestado, pjcidade, pjibge, pjtelefone, pjie, pjemail;
+            String clientepf = codigo.getText();
+            String sql = "SELECT idpj, razao, fantasia, cnpj, cep, rua, bairro, numero, pais, estado, cidade, ibge, telefone, IE, email  FROM PESSOAJURIDICA WHERE idpj LIKE '"+clientepf+"'";
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            rs.next();
+        
+            cod = Integer.toString(rs.getInt("idpj"));
+            razaopj = rs.getString("razao");
+            fantasiapj = rs.getString("fantasia");
+            cnpjpj = rs.getString("cnpj");
+            pjcep = rs.getString("cep");
+            pjrua = rs.getString("rua");
+            pjbairro = rs.getString("bairro");
+            pjnumero = rs.getString("numero");
+            pjpais = rs.getString("pais");
+            pjestado = rs.getString("estado");
+            pjcidade = rs.getString("cidade");
+            pjibge = rs.getString("ibge");
+            pjtelefone = rs.getString("telefone");
+            pjie = rs.getString("IE");
+            pjemail = rs.getString("email");
+            
+            
+            codigo.setText(cod);
+            CadClienteNome.setText(razaopj);
+            CadClienteFantasia.setText(fantasiapj);
+            CadClienteCGC.setText(cnpjpj);
+            CadClienteIE.setText(pjie);
+            CadClienteCEP.setText(pjcep);
+            CadClienteRua.setText(pjrua);
+            CadClienteNumero.setText(pjnumero);
+            CadClienteBairro.setText(pjbairro);
+            CadClienteCidade.setText(pjcidade);
+            CadClientePais.setText(pjpais);
+            CliEstado.setText(pjestado);
+            CadClienteTelefone.setText(pjtelefone);
+            CadClienteIBGE.setText(pjibge);
+            CadClienteEmail.setText(pjemail);
+            
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao buscar Pessoa Juridica");
+                 JOptionPane.showMessageDialog(null, "Verifique se o fornecedor está cadastrado");
+            }
+        }
+       
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // consultar meus clientes cadastrados
+        new ConsulteClientes().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        //consultar meus fornecedores cadstrados
+        new ConsulteFornecedores().setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -548,6 +834,12 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
     private javax.swing.JRadioButton ClienteFisico;
     private javax.swing.JRadioButton ClienteJuridico;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JTextField codigo;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -556,19 +848,15 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
     // End of variables declaration//GEN-END:variables
 }

@@ -185,6 +185,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem12.setText("Movimento de Caixa");
         InfosConfig.add(jMenuItem12);
 
+        jMenuItem5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\entrada.png")); // NOI18N
         jMenuItem5.setText("Entrada de Estoque");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -344,7 +345,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
+        new EntradaEstoque().setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
 
