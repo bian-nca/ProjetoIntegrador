@@ -5,6 +5,7 @@
 package com.mycompany.siscons.View;
 
 import DAO.SQLConection;
+import Model.ConsulteFornecedores;
 import Model.ConsulteVendedores;
 import java.sql.Connection;
 import java.sql.Date;
@@ -80,6 +81,12 @@ public class EntradaEstoque extends javax.swing.JFrame {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
                 {null, null, null, null, null}
             },
             new String [] {
@@ -105,10 +112,20 @@ public class EntradaEstoque extends javax.swing.JFrame {
         getContentPane().add(txt_desc_forn, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 310, -1));
 
         BotaoFiltrar.setText("Filtrar");
-        getContentPane().add(BotaoFiltrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 90, -1, -1));
+        BotaoFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotaoFiltrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BotaoFiltrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 90, -1, -1));
 
         botao_consulte.setText("Consultar");
-        getContentPane().add(botao_consulte, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 90, -1, -1));
+        botao_consulte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_consulteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botao_consulte, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel5.setText("Data:");
@@ -127,7 +144,7 @@ public class EntradaEstoque extends javax.swing.JFrame {
                 BotaoFiltrar1ActionPerformed(evt);
             }
         });
-        getContentPane().add(BotaoFiltrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 120, -1, -1));
+        getContentPane().add(BotaoFiltrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 120, -1, -1));
 
         botao_consulte1.setText("Consultar");
         botao_consulte1.addActionListener(new java.awt.event.ActionListener() {
@@ -135,7 +152,7 @@ public class EntradaEstoque extends javax.swing.JFrame {
                 botao_consulte1ActionPerformed(evt);
             }
         });
-        getContentPane().add(botao_consulte1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, -1, -1));
+        getContentPane().add(botao_consulte1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, -1, -1));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 102, 0));
@@ -179,6 +196,37 @@ public class EntradaEstoque extends javax.swing.JFrame {
     private void botao_consulte1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_consulte1ActionPerformed
           // chamando minha tela onde irei consultar meus vendedores cadastrados;
           new ConsulteVendedores().setVisible(true);    }//GEN-LAST:event_botao_consulte1ActionPerformed
+
+    private void botao_consulteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_consulteActionPerformed
+        // Consultar meus fornecedores ja cadastrados
+        new ConsulteFornecedores().setVisible(true);
+    }//GEN-LAST:event_botao_consulteActionPerformed
+
+    private void BotaoFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoFiltrarActionPerformed
+        // BUSCANDO O FORNECEDOR PELO CODIGO QUE EU DESEJO
+         try {
+            String codigo, fornecedor; 
+            
+            String forn = txt_pesq_cod.getText();
+            String sql = "SELECT idpj, razao FROM PESSOAJURIDICA WHERE IDPJ LIKE '"+forn+"'";
+
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            rs.next();
+            
+            codigo = Integer.toString(rs.getInt("idpj"));
+            forn = rs.getString("razao");
+           
+            txt_pesq_cod.setText(codigo);
+            txt_desc_forn.setText(forn);
+        
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERRO AO BUSCAR FORNECEDOR!");
+            JOptionPane.showMessageDialog(null, "Consulte se essa fornecedor está cadastrado!");
+        }
+    }//GEN-LAST:event_BotaoFiltrarActionPerformed
 
     /**
      * @param args the command line arguments

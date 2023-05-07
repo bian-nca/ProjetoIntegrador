@@ -85,7 +85,12 @@ public class SQLConection
         closeConnection(connection);
     }
 
-    public PreparedStatement prepareStatement(String sql) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public PreparedStatement prepareStatement(String sql) throws SQLException {
+        Connection connection = getConnection();
+        return connection.prepareStatement(sql);
     }
+    
+   // public PreparedStatement prepareStatement(String sql) {
+     //   throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    //}
 }

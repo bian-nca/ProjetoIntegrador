@@ -7,10 +7,12 @@ package com.mycompany.siscons.View;
 import DAO.SQLConection;
 import Model.ConsultaBanco;
 import Model.ConsulteClientes;
+import Model.ConsultePedidos;
 import Model.ConsulteProdutos;
 import Model.ConsulteVendedores;
 import Model.Faturamento;
-import Model.ListaItens;
+//import Model.ListaItens;
+//import Model.ModelProdutosVenda;
 import java.awt.List;
 import static java.lang.ModuleLayer.empty;
 import java.math.BigDecimal;
@@ -21,7 +23,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
@@ -42,15 +44,27 @@ public class Pedidos extends javax.swing.JFrame {
      * Creates new form Pedidos
      */
     MaskFormatter mfdata; //para inserir a mascara para data no meu jfield;
-    public Pedidos() {
+    public Pedidos() throws SQLException {
         try {
+            
             mfdata = new MaskFormatter("##/##/####");
+            
         } catch (ParseException ex) {
             System.out.println("Insira uma data válida!");
         } 
         initComponents();
         setLocationRelativeTo(null);
         data_venda.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(System.currentTimeMillis())));
+        SQLConection conection = new SQLConection();
+            String sql = "SELECT MAX(IDVENDA) AS MAX_IDVENDA FROM VENDAS"; //estou obtendo o ultimo valor da coluna "idvenda" da minha tablea "vendas" e irei incrementá-lo posteriormente em +1
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                int maxIdVenda = rs.getInt("MAX_IDVENDA");
+                int proxIdVenda = maxIdVenda + 1;
+                txt_pesquisa.setText(Integer.toString(proxIdVenda));
+            }   
     }
 
     /**
@@ -66,7 +80,6 @@ public class Pedidos extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         btn_confirmar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -128,6 +141,9 @@ public class Pedidos extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         txt_pesquisa = new javax.swing.JTextField();
         jButton9 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txt_situation = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -143,7 +159,7 @@ public class Pedidos extends javax.swing.JFrame {
                 btn_confirmarActionPerformed(evt);
             }
         });
-        getContentPane().add(btn_confirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 600, 190, 40));
+        getContentPane().add(btn_confirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 560, 190, 40));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 0, 0));
@@ -153,12 +169,7 @@ public class Pedidos extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 600, 190, 40));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 102, 51));
-        jLabel1.setText("VENDAS");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, 110, 50));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 560, 190, 40));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -261,12 +272,12 @@ public class Pedidos extends javax.swing.JFrame {
         });
         jPanel1.add(bairrocli, new org.netbeans.lib.awtextra.AbsoluteConstraints(495, 36, 210, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 802, 160));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 802, 160));
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 578, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Valor Total (R$): ");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 560, 110, 20));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 520, 110, 20));
 
         valor_tot.setEditable(false);
         valor_tot.addActionListener(new java.awt.event.ActionListener() {
@@ -274,21 +285,21 @@ public class Pedidos extends javax.swing.JFrame {
                 valor_totActionPerformed(evt);
             }
         });
-        getContentPane().add(valor_tot, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 560, 120, -1));
+        getContentPane().add(valor_tot, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 520, 120, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Valor: (R$)");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 560, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 520, -1, -1));
 
         desconto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 descontoActionPerformed(evt);
             }
         });
-        getContentPane().add(desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 530, 130, -1));
+        getContentPane().add(desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 490, 130, -1));
 
         txt_tot.setEditable(false);
-        getContentPane().add(txt_tot, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 560, 130, -1));
+        getContentPane().add(txt_tot, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 520, 130, -1));
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 550, -1, -1));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -487,18 +498,18 @@ public class Pedidos extends javax.swing.JFrame {
                     .addComponent(jLabel16)
                     .addComponent(jLabel21)
                     .addComponent(txt_estoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 800, 130));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 800, 130));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel20.setText("Desconto (R$):");
-        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 530, -1, -1));
+        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 490, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setText("Data da Venda:");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 40, -1, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, -1, -1));
 
         new javax.swing.JFormattedTextField(mfdata);
         data_venda.addActionListener(new java.awt.event.ActionListener() {
@@ -506,7 +517,7 @@ public class Pedidos extends javax.swing.JFrame {
                 data_vendaActionPerformed(evt);
             }
         });
-        getContentPane().add(data_venda, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, 100, -1));
+        getContentPane().add(data_venda, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20, 100, -1));
 
         jButton8.setText("Gravar");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -514,7 +525,7 @@ public class Pedidos extends javax.swing.JFrame {
                 jButton8ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 530, 120, -1));
+        getContentPane().add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 490, 120, -1));
 
         tabela_vendas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -543,21 +554,41 @@ public class Pedidos extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 790, 110));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 790, 110));
 
         jLabel19.setText("Nº:");
-        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 10, -1, -1));
-        getContentPane().add(txt_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, 100, -1));
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 16, -1, 30));
+        getContentPane().add(txt_pesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 100, -1));
 
-        jButton9.setText("Consultar");
-        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 10, -1, -1));
+        jButton9.setText("Filtrar");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("Cancelada:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, -1, -1));
+
+        txt_situation.setEditable(false);
+        getContentPane().add(txt_situation, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 610, 80, -1));
+
+        jButton3.setText("Consultar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -572,37 +603,7 @@ public class Pedidos extends javax.swing.JFrame {
 
     private void btn_confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confirmarActionPerformed
         // Chamar tela de faturamento onde a pessoa vai preencher onde o dinheiro irá cair  
-        /*
-        tabela a ser criada no banco
-        create table vendas(
-	idvenda int primary key auto_increment,
-	datavenda varchar(11),
-	id_cliente int unique,
-	nome_cli varchar(200),
-	rua varchar(100),
-	bairro varchar(100),
-	numero varchar(8),
-	cidade varchar(100),
-	id_vendedor int unique,
-	nomevend varchar(100),
-	valor_wth_desc float,
-	desconto float,
-	vlr_total float,
-
-	FOREIGN KEY(id_cliente)
-	REFERENCES PESSOAFISICA(idpf),
-
-	FOREIGN KEY(id_vendedor)
-	REFERENCES VENDEDORES(idvendedor)
-
-);
-        
-        
-        
-        
-        
-        
-        */
+      
 
         String message = "Deseja confirmar a venda?";
         String title = "Confirmação";
@@ -613,7 +614,7 @@ public class Pedidos extends javax.swing.JFrame {
           if (reply == JOptionPane.YES_OPTION)
           {
                try {
-                
+                String idvendas = txt_pesquisa.getText();
                 String clienteid = txtcodcli.getText();
                 String data = data_venda.getText();
                 String clientenome = txt_nomecli.getText();
@@ -626,24 +627,88 @@ public class Pedidos extends javax.swing.JFrame {
                 String valor_unit = valor_tot.getText();
                 String descontinho = desconto.getText();
                 String vlr_total = txt_tot.getText();
+                String situation = "NÃO";
                 SQLConection conection = new SQLConection();
-                String sql = "INSERT INTO VENDAS(idvenda, datavenda, id_cliente, nome_cli, rua, bairro, numero, cidade, id_vendedor, nomevend, valor_wth_desc, desconto, vlr_total) VALUES (NULL, '"+data+"','"+clienteid+"', '"+clientenome+"', '"+enderecocli+"', '"+bairro+"', '"+numero+"', '"+cidade+"', '"+idvend+"', '"+nomevend+"', '"+valor_unit+"', '"+descontinho+"','"+vlr_total+"')";
-               
+                String sql = "INSERT INTO VENDAS(idvenda, datavenda, id_cliente, nome_cli, rua, bairro, numero, cidade, id_vendedor, nomevend, valor_wth_desc, desconto, vlr_total, cancelada) VALUES ('"+idvendas+"', '"+data+"','"+clienteid+"', '"+clientenome+"', '"+enderecocli+"', '"+bairro+"', '"+numero+"', '"+cidade+"', '"+idvend+"', '"+nomevend+"', '"+valor_unit+"', '"+descontinho+"','"+vlr_total+"','"+situation+"')";               
                 conection.SqlExecution(sql);
-                
-                this.dispose();    
+                this.dispose();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erro na execução do SQL");
                 JOptionPane.showMessageDialog(null, "NÃO FOI POSSÍVEL ESTABELECER CONEXÃO COM O BANCO DE DADOS");
             }
-              
-              new Faturamento().setVisible(true);
+              for(int row = 0; row < tabela_vendas.getRowCount(); row++) {
+                  int idVenda = Integer.parseInt(txt_pesquisa.getText());
+                  int codprod = Integer.parseInt(tabela_vendas.getValueAt(row,0).toString());
+                  String descprod = (tabela_vendas.getValueAt(row, 1).toString());
+                  int qtdpro = Integer.parseInt(tabela_vendas.getValueAt(row,2).toString());
+                  float vlrunit = Float.parseFloat(tabela_vendas.getValueAt(row, 3).toString());
+                  float totalprod = Float.parseFloat(tabela_vendas.getValueAt(row, 4).toString());
+                  SQLConection conection = new SQLConection();
+                  String sql = "INSERT INTO VENDASPROD (idvedprods, id_venda, codprod, descprod, qtdprod, vlrunitprod, totalprod) VALUES (NULL, '"+idVenda+"','"+codprod+"', '"+descprod+"', '"+qtdpro+"', '"+vlrunit+"', '"+totalprod+"')";
+                   try {
+                       conection.SqlExecution(sql);
+                       
+                   } catch (SQLException ex) {
+                       Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+                   }
+                   
+              }
+              JOptionPane.showMessageDialog(null, "PRODUTOS SALVOS COM A RESPECTIVA VENDA");
+                  
+                 
+              new Faturamento().setVisible(true); // agora iremos partir para a tela de faturamento, ou seja, a forma como será paga
           }
        
     }//GEN-LAST:event_btn_confirmarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        // Cancelando a venda;
+       String message = "Deseja cancelar a venda?";
+       String title = "Confirmação";
+       String txtcodvenda = txt_pesquisa.getText();
+       int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+          if (reply == JOptionPane.YES_OPTION)
+          {
+               String situation = "SIM";
+               String sqlcan = "UPDATE VENDAS SET CANCELADA = '"+situation+"' WHERE idvenda = '"+txtcodvenda+"';";
+               SQLConection conection = new SQLConection();
+               int qtdest = 0; //inicializando minha variavel qtdest
+               
+           try {
+               conection.SqlExecution(sqlcan);
+               JOptionPane.showMessageDialog(null, "VENDA CANCELADA");
+               //estornando meus produtos 
+               for(int row = 0; row < tabela_vendas.getRowCount(); row++) {
+                   int codprod = Integer.parseInt(tabela_vendas.getValueAt(row, 0).toString());
+                   int qtdpro = Integer.parseInt(tabela_vendas.getValueAt(row,2).toString());
+                   
+                   //recuperando minha quantidade atual no estoque e somando com o que foi vendido e posteriormente cancelado
+                   Connection con = SQLConection.getConnection();
+                   String sql2 = "SELECT qtd_estoque FROM PRODUTOS WHERE CODIGO LIKE '"+codprod+"'";
+                   PreparedStatement stmt = con.prepareStatement(sql2);
+                   ResultSet rs = stmt.executeQuery();
+                   
+                   if(rs.next()) {
+                       qtdest = rs.getInt("qtd_estoque"); //armazenei a quantidade que tem no meu estoque na minha variavel qtdest
+                     
+                   }
+                   qtdest += qtdpro; //pegando meu estoque e somando com a quantidade vendida da venda, ou seja, estornando o que foi vendido de volta para o meu estoque
+                   String sqlupdate = "UPDATE PRODUTOS SET QTD_ESTOQUE = '"+qtdest+"' WHERE CODIGO = '"+codprod+"'"; //fazendo o update da minha tabela, ou seja, retornando meus produtos vendidos e atualizando meu estoque
+                   conection.SqlExecution(sqlupdate);
+               }  
+               
+
+                   JOptionPane.showMessageDialog(null, "Estoque foi atualizado");
+                   
+               
+           } catch (SQLException ex) {
+            Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao cancelar a venda");
+        }
+
+              
+          }      
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtcodcliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcodcliActionPerformed
@@ -958,6 +1023,78 @@ public class Pedidos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_data_vendaActionPerformed
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // buscando minha venda 
+        try {
+            String codvend, datavend, clieid, clinome, ruacli, bairocli, numerocli, cidadecli, idvend, nomevend, vlrsemdesc, desc, vlrtot, sit;
+            
+            String vend = txt_pesquisa.getText();
+            String sql = "SELECT idvenda, datavenda, id_cliente, nome_cli, rua, bairro, numero, cidade, id_vendedor, nomevend, valor_wth_desc, desconto, vlr_total, cancelada FROM VENDAS WHERE idvenda LIKE '"+vend+"'";
+            String sqlprods = "SELECT * from vendasprod where id_venda LIKE '"+vend+"'";
+            try{
+                Connection con = SQLConection.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sqlprods);
+                ResultSet rs = stmt.executeQuery();
+                DefaultTableModel modelo = (DefaultTableModel) tabela_vendas.getModel();
+                modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
+                    
+                while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
+                    modelo.addRow(new Object[]{rs.getString("codprod"), rs.getString("descprod"),rs.getString("qtdprod"), rs.getString("vlrunitprod"), rs.getString("totalprod")});   
+                }
+                con.close();
+            } catch (SQLException ex) {
+                    Logger.getLogger(ConsulteClientes.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            rs.next();
+            
+            codvend = Integer.toString(rs.getInt("idvenda"));
+            datavend = rs.getString("datavenda");
+            clieid = Integer.toString(rs.getInt("id_cliente"));
+            clinome = rs.getString("nome_cli");
+            ruacli = rs.getString("rua");
+            bairocli = rs.getString("bairro");
+            numerocli = rs.getString("numero");
+            cidadecli = rs.getString("cidade");
+            idvend = Integer.toString(rs.getInt("id_vendedor"));
+            nomevend = rs.getString("nomevend");
+            vlrsemdesc = Float.toString(rs.getFloat("valor_wth_desc"));
+            desc = Float.toString(rs.getFloat("desconto"));
+            vlrtot = Float.toString(rs.getFloat("vlr_total"));
+            sit = rs.getString("cancelada");
+            
+            
+            txt_pesquisa.setText(codvend);
+            data_venda.setText(datavend);
+            txtcodcli.setText(clieid);
+            txt_nomecli.setText(clinome);
+            txt_ruacli.setText(ruacli);
+            bairrocli.setText(bairocli);
+            txt_ncli1.setText(numerocli);
+            txt_cidadecli.setText(cidadecli);
+            txt_codvend.setText(idvend);
+            txt_nomevend.setText(nomevend);
+            valor_tot.setText(vlrsemdesc);
+            desconto.setText(desc);
+            txt_tot.setText(vlrtot);
+            txt_situation.setText(sit);
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar venda!");
+        }
+        
+        
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // tela que ira chamar a consulta de vendas - informações: idvenda, data venda, cliente, vendedor, valores
+        new ConsultePedidos().setVisible(true);      
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -975,6 +1112,7 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -1025,13 +1163,11 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JTextField txt_pesquisa;
     private javax.swing.JTextField txt_prod;
     private javax.swing.JTextField txt_ruacli;
+    private javax.swing.JTextField txt_situation;
     private javax.swing.JTextField txt_tot;
     private javax.swing.JTextField txtcodcli;
     private javax.swing.JTextField valor_tot;
     private javax.swing.JTextField vlr_unitario;
     // End of variables declaration//GEN-END:variables
 
-    private Object getFloat(String soma_itens) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-}

@@ -1,8 +1,10 @@
 ------------------------------------ BANCO DE DADOS ---------------------------------------------
 
 
-create database siscons;
-use siscons;
+create database siscons;  /* NOSSO BANCO DE DADOS */
+use siscons;         /*OBS: sempre devemos selecionar o banco de dados que estamos trabalhando*/
+
+/*Criaremos agora nossa tabela de usuarios*/
 
 create table usuarios(
     idusuario int primary key not null auto_increment,
@@ -104,7 +106,7 @@ desc pessoajuridica;
 +----------+--------------+------+-----+---------+----------------+
 
 create table produtos(
-     codigo int primary key auto_increment,
+    codigo int primary key auto_increment,
     descricao varchar(100) not null,
     ncm int(8),
     cest int(8),
@@ -152,7 +154,7 @@ create table pagamentos(
 +-----------+--------------+------+-----+---------+----------------+
 
 
-
+/*Criando tabela de bancos*/
 
 
 create table bancos(
@@ -194,21 +196,111 @@ desc vendedores;
 
 /* criando tabela para cadastrar a empresa */
 
-  create table EMPRESA(
-	codigo int PRIMARY KEY AUTO_INCREMENT,
-	descricao varchar(100) not null,
-	fantasia varchar(100),
-	CNPJ varchar(20) not null,
-	CEP varchar(10),
-	rua varchar(40),
-	bairro varchar(40),
-        numero int(5),
-	cidade varchar(40),
-	estado char(2),
-	complemento varchar(100),
-	IBGE varchar(10),
-	inscricao varchar(20),
-	regimetrib varchar(100) not null,
-	telefone varchar(20)
+create table EMPRESA(
+  IDEMPRESA int PRIMARY KEY AUTO_INCREMENT,
+  DESCRICAO varchar(100) not null,
+  fantasia varchar(100),
+  CNPJ varchar(20) not null,
+  CEP varchar(10),
+  rua varchar(40),
+  numero int(5),
+  bairro varchar(40),
+  cidade varchar(40),
+  estado char(2),
+  complemento varchar(100),
+  IBGE varchar(10),
+  inscricao varchar(20),
+  regimetrib varchar(100) not null,
+  telefone varchar(20)
+ );
+
+
+create table buscarProduto(
+    codigo int not null,
+    descricao varchar(100) not null,
+    quantidade_vend_prod int not null,
+    vlr_unitario float not null
+    soma_prod 
 );
 
+
+
+
+/*modulo de vendas*/
+
+> tabela para informações mais importantes
+
+create table vendas(
+	idvenda int primary key,
+	datavenda varchar(11),
+	id_cliente int,
+	nome_cli varchar(200),
+	rua varchar(100),
+	bairro varchar(100),
+	numero varchar(8),
+	cidade varchar(100),
+	id_vendedor int,
+	nomevend varchar(100),
+	valor_wth_desc float,
+	desconto float,
+	vlr_total float,
+    cancelada varchar(5),
+
+	FOREIGN KEY(id_cliente)
+	REFERENCES PESSOAFISICA(idpf),
+
+	FOREIGN KEY(id_vendedor)
+	REFERENCES VENDEDORES(idvendedor)
+
+);
+
+desc vendas;
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| idvenda        | int          | NO   | PRI | NULL    |                |
+| datavenda      | date         | YES  |     | NULL    |                |
+| id_cliente     | int          | YES  |     | NULL    |                |
+| nome_cli       | varchar(200) | YES  |     | NULL    |                |
+| rua            | varchar(100) | YES  |     | NULL    |                |
+| bairro         | varchar(100) | YES  |     | NULL    |                |
+| numero         | varchar(8)   | YES  |     | NULL    |                |
+| cidade         | varchar(100) | YES  |     | NULL    |                |
+| id_vendedor    | int          | YES  |     | NULL    |                |
+| nomevend       | varchar(100) | YES  |     | NULL    |                |
+| valor_wth_desc | float        | YES  |     | NULL    |                |
+| desconto       | float        | YES  |     | NULL    |                |
+| vlr_total      | float        | YES  |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+
+
+criando a tabela que irá salvar os produtos da minha venda respectiva da consulta
+
+create table vendasprod(
+    idvedprods int primary key auto_increment,
+    id_venda int,
+    codprod int,
+    descprod varchar(200),
+    qtdprod int,
+    vlrunitprod float,
+    totalprod float,
+
+    FOREIGN KEY(id_venda)
+	REFERENCES VENDAS(idvenda),
+
+	FOREIGN KEY(codprod)
+	REFERENCES PRODUTOS(codigo)
+);
+
+ desc vendasprod;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| idvedprods  | int          | NO   | PRI | NULL    | auto_increment |
+| id_venda    | int          | YES  | MUL | NULL    |                |
+| codprod     | int          | YES  | MUL | NULL    |                |
+| descprod    | varchar(200) | YES  |     | NULL    |                |
+| qtdprod     | int          | YES  |     | NULL    |                |
+| vlrunitprod | float        | YES  |     | NULL    |                |
+| totalprod   | float        | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
