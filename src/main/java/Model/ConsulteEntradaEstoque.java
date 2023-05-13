@@ -4,6 +4,15 @@
  */
 package Model;
 
+import DAO.SQLConection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Bianca
@@ -15,6 +24,21 @@ public class ConsulteEntradaEstoque extends javax.swing.JFrame {
      */
     public ConsulteEntradaEstoque() {
         initComponents();
+        try{
+            Connection con = SQLConection.getConnection();
+            String sql = "Select * from ent_est";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            DefaultTableModel modelo = (DefaultTableModel) tabela_entrada.getModel();
+            modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
+
+            while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
+                modelo.addRow(new Object[]{rs.getString("identradaest"), rs.getString("datavenda"), rs.getString("id_fornecedor"), rs.getString("fornecedor"), rs.getString("id_vend"), rs.getString("name_vend"), rs.getString("cancelada")});
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsulteClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -27,15 +51,20 @@ public class ConsulteEntradaEstoque extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txt_fornencedor = new javax.swing.JTextField();
+        txt_entest = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabela_entrada = new javax.swing.JTable();
 
         setTitle("Consulte - Entrada de Estoque");
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Fornecedor:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 6, -1, 30));
+        getContentPane().add(txt_entest, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 11, 390, -1));
 
         jButton1.setText("Filtrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -43,6 +72,7 @@ public class ConsulteEntradaEstoque extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, -1, -1));
 
         jButton2.setText("Todos");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -50,48 +80,73 @@ public class ConsulteEntradaEstoque extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 10, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(6, 6, 6)
-                .addComponent(txt_fornencedor, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jButton1)
-                .addGap(8, 8, 8)
-                .addComponent(jButton2)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_fornencedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))))
-                .addContainerGap(262, Short.MAX_VALUE))
-        );
+        tabela_entrada.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Requisição", "Data", "Código Fornecedor", "Fornecedor", "Código - Vendedor", "Vendedor", "Cancelada?"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tabela_entrada);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, 60, 700, 273));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //
+        //buscando pelo numero da requisicao
+         try{
+            String pesq = txt_entest.getText();
+            Connection con = SQLConection.getConnection();
+            String sql = "Select * from ENT_EST where fornecedor LIKE '"+pesq+"'";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            DefaultTableModel modelo = (DefaultTableModel) tabela_entrada.getModel();
+            modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
+
+            while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
+                modelo.addRow(new Object[]{rs.getString("identradaest"), rs.getString("datavenda"), rs.getString("id_fornecedor"), rs.getString("fornecedor"), rs.getString("id_vend"), rs.getString("name_vend"), rs.getString("cancelada"), rs.getString("cancelada")});
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsulteFornecedores.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //
-       
+        // buscando todoas
+       try{
+            Connection con = SQLConection.getConnection();
+            String sql = "Select * from ent_est";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            DefaultTableModel modelo = (DefaultTableModel) tabela_entrada.getModel();
+            modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
+
+            while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
+                modelo.addRow(new Object[]{rs.getString("identradaest"), rs.getString("datavenda"), rs.getString("id_fornecedor"), rs.getString("fornecedor"), rs.getString("id_vend"), rs.getString("name_vend")});
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsulteClientes.class.getName()).log(Level.SEVERE, null, ex);
+           
+    }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -133,6 +188,8 @@ public class ConsulteEntradaEstoque extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField txt_fornencedor;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tabela_entrada;
+    private javax.swing.JTextField txt_entest;
     // End of variables declaration//GEN-END:variables
 }

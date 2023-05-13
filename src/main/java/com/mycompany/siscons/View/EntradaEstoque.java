@@ -108,6 +108,7 @@ public class EntradaEstoque extends javax.swing.JFrame {
         sit = new javax.swing.JTextField();
         justificativa = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
 
         setTitle("Entrada de Estoque");
         setResizable(false);
@@ -205,12 +206,17 @@ public class EntradaEstoque extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 450, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 450, -1, -1));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(102, 0, 0));
         jButton2.setText("Cancelar ");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 450, -1, -1));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 450, -1, -1));
 
         jButton3.setText("Buscar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -336,6 +342,16 @@ public class EntradaEstoque extends javax.swing.JFrame {
         jLabel3.setText("OBS:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, -1, -1));
 
+        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(0, 0, 51));
+        jButton5.setText("Limpar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 450, -1, 30));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -455,8 +471,28 @@ public class EntradaEstoque extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao consultar entrada de estoque!");
         }
-               
         
+        if(txt_consulteid.getText() != null) {        
+                String entrada = txt_consulteid.getText();
+                data_venda.setEnabled(false);
+                txt_pesq_cod.setEnabled(false);
+                txt_desc_forn.setEnabled(false);
+                txt_vendedor.setEnabled(false);
+                txt_descvend.setEnabled(false);
+                txt_prod.setEnabled(false);
+                txt_descprod.setEnabled(false);
+                tabela_entest.setEnabled(false);
+                justificativa.setEnabled(false);
+               
+                String situacao = sit.getText();
+                
+                if(situacao.equals("SIM")) {
+                    jButton2.setEnabled(false);
+                } else{
+                    jButton2.setEnabled(true);
+                }        
+        }
+     
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -584,16 +620,45 @@ public class EntradaEstoque extends javax.swing.JFrame {
                       Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
     }
 }
-              JOptionPane.showMessageDialog(null, "ESTOQUE ATUALIZADO COM SUCESSO");
-            
+              JOptionPane.showMessageDialog(null, "ENTRADA DE ESTOQUE REALIZADA COM SUCESSO");
+   
+             //atualizando - update no estoque
+            SQLConection conection = new SQLConection();
+            int qtdest = 0; //inicializando minha variavel qtdest
+           
             try {
+               //estornando meus produtos 
+               for(int row = 0; row < tabela_entest.getRowCount(); row++) {
+                   int codprod = Integer.parseInt(tabela_entest.getValueAt(row, 0).toString());
+                   int qtdpro = Integer.parseInt(tabela_entest.getValueAt(row,3).toString());
+                   
+                   //recuperando minha quantidade atual no estoque e somando com o que foi vendido e posteriormente cancelado
+                   Connection con = SQLConection.getConnection();
+                   String sql2 = "SELECT qtd_estoque FROM PRODUTOS WHERE CODIGO LIKE '"+codprod+"'";
+                   PreparedStatement stmt = con.prepareStatement(sql2);
+                   ResultSet rs = stmt.executeQuery();
+                   
+                   if(rs.next()) {
+                       qtdest = rs.getInt("qtd_estoque"); //armazenei a quantidade que tem no meu estoque na minha variavel qtdest
+                     
+                   }
+                   qtdest += qtdpro; //pegando meu estoque e somando com a quantidade vendida da venda, ou seja, estornando o que foi vendido de volta para o meu estoque
+                   String sqlupdate = "UPDATE PRODUTOS SET QTD_ESTOQUE = '"+qtdest+"' WHERE CODIGO = '"+codprod+"'"; //fazendo o update da minha tabela, ou seja, retornando meus produtos vendidos e atualizando meu estoque
+                   conection.SqlExecution(sqlupdate);
+               }  
+    
+           } catch (SQLException ex) {
+            Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao fazer entrada de estoque");
+        }
+              
+                           }
+          
+         try {
                 new EntradaEstoque().setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(EntradaEstoque.class.getName()).log(Level.SEVERE, null, ex);
             }
-              
-                           }
-         
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -619,6 +684,105 @@ public class EntradaEstoque extends javax.swing.JFrame {
 }
 
     }//GEN-LAST:event_formKeyPressed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // retirando o que foi dado de entrada de estoque e atualizando a situação da tabela para cancelada
+       String message = "Deseja cancelar a entrada de estoque?";
+       String title = "Confirmação";
+       String txtent = txt_consulteid.getText();
+       int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+          if (reply == JOptionPane.YES_OPTION)
+          {
+               String situation = "SIM";
+               String sqlcan = "UPDATE ENT_EST SET CANCELADA = '"+situation+"' WHERE identradaest = '"+txtent+"';";
+               SQLConection conection = new SQLConection();
+               int qtdest = 0; //inicializando minha variavel qtdest
+               
+           try {
+               conection.SqlExecution(sqlcan);
+               JOptionPane.showMessageDialog(null, "ENTRADA DE ESTOQUE CANCELADA");
+               //estornando meus produtos 
+               for(int row = 0; row < tabela_entest.getRowCount(); row++) {
+                   int codprod = Integer.parseInt(tabela_entest.getValueAt(row, 0).toString());
+                   int qtdpro = Integer.parseInt(tabela_entest.getValueAt(row,3).toString());
+                   
+                   //recuperando minha quantidade atual no estoque e somando com o que foi vendido e posteriormente cancelado
+                   Connection con = SQLConection.getConnection();
+                   String sql2 = "SELECT qtd_estoque FROM PRODUTOS WHERE CODIGO LIKE '"+codprod+"'";
+                   PreparedStatement stmt = con.prepareStatement(sql2);
+                   ResultSet rs = stmt.executeQuery();
+                   
+                   if(rs.next()) {
+                       qtdest = rs.getInt("qtd_estoque"); //armazenei a quantidade que tem no meu estoque na minha variavel qtdest         
+                   }
+                   qtdest -= qtdpro; //pegando meu estoque e somando com a quantidade vendida da venda, ou seja, estornando o que foi vendido de volta para o meu estoque
+                   String sqlupdate = "UPDATE PRODUTOS SET QTD_ESTOQUE = '"+qtdest+"' WHERE CODIGO = '"+codprod+"'"; //fazendo o update da minha tabela, ou seja, retornando meus produtos vendidos e atualizando meu estoque
+                   conection.SqlExecution(sqlupdate);
+               }  
+               
+
+                   JOptionPane.showMessageDialog(null, "Estoque foi atualizado");
+                   
+               
+           } catch (SQLException ex) {
+            Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro.", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao fazer o cancelamento");
+            
+        }
+
+              
+          }    
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try {                                         
+            // facilitando para o cliente poder limpar os campos
+            data_venda.setText(null);
+            txt_pesq_cod.setText(null);
+            txt_desc_forn.setText(null);
+            txt_vendedor.setText(null);
+            txt_descvend.setText(null);
+            txt_prod.setText(null);
+            txt_descprod.setText(null);
+            justificativa.setText(null);
+            sit.setText(null);
+            DefaultTableModel model = (DefaultTableModel) tabela_entest.getModel();
+            model.setRowCount(0); // limpa a tabela
+            
+            try {
+                mfdata = new MaskFormatter("##/##/####");
+                
+            } catch (ParseException ex) {
+                System.out.println("Insira uma data válida!");
+            }
+            
+            data_venda.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(System.currentTimeMillis())));
+            SQLConection conection = new SQLConection();
+            String sql = "SELECT MAX(IDENTRADAEST) AS MAX_IDENTRADAESTOQUE FROM ENT_EST"; //estou obtendo o ultimo valor da coluna "idvenda" da minha tablea "vendas" e irei incrementá-lo posteriormente em +1
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                int maxIdVenda = rs.getInt("MAX_IDENTRADAESTOQUE");
+                int proxIdVenda = maxIdVenda + 1;
+                txt_consulteid.setText(Integer.toString(proxIdVenda));
+            }   
+        } catch (SQLException ex) {
+            Logger.getLogger(EntradaEstoque.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        
+                data_venda.setEnabled(true);
+                txt_pesq_cod.setEnabled(true);
+                txt_desc_forn.setEnabled(true);
+                txt_vendedor.setEnabled(true);
+                txt_descvend.setEnabled(true);
+                txt_prod.setEnabled(true);
+                txt_descprod.setEnabled(true);
+                tabela_entest.setEnabled(true);
+                justificativa.setEnabled(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -672,6 +836,7 @@ public class EntradaEstoque extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;

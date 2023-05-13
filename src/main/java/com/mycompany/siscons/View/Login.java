@@ -3,6 +3,7 @@ package com.mycompany.siscons.View;
 import static DAO.SQLConection.closeConnection;
 import static DAO.SQLConection.getConnection;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -103,11 +104,21 @@ public class Login extends javax.swing.JFrame {
                 InfoSenhaActionPerformed(evt);
             }
         });
+        InfoSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                InfoSenhaKeyPressed(evt);
+            }
+        });
         getContentPane().add(InfoSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 200, 200, 30));
 
         InfoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 InfoUsuarioActionPerformed(evt);
+            }
+        });
+        InfoUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                InfoUsuarioKeyPressed(evt);
             }
         });
         getContentPane().add(InfoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 150, 200, 30));
@@ -206,6 +217,37 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_EntrarSistema1ActionPerformed
 
+    private void InfoUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InfoUsuarioKeyPressed
+        // tentando fazer o enter funcionar
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            InfoSenha.requestFocus();
+        }
+    }//GEN-LAST:event_InfoUsuarioKeyPressed
+
+    private void InfoSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InfoSenhaKeyPressed
+        // enter validar o codigo para entrar ao inves de ter que apertar o botao enter
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            EntrarSistema.requestFocus();
+            String user = InfoUsuario.getText();
+            String password = String.valueOf(InfoSenha.getPassword());
+                
+            boolean resposta = false;
+        
+             try {
+                resposta = consultar (user, password);
+             } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro na Consulta de Usuáro e Senha");
+        }
+ 
+        if (resposta == true){
+            loginOK();
+         
+        }else {
+         JOptionPane.showMessageDialog(rootPane, "Usuário ou Senha Inválidos");
+        }
+        }
+    }//GEN-LAST:event_InfoSenhaKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -250,6 +292,10 @@ public class Login extends javax.swing.JFrame {
         closeConnection(connection);
    
         return autenticado;
+    }
+
+    private Object EntrarSistemaActionPerformed() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
    

@@ -62,8 +62,8 @@ public class ConsultePedidos extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("id:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 15, -1, 30));
+        jLabel1.setText("Venda:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 30));
         getContentPane().add(txt_venda, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 420, -1));
 
         jButton1.setText("Filtrar");

@@ -45,6 +45,8 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         ClienteFisico.setSelected(true);
+       
+        
     }
 
     /**
@@ -492,97 +494,6 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CadClienteSalvarActionPerformed
 
-    
-    private void CadastroPessoaFisica() throws SQLException
-    {
-/*
-  TABELA A SER CRIADA INICIALMENTE PARA VERIFICAR SE ESTÁ SALVADO NO BANCO DE DADOS:
-    CREATE TABLE pessoafisica(
-        idpf INT PRIMARY KEY AUTO_INCREMENT,
-        nome VARCHAR(200) NOT NULL unique,
-        cpf varchar(20) not null,
-        cep varchar(10),
-        rua varchar(100),
-        bairro varchar(100),
-        numero varchar(8),
-        pais varchar(70),
-        estado varchar(20),
-        cidade varchar(100),
-        ibge varchar(8),
-        telefone varchar(15),
-        email varchar(100),
-	nascimento VARCHAR(15)
-    );
-*/
-        
-        String nome, cpf, cep, rua, bairro, numero, pais, estado, cidade, ibge, telefone, email, nascimento;
-        nome = CadClienteNome.getText();
-        cpf = CadClienteCGC.getText();
-        cep = CadClienteCEP.getText();
-        rua = CadClienteRua.getText();
-        numero = CadClienteNumero.getText();
-        bairro = CadClienteBairro.getText();
-        cidade = CadClienteCidade.getText();
-        estado = CliEstado.getText();
-        pais = CadClientePais.getText();
-        telefone = CadClienteTelefone.getText();
-        email = CadClienteEmail.getText();
-        ibge = CadClienteIBGE.getText();
-        nascimento = CadClienteNasc.getText();
-        
-        String sql = "INSERT INTO PESSOAFISICA(idpf, nome, cpf, cep, rua, bairro, numero, pais, estado, cidade, ibge, telefone, email, nascimento) VALUES (NULL, '"+nome+"', '"+cpf+"', '"+cep+"', '"+rua+"', '"+bairro+"',  '"+numero+"',  '"+pais+"',  '"+estado+"',  '"+cidade+"',  '"+ibge+"',  '"+telefone+"', '"+email+"',  '"+nascimento+"');";
-        SQLConection conection = new SQLConection();
-        conection.SqlExecution(sql);
-        JOptionPane.showMessageDialog(null, "Pessoa Física Cadastrada");
-        this.dispose();
-        
-    }
-    
-    private void CadastroPessoaJuridica() throws SQLException
-    {
-/*
-    TABELA A SER CRIADA INICIALMENTE PARA VERIFICAR SE ESTÁ SALVADO NO BANCO DE DADOS:
-        CREATE TABLE pessoajuridica(
-        idpj INT PRIMARY KEY AUTO_INCREMENT,
-        razao VARCHAR(200) NOT NULL unique,
-        fantasia varchar(200),
-        cnpj varchar(20) not null,
-        cep varchar(10),
-        rua varchar(100),
-        bairro varchar(100),
-        numero varchar(10),
-        pais varchar(70),
-        estado varchar(20),
-        cidade varchar(100),
-        ibge varchar(10),
-        telefone varchar(20),
-        IE varchar(20),
-        email varchar(100)
-    );
-*/
-        String razao, fantasia, cnpj, cep, rua, bairro, numero, pais, estado, cidade, ibge, telefone, ie, email;
-        razao = CadClienteNome.getText();
-        fantasia = CadClienteFantasia.getText();
-        cnpj = CadClienteCGC.getText();
-        cep = CadClienteCEP.getText();
-        rua = CadClienteRua.getText();
-        numero = CadClienteNumero.getText();
-        bairro = CadClienteBairro.getText();
-        cidade = CadClienteCidade.getText();
-        estado = CliEstado.getText();
-        pais = CadClientePais.getText();
-        telefone = CadClienteTelefone.getText();
-        email = CadClienteEmail.getText();
-        ibge = CadClienteIBGE.getText();
-        ie = CadClienteIE.getText();
-        
-        String sql = "INSERT INTO PESSOAJURIDICA(idpj, razao, fantasia, cnpj, cep, rua, bairro, numero, pais, estado, cidade, ibge, telefone, ie, email) VALUES (NULL, '"+razao+"', '"+fantasia+"', '"+cnpj+"', '"+cep+"', '"+rua+"',  '"+bairro+"',  '"+numero+"',  '"+pais+"',  '"+estado+"',  '"+cidade+"',  '"+ibge+"', '"+telefone+"',  '"+ie+"',  '"+email+"');";
-        SQLConection conection = new SQLConection();
-        conection.SqlExecution(sql);
-        JOptionPane.showMessageDialog(null, "Pessoa Jurídica Cadastrada");
-        this.dispose();
-    }
-    
     private void CadClienteBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadClienteBairroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CadClienteBairroActionPerformed
@@ -790,7 +701,59 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_CadClienteSalvar1ActionPerformed
 
     private void CadClienteSalvar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadClienteSalvar2ActionPerformed
-        // TODO add your handling code here:
+        // 
+        if (ClienteFisico.isSelected()) { try {
+            String nome, cpf, cep, rua, bairro, numero, pais, estado, cidade, ibge, telefone, email, nascimento;
+            nome = CadClienteNome.getText();
+            cpf = CadClienteCGC.getText();
+            cep = CadClienteCEP.getText();
+            rua = CadClienteRua.getText();
+            numero = CadClienteNumero.getText();
+            bairro = CadClienteBairro.getText();
+            cidade = CadClienteCidade.getText();
+            estado = CliEstado.getText();
+            pais = CadClientePais.getText();
+            telefone = CadClienteTelefone.getText();
+            email = CadClienteEmail.getText();
+            ibge = CadClienteIBGE.getText();
+            nascimento = CadClienteNasc.getText();
+            String sql = "INSERT INTO PESSOAFISICA(idpf, nome, cpf, cep, rua, bairro, numero, pais, estado, cidade, ibge, telefone, email, nascimento) VALUES (NULL, '"+nome+"', '"+cpf+"', '"+cep+"', '"+rua+"', '"+bairro+"',  '"+numero+"',  '"+pais+"',  '"+estado+"',  '"+cidade+"',  '"+ibge+"',  '"+telefone+"', '"+email+"',  '"+nascimento+"');";
+            SQLConection conection = new SQLConection();
+            conection.SqlExecution(sql);
+            JOptionPane.showMessageDialog(null, "Pessoa Fisica Cadastrada");
+            this.dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(CadClienteFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+        else if (ClienteJuridico.isSelected()) {
+            try {
+                String razao, fantasia, cnpj, cep, rua, bairro, numero, pais, estado, cidade, ibge, telefone, ie, email;
+                razao = CadClienteNome.getText();
+                fantasia = CadClienteFantasia.getText();
+                cnpj = CadClienteCGC.getText();
+                cep = CadClienteCEP.getText();
+                rua = CadClienteRua.getText();
+                numero = CadClienteNumero.getText();
+                bairro = CadClienteBairro.getText();
+                cidade = CadClienteCidade.getText();
+                estado = CliEstado.getText();
+                pais = CadClientePais.getText();
+                telefone = CadClienteTelefone.getText();
+                email = CadClienteEmail.getText();
+                ibge = CadClienteIBGE.getText();
+                ie = CadClienteIE.getText();
+                String sql = "INSERT INTO PESSOAJURIDICA(idpj, razao, fantasia, cnpj, cep, rua, bairro, numero, pais, estado, cidade, ibge, telefone, ie, email) VALUES (NULL, '"+razao+"', '"+fantasia+"', '"+cnpj+"', '"+cep+"', '"+rua+"',  '"+bairro+"',  '"+numero+"',  '"+pais+"',  '"+estado+"',  '"+cidade+"',  '"+ibge+"', '"+telefone+"',  '"+ie+"',  '"+email+"');";
+                SQLConection conection = new SQLConection();
+                conection.SqlExecution(sql);
+                JOptionPane.showMessageDialog(null, "Pessoa Jurídica Cadastrada");
+                this.dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(CadClienteFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+               new CadClienteFornecedor().setVisible(true);
     }//GEN-LAST:event_CadClienteSalvar2ActionPerformed
 
     /**
