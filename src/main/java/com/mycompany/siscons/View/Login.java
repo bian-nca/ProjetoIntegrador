@@ -2,6 +2,7 @@ package com.mycompany.siscons.View;
 
 import static DAO.SQLConection.closeConnection;
 import static DAO.SQLConection.getConnection;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,6 +40,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
+        
     }
 
     /**
@@ -249,4 +251,6 @@ public class Login extends javax.swing.JFrame {
    
         return autenticado;
     }
+
+   
 }

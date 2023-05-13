@@ -215,16 +215,6 @@ create table EMPRESA(
  );
 
 
-create table buscarProduto(
-    codigo int not null,
-    descricao varchar(100) not null,
-    quantidade_vend_prod int not null,
-    vlr_unitario float not null
-    soma_prod 
-);
-
-
-
 
 /*modulo de vendas*/
 
@@ -304,3 +294,57 @@ create table vendasprod(
 | vlrunitprod | float        | YES  |     | NULL    |                |
 | totalprod   | float        | YES  |     | NULL    |                |
 +-------------+--------------+------+-----+---------+----------------+
+
+//criando tabela de entrada de qtd_estoque
+
+create table ent_est(
+    identradaest int primary key,
+	datavenda varchar(11),
+	id_fornecedor int,
+	fornecedor varchar(200),
+	id_vend int,
+    name_vend varchar(100),
+    justificativa varchar(500),
+    cancelada varchar(100),
+    datahora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+	FOREIGN KEY(id_fornecedor)
+	REFERENCES PESSOAJURIDICA(idpj),
+
+	FOREIGN KEY(id_vend)
+	REFERENCES VENDEDORES(idvendedor)
+);
+
+
++---------------+--------------+------+-----+-------------------+-------------------+
+| Field         | Type         | Null | Key | Default           | Extra             |
++---------------+--------------+------+-----+-------------------+-------------------+
+| identradaest  | int          | NO   | PRI | NULL              |                   |
+| datavenda     | varchar(11)  | YES  |     | NULL              |                   |
+| id_fornecedor | int          | YES  | MUL | NULL              |                   |
+| fornecedor    | varchar(200) | YES  |     | NULL              |                   |
+| id_vend       | int          | YES  | MUL | NULL              |                   |
+| name_vend     | varchar(100) | YES  |     | NULL              |                   |
+| situacao      | varchar(100) | YES  |     | NULL              |                   |
+| datahora      | timestamp    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++---------------+--------------+------+-----+-------------------+-------------------+
+
+//criando tabela do produtos que foram inseridos na entrada de estoque.
+cod, desc, saldo atual do estoque, quantidade a ser acrescentada, justificativa
+
+
+create table entraest_prods(
+	identr_est_prod int primary key auto_increment,
+	id_entrest int,
+	codprod int,
+	descprod varchar(200),
+	saldoanterior int,
+	qtdprod int,
+    datahora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+	FOREIGN KEY(id_entrest)
+	REFERENCES ENT_EST(identradaest)
+);
+
+  
+              

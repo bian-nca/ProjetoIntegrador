@@ -5,8 +5,13 @@
 package com.mycompany.siscons.View;
 
 import DAO.SQLConection;
+import Model.ConsulteClientes;
+import Model.ConsulteEntradaEstoque;
 import Model.ConsulteFornecedores;
+import Model.ConsulteProdutos;
 import Model.ConsulteVendedores;
+import Model.Faturamento;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -14,21 +19,41 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
 /**
  *
  * @author Bianca
  */
+
 public class EntradaEstoque extends javax.swing.JFrame {
-    
-    public EntradaEstoque() {
+    MaskFormatter mfdata; //para inserir a mascara para data no meu jfield;
+
+    public EntradaEstoque() throws SQLException {
       
+       try {   
+            mfdata = new MaskFormatter("##/##/####");
+            
+        } catch (ParseException ex) {
+            System.out.println("Insira uma data válida!");
+        } 
         initComponents();
-         setLocationRelativeTo(null);
-         data_estoque.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(System.currentTimeMillis())));
-   
+        setLocationRelativeTo(null);
+        data_venda.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(System.currentTimeMillis())));
+        SQLConection conection = new SQLConection();
+            String sql = "SELECT MAX(IDENTRADAEST) AS MAX_IDENTRADAESTOQUE FROM ENT_EST"; //estou obtendo o ultimo valor da coluna "idvenda" da minha tablea "vendas" e irei incrementá-lo posteriormente em +1
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                int maxIdVenda = rs.getInt("MAX_IDENTRADAESTOQUE");
+                int proxIdVenda = maxIdVenda + 1;
+                txt_consulteid.setText(Integer.toString(proxIdVenda));
+            }   
     }
 
     /**
@@ -42,18 +67,16 @@ public class EntradaEstoque extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txt_consulteid = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabela_entest = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         txt_pesq_cod = new javax.swing.JTextField();
         txt_desc_forn = new javax.swing.JTextField();
         BotaoFiltrar = new javax.swing.JButton();
         botao_consulte = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        data_estoque = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txt_vendedor = new javax.swing.JTextField();
         txt_descvend = new javax.swing.JTextField();
@@ -61,55 +84,76 @@ public class EntradaEstoque extends javax.swing.JFrame {
         botao_consulte1 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        data_venda = new javax.swing.JFormattedTextField(mfdata);
+        jLabel14 = new javax.swing.JLabel();
+        txt_prod = new javax.swing.JTextField();
+        txt_descprod = new javax.swing.JTextField();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        codigo_produto = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        produto_descricao = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        qtd_estoqentrada = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
+        botao_add = new javax.swing.JButton();
+        botao_rmv = new javax.swing.JButton();
+        jLabel21 = new javax.swing.JLabel();
+        txt_estoque = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        sit = new javax.swing.JTextField();
+        justificativa = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setTitle("Entrada de Estoque");
         setResizable(false);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 102));
-        jLabel1.setText("Entrada de Estoque");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(211, 6, -1, -1));
-
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("id:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, -1, -1));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 80, -1));
+        jLabel2.setText("Nº");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+        getContentPane().add(txt_consulteid, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 70, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabela_entest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Código", "Descrição", "Saldo Atual", "Quantidade", "Justificativa"
+                "Código", "Descrição", "Saldo Atual", "Quantidade"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabela_entest);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 690, 140));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 690, 150));
 
         jLabel4.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel4.setText("Fornecedor:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
-        getContentPane().add(txt_pesq_cod, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 70, -1));
-        getContentPane().add(txt_desc_forn, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 310, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+
+        txt_pesq_cod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_pesq_codActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txt_pesq_cod, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 70, -1));
+        getContentPane().add(txt_desc_forn, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 310, -1));
 
         BotaoFiltrar.setText("Filtrar");
         BotaoFiltrar.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +161,7 @@ public class EntradaEstoque extends javax.swing.JFrame {
                 BotaoFiltrarActionPerformed(evt);
             }
         });
-        getContentPane().add(BotaoFiltrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 90, -1, -1));
+        getContentPane().add(BotaoFiltrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, -1, -1));
 
         botao_consulte.setText("Consultar");
         botao_consulte.addActionListener(new java.awt.event.ActionListener() {
@@ -125,18 +169,17 @@ public class EntradaEstoque extends javax.swing.JFrame {
                 botao_consulteActionPerformed(evt);
             }
         });
-        getContentPane().add(botao_consulte, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 90, -1, -1));
+        getContentPane().add(botao_consulte, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel5.setText("Data:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, -1, -1));
-        getContentPane().add(data_estoque, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 40, 80, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, -1, 20));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Vendedor:");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
-        getContentPane().add(txt_vendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 70, -1));
-        getContentPane().add(txt_descvend, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 310, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+        getContentPane().add(txt_vendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 70, -1));
+        getContentPane().add(txt_descvend, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 310, -1));
 
         BotaoFiltrar1.setText("Filtrar");
         BotaoFiltrar1.addActionListener(new java.awt.event.ActionListener() {
@@ -144,7 +187,7 @@ public class EntradaEstoque extends javax.swing.JFrame {
                 BotaoFiltrar1ActionPerformed(evt);
             }
         });
-        getContentPane().add(BotaoFiltrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 120, -1, -1));
+        getContentPane().add(BotaoFiltrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, -1, -1));
 
         botao_consulte1.setText("Consultar");
         botao_consulte1.addActionListener(new java.awt.event.ActionListener() {
@@ -152,17 +195,146 @@ public class EntradaEstoque extends javax.swing.JFrame {
                 botao_consulte1ActionPerformed(evt);
             }
         });
-        getContentPane().add(botao_consulte1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, -1, -1));
+        getContentPane().add(botao_consulte1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 70, -1, -1));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 102, 0));
         jButton1.setText("Atualizar estoque");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, -1, -1));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 450, -1, -1));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(102, 0, 0));
         jButton2.setText("Cancelar ");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, -1, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 450, -1, -1));
+
+        jButton3.setText("Buscar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, -1));
+
+        jButton4.setText("Consultar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 690, 10));
+
+        new javax.swing.JFormattedTextField(mfdata);
+        data_venda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                data_vendaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(data_venda, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 80, -1));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel14.setText("Codigo Produto:");
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+
+        txt_prod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_prodActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txt_prod, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 80, -1));
+
+        txt_descprod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_descprodActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txt_descprod, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 300, -1));
+
+        jButton10.setText("Filtrar");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 120, -1, -1));
+
+        jButton11.setText("Consultar");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, -1, -1));
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel17.setText("Codigo:");
+        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
+
+        codigo_produto.setEditable(false);
+        codigo_produto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codigo_produtoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(codigo_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 80, -1));
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel18.setText("Produto:");
+        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, -1, -1));
+
+        produto_descricao.setEditable(false);
+        getContentPane().add(produto_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 300, -1));
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel13.setText("Quantidade:");
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, -1, -1));
+        getContentPane().add(qtd_estoqentrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 80, -1));
+        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 690, 10));
+
+        botao_add.setText("Adicionar Item");
+        botao_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_addActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botao_add, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, -1, -1));
+
+        botao_rmv.setText("Excluir");
+        botao_rmv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_rmvActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botao_rmv, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 190, -1, -1));
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel21.setText("Estoque");
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
+
+        txt_estoque.setEditable(false);
+        txt_estoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_estoqueActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txt_estoque, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 80, -1));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("Cancelada?");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 70, -1));
+
+        sit.setEditable(false);
+        getContentPane().add(sit, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 60, -1));
+        getContentPane().add(justificativa, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 570, 30));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setText("OBS:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -228,6 +400,226 @@ public class EntradaEstoque extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BotaoFiltrarActionPerformed
 
+    private void data_vendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_data_vendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_data_vendaActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // buscando informações da minha entrada de estoque realizada
+        try { 
+            String codentradaestoque, datavend, codforne, descforn, codvend, descvend, justi, situation;
+            String entrada = txt_consulteid.getText();
+            //String sql = "SELECT identradaest, datavenda, id_fornecedor, fornecedor, id_vend, name_vend, cancelada, datahora FROM ENT_EST WHERE identradaest LIKE '"+entrada+"'";
+            String sql = "SELECT * from ent_est where identradaest LIKE '"+entrada+"'";
+            String sqlprods = "SELECT * from entraest_prods where id_entrest LIKE '"+entrada+"'";
+            try{
+                Connection con = SQLConection.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sqlprods);
+                ResultSet rs = stmt.executeQuery();
+                DefaultTableModel modelo = (DefaultTableModel) tabela_entest.getModel();
+                modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
+                    
+                while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
+                    modelo.addRow(new Object[]{rs.getString("codprod"), rs.getString("descprod"),rs.getString("saldoanterior"), rs.getString("qtdprod")});   
+                }
+                con.close();
+            } catch (SQLException ex) {
+                    Logger.getLogger(ConsulteClientes.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+ 
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            rs.next();
+            
+            codentradaestoque = Integer.toString(rs.getInt("identradaest"));
+            datavend = rs.getString("datavenda");
+            codforne = Integer.toString(rs.getInt("id_fornecedor"));
+            descforn = rs.getString("fornecedor");            
+            codvend = Integer.toString(rs.getInt("id_vend"));
+            descvend = rs.getString("name_vend");
+            justi = rs.getString("justificativa");
+            situation = rs.getString("cancelada");
+            
+      
+            txt_consulteid.setText(codentradaestoque);
+            data_venda.setText(datavend);
+            txt_pesq_cod.setText(codforne);
+            txt_desc_forn.setText(descforn);
+            txt_vendedor.setText(codvend);
+            txt_descvend.setText(descvend);
+            justificativa.setText(justi);
+            sit.setText(situation);
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar entrada de estoque!");
+        }
+               
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // irá buscar para consultar minhas entradas de estoque
+        new ConsulteEntradaEstoque().setVisible(true);
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void txt_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_prodActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_prodActionPerformed
+
+    private void txt_descprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_descprodActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_descprodActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        //
+        try {
+            String codigo, produto, quantidade, saldoatual, est;
+            String codprod = txt_prod.getText();
+            String sql = "SELECT codigo, descricao, vlr_venda_vista, qtd_estoque FROM PRODUTOS WHERE CODIGO LIKE '"+codprod+"'";
+
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+
+            rs.next();
+
+            codigo = Integer.toString(rs.getInt("codigo"));
+            produto = rs.getString("descricao");
+            saldoatual = Integer.toString(rs.getInt("qtd_estoque"));
+            
+            codigo_produto.setText(codigo);
+            produto_descricao.setText(produto);
+            txt_estoque.setText(saldoatual);
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERRO AO BUSCAR O PRODUTO!");
+            JOptionPane.showMessageDialog(null, "Consulte o suporte técnico para mais informações!");
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+        new ConsulteProdutos().setVisible(true);
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void codigo_produtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigo_produtoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codigo_produtoActionPerformed
+
+    private void botao_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_addActionPerformed
+        /*Aqui é onde faremos a inserção dos produtos que terão seus estoques atualizados. */
+            DefaultTableModel modelo = (DefaultTableModel) tabela_entest.getModel();          
+            modelo.addRow(new Object[]{codigo_produto.getText(),produto_descricao.getText(), txt_estoque.getText(), qtd_estoqentrada.getText()});   
+            
+                   
+            
+        /*   codigo_produto.setText(null);
+           produto_descricao.setText(null);
+           qtd_vendas.setText(null);
+           vlr_unitario.setText(null);
+           totalizando.setText(null);
+           txt_estoque.setText(null);
+           txt_prod.setText(null);
+           txt_descprod.setText(null);
+          */  
+ 
+    }//GEN-LAST:event_botao_addActionPerformed
+
+    private void botao_rmvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_rmvActionPerformed
+        // irei excluir apenas a linha selecionada, nao irá acrescentar nada quando for adicionado, somente quando a entrada de estoque for confirmada   
+        if(botao_rmv.isEnabled()){
+            DefaultTableModel modelo = (DefaultTableModel) tabela_entest.getModel();
+            modelo.removeRow(tabela_entest.getSelectedRow());
+            tabela_entest.setModel(modelo);
+         }
+    }//GEN-LAST:event_botao_rmvActionPerformed
+
+    private void txt_estoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_estoqueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_estoqueActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String message = "Deseja confirmar a entrada de estoque?";
+        String title = "Confirmação";
+        
+        //inserindo minhas informações no banco de dados referente as informações do fornecedor, vendedor, data e id da entrada
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+          if (reply == JOptionPane.YES_OPTION)
+          {
+               try {
+               String identest, data_entrada, idvend, vendedor, idforn, fornecedor, obs;
+               identest = txt_consulteid.getText();
+               data_entrada = data_venda.getText();
+               idforn = txt_pesq_cod.getText();
+               fornecedor = txt_desc_forn.getText();
+               idvend = txt_vendedor.getText();
+               vendedor = txt_descvend.getText();
+               obs = justificativa.getText();
+               
+               String situation = "NÃO"; //isso é quando eu realizo a confirmação da entrada de estoque, dessa forma, no meu banco de dados irá constar que ela não é um estoque cancelado
+               SQLConection conection = new SQLConection();
+               String sql = "INSERT INTO ENT_EST(identradaest, datavenda, id_fornecedor, fornecedor, id_vend, name_vend,"
+                       + " justificativa, cancelada, datahora) VALUES ('"+identest+"', '"+data_entrada+"', '"+idforn+"',"
+                       + "'"+fornecedor+"','"+idvend+"','"+vendedor+"', '"+obs+"', '"+situation+"',  CURRENT_TIMESTAMP)";               
+               conection.SqlExecution(sql);               
+                this.dispose();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro na execução do SQL");
+                JOptionPane.showMessageDialog(null, "NÃO FOI POSSÍVEL ESTABELECER CONEXÃO COM O BANCO DE DADOS");
+            }
+            for(int row = 0; row < tabela_entest.getRowCount(); row++) {
+                int idEstoque = Integer.parseInt(txt_consulteid.getText());
+                int codprod = Integer.parseInt(tabela_entest.getValueAt(row,0).toString());
+                String descprod = (tabela_entest.getValueAt(row, 1).toString());
+                int saldoant = Integer.parseInt(tabela_entest.getValueAt(row,2).toString());
+                int qtdprod = Integer.parseInt(tabela_entest.getValueAt(row, 3).toString());
+                SQLConection conection = new SQLConection();
+                String sql = "INSERT INTO ENTRAEST_PRODS(identr_est_prod, id_entrest, codprod, descprod, saldoanterior, qtdprod, datahora) VALUES (NULL, '"+idEstoque+"','"+codprod+"', '"+descprod+"', '"+saldoant+"', '"+qtdprod+"', CURRENT_TIMESTAMP)";     
+                try {
+                      conection.SqlExecution(sql);  
+                } catch (SQLException ex) {
+                      Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
+              JOptionPane.showMessageDialog(null, "ESTOQUE ATUALIZADO COM SUCESSO");
+            
+            try {
+                new EntradaEstoque().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(EntradaEstoque.class.getName()).log(Level.SEVERE, null, ex);
+            }
+              
+                           }
+         
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txt_pesq_codActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_pesq_codActionPerformed
+        // 
+       
+    }//GEN-LAST:event_txt_pesq_codActionPerformed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_F5) {
+          txt_consulteid.setText("");
+          txt_pesq_cod.setText("");
+          txt_vendedor.setText("");
+          txt_desc_forn.setText("");
+          txt_prod.setText("");
+          codigo_produto.setText("");
+          produto_descricao.setText("");
+          txt_estoque.setText("");
+          qtd_estoqentrada.setText("");
+          justificativa.setText("");
+          DefaultTableModel model = (DefaultTableModel) tabela_entest.getModel();
+          model.setRowCount(0);
+}
+
+    }//GEN-LAST:event_formKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -258,7 +650,7 @@ public class EntradaEstoque extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EntradaEstoque().setVisible(true);
+               
             }
         });
     }
@@ -266,24 +658,46 @@ public class EntradaEstoque extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotaoFiltrar;
     private javax.swing.JButton BotaoFiltrar1;
+    private javax.swing.JButton botao_add;
     private javax.swing.JButton botao_consulte;
     private javax.swing.JButton botao_consulte1;
+    private javax.swing.JButton botao_rmv;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JTextField data_estoque;
+    private javax.swing.JTextField codigo_produto;
+    private javax.swing.JTextField data_venda;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField justificativa;
+    private javax.swing.JTextField produto_descricao;
+    private javax.swing.JTextField qtd_estoqentrada;
+    private javax.swing.JTextField sit;
+    private javax.swing.JTable tabela_entest;
+    private javax.swing.JTextField txt_consulteid;
     private javax.swing.JTextField txt_desc_forn;
+    private javax.swing.JTextField txt_descprod;
     private javax.swing.JTextField txt_descvend;
+    private javax.swing.JTextField txt_estoque;
     private javax.swing.JTextField txt_pesq_cod;
+    private javax.swing.JTextField txt_prod;
     private javax.swing.JTextField txt_vendedor;
     // End of variables declaration//GEN-END:variables
 }

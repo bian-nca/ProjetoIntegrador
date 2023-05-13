@@ -573,7 +573,7 @@ public class Pedidos extends javax.swing.JFrame {
                 jButton9ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
+        getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 80, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Cancelada:");
@@ -663,6 +663,7 @@ public class Pedidos extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Cancelando a venda;
+ 
        String message = "Deseja cancelar a venda?";
        String title = "Confirmação";
        String txtcodvenda = txt_pesquisa.getText();
@@ -1087,6 +1088,34 @@ public class Pedidos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao consultar venda!");
         }
         
+        if(txt_situation.getText() != null) {        
+                String vend = txt_pesquisa.getText();
+                data_venda.setEnabled(false);
+                txtcodcli.setEnabled(false);
+                txt_nomecli.setEnabled(false);
+                txt_ruacli.setEnabled(false);
+                bairrocli.setEnabled(false);
+                txt_ncli1.setEnabled(false);
+                txt_cidadecli.setEnabled(false);
+                txt_codvend.setEnabled(false);
+                txt_nomevend.setEnabled(false);
+                tabela_vendas.setEnabled(false);
+                valor_tot.setEnabled(false);
+                desconto.setEnabled(false);
+                txt_tot.setEnabled(false);
+                txt_situation.setEnabled(false);
+                txt_prod.setEnabled(false);
+                txt_descprod.setEnabled(false);
+                String situacao = txt_situation.getText();
+                
+                if(situacao.equals("SIM")) {
+                    jButton2.setEnabled(false);
+                } else{
+                    jButton2.setEnabled(true);
+                }
+                
+        }
+
         
     }//GEN-LAST:event_jButton9ActionPerformed
 

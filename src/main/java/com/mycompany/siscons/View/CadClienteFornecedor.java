@@ -94,13 +94,13 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
         CadClienteCGC = new javax.swing.JFormattedTextField();
         CadClienteNasc = new javax.swing.JFormattedTextField();
         CadClienteTelefone = new javax.swing.JFormattedTextField();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         codigo = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        CadClienteSalvar1 = new javax.swing.JButton();
+        CadClienteSalvar2 = new javax.swing.JButton();
 
         setTitle("Cadastro de Clientes/Fornecedores");
         setResizable(false);
@@ -163,14 +163,13 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
         getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, -1, -1));
 
         CadClienteSalvar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        CadClienteSalvar.setForeground(new java.awt.Color(0, 102, 0));
-        CadClienteSalvar.setText("SALVAR");
+        CadClienteSalvar.setText("EDITAR");
         CadClienteSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CadClienteSalvarActionPerformed(evt);
             }
         });
-        getContentPane().add(CadClienteSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 400, 87, 33));
+        getContentPane().add(CadClienteSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 400, 87, 33));
 
         CadClienteBairro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -302,25 +301,6 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
         }
         getContentPane().add(CadClienteTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 286, -1));
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton4.setText("EDITAR");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 400, -1, -1));
-
-        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(102, 0, 0));
-        jButton6.setText("EXCLUIR");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 400, -1, -1));
-
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Código:");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
@@ -356,6 +336,26 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
         });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 140, -1, -1));
 
+        CadClienteSalvar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        CadClienteSalvar1.setForeground(new java.awt.Color(153, 0, 0));
+        CadClienteSalvar1.setText("EXCLUIR");
+        CadClienteSalvar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CadClienteSalvar1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(CadClienteSalvar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, 87, 33));
+
+        CadClienteSalvar2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        CadClienteSalvar2.setForeground(new java.awt.Color(0, 102, 0));
+        CadClienteSalvar2.setText("SALVAR");
+        CadClienteSalvar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CadClienteSalvar2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(CadClienteSalvar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 400, 87, 33));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -377,19 +377,117 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
 
     private void CadClienteSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadClienteSalvarActionPerformed
 
-        if (ClienteFisico.isSelected()) {
+         // editando os dados dos meus clientes e fornecedores
+        if (ClienteFisico.isSelected()) { //Se meu Tipo for Pessoa Fisica selecionada irei fazer consulta no meu banco na tabela de pessoa fisica
             try {
-                CadastroPessoaFisica();
+                
+                String cod, nome, cgc, nasc, cep, rua, bairro, numero, cidade, pais, estado, telefone, ibge, email;
+                cod = codigo.getText();
+                nome = CadClienteNome.getText();
+                cgc = CadClienteCGC.getText();
+                nasc = CadClienteNasc.getText();
+                cep = CadClienteCEP.getText();
+                rua = CadClienteRua.getText();
+                numero = CadClienteNumero.getText();
+                bairro = CadClienteBairro.getText();
+                cidade = CadClienteCidade.getText();
+                pais = CadClientePais.getText();
+                estado = CliEstado.getText();
+                telefone = CadClienteTelefone.getText();
+                ibge = CadClienteIBGE.getText();
+                email = CadClienteEmail.getText();
+
+                String sql = "UPDATE PESSOAFISICA SET NOME = '"+nome+"' WHERE idpf = '"+cod+"';";
+                    SQLConection conection = new SQLConection();
+                    conection.SqlExecution(sql);
+                    String sql1 = "UPDATE PESSOAFISICA SET CPF = '"+cgc+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql1);
+                    String sql2 = "UPDATE PESSOAFISICA SET NASCIMENTO = '"+nasc+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql2);
+                    String sql3 = "UPDATE PESSOAFISICA SET CEP = '"+cep+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql3);
+                    String sql4 = "UPDATE PESSOAFISICA SET RUA = '"+rua+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql4);
+                    String sql5 = "UPDATE PESSOAFISICA SET NUMERO = '"+numero+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql5);
+                    String sql6 = "UPDATE PESSOAFISICA SET BAIRRO = '"+bairro+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql6);
+                    String sql33 = "UPDATE PESSOAFISICA SET PAIS = '"+pais+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql33);
+                    String sql7 = "UPDATE PESSOAFISICA SET CIDADE = '"+cidade+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql7);
+                    String sql8 = "UPDATE PESSOAFISICA SET ESTADO = '"+estado+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql8);
+                    String sql9 = "UPDATE PESSOAFISICA SET TELEFONE = '"+telefone+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sql9);
+                    String sq20 = "UPDATE PESSOAFISICA SET IBGE = '"+ibge+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sq20);
+                    String sq21 = "UPDATE PESSOAFISICA SET email = '"+email+"' WHERE idpf = '"+cod+"';";
+                    conection.SqlExecution(sq21);
+                    
+                    JOptionPane.showMessageDialog(null, "CLIENTE ALTERADO COM SUCESSO");
+                    
+                    this.dispose();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao Cadastrar Pessoa Física");
+                JOptionPane.showMessageDialog(null, "Erro ao editar o registro da Pessoa Física");
+                JOptionPane.showMessageDialog(null, "Contate seu suporte técnico");
             }
-        } 
+        }  
         
-        if (ClienteJuridico.isSelected()) {
-            try {
-                CadastroPessoaJuridica();
+        else if (ClienteJuridico.isSelected()) {
+           try {
+           String cod, razao, fantasia, cnpj, cep, rua, bairro, numero, pais, estado, cidade, ibge, telefone, IE, email;
+                cod = codigo.getText();
+                razao = CadClienteNome.getText();
+                fantasia = CadClienteFantasia.getText();
+                cnpj = CadClienteCGC.getText();
+                cep = CadClienteCEP.getText();
+                rua = CadClienteRua.getText();
+                bairro = CadClienteBairro.getText();
+                numero = CadClienteNumero.getText();
+                pais = CadClientePais.getText();  
+                estado = CliEstado.getText();
+                cidade = CadClienteCidade.getText();
+                ibge = CadClienteIBGE.getText();
+                telefone = CadClienteTelefone.getText();
+                IE = CadClienteIE.getText();
+                email = CadClienteEmail.getText();
+
+                String sql = "UPDATE PESSOAJURIDICA SET razao = '"+razao+"' WHERE idpj = '"+cod+"';";
+                SQLConection conection = new SQLConection();
+                conection.SqlExecution(sql);
+                String sql1 = "UPDATE PESSOAJURIDICA SET fantasia = '"+fantasia+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sql1);
+                String sq122 = "UPDATE PESSOAJURIDICA SET CNPJ = '"+cnpj+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sq122);
+                String sql3 = "UPDATE PESSOAJURIDICA SET cep = '"+cep+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sql3);
+                String sql4 = "UPDATE PESSOAJURIDICA SET RUA = '"+rua+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sql4);
+                String sql5 = "UPDATE PESSOAJURIDICA SET NUMERO = '"+numero+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sql5);
+                String sql6 = "UPDATE PESSOAJURIDICA SET BAIRRO = '"+bairro+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sql6);
+                String sql33 = "UPDATE PESSOAJURIDICA SET PAIS = '"+pais+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sql33);
+                String sql7 = "UPDATE PESSOAJURIDICA SET CIDADE = '"+cidade+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sql7);
+                String sql8 = "UPDATE PESSOAJURIDICA SET ESTADO = '"+estado+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sql8);
+                String sql9 = "UPDATE PESSOAJURIDICA SET TELEFONE = '"+telefone+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sql9);
+                String sq20 = "UPDATE PESSOAJURIDICA SET IBGE = '"+ibge+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sq20);
+                String sq21 = "UPDATE PESSOAJURIDICA SET email = '"+email+"' WHERE idpj = '"+cod+"';";
+                conection.SqlExecution(sq21);
+                String sql22 = "UPDATE PESSOAJURIDICA SET IE = '"+IE+"' WHERE idpj = '"+cod+"';"; 
+                conection.SqlExecution(sql22);
+                JOptionPane.showMessageDialog(null, "FORNECEDOR ALTERADO COM SUCESSO");
+                    
+                this.dispose();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao Cadastrar Pessoa Jurídica");
+                JOptionPane.showMessageDialog(null, "Erro ao editar o registro da Pessoa Juridica");
+                JOptionPane.showMessageDialog(null, "Contate seu suporte técnico");
             }
         }
     }//GEN-LAST:event_CadClienteSalvarActionPerformed
@@ -543,158 +641,6 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CadClienteCGCActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // editando os dados dos meus clientes e fornecedores
-        if (ClienteFisico.isSelected()) { //Se meu Tipo for Pessoa Fisica selecionada irei fazer consulta no meu banco na tabela de pessoa fisica
-            try {
-                
-                String cod, nome, cgc, nasc, cep, rua, bairro, numero, cidade, pais, estado, telefone, ibge, email;
-                cod = codigo.getText();
-                nome = CadClienteNome.getText();
-                cgc = CadClienteCGC.getText();
-                nasc = CadClienteNasc.getText();
-                cep = CadClienteCEP.getText();
-                rua = CadClienteRua.getText();
-                numero = CadClienteNumero.getText();
-                bairro = CadClienteBairro.getText();
-                cidade = CadClienteCidade.getText();
-                pais = CadClientePais.getText();
-                estado = CliEstado.getText();
-                telefone = CadClienteTelefone.getText();
-                ibge = CadClienteIBGE.getText();
-                email = CadClienteEmail.getText();
-
-                String sql = "UPDATE PESSOAFISICA SET NOME = '"+nome+"' WHERE idpf = '"+cod+"';";
-                    SQLConection conection = new SQLConection();
-                    conection.SqlExecution(sql);
-                    String sql1 = "UPDATE PESSOAFISICA SET CPF = '"+cgc+"' WHERE idpf = '"+cod+"';";
-                    conection.SqlExecution(sql1);
-                    String sql2 = "UPDATE PESSOAFISICA SET NASCIMENTO = '"+nasc+"' WHERE idpf = '"+cod+"';";
-                    conection.SqlExecution(sql2);
-                    String sql3 = "UPDATE PESSOAFISICA SET CEP = '"+cep+"' WHERE idpf = '"+cod+"';";
-                    conection.SqlExecution(sql3);
-                    String sql4 = "UPDATE PESSOAFISICA SET RUA = '"+rua+"' WHERE idpf = '"+cod+"';";
-                    conection.SqlExecution(sql4);
-                    String sql5 = "UPDATE PESSOAFISICA SET NUMERO = '"+numero+"' WHERE idpf = '"+cod+"';";
-                    conection.SqlExecution(sql5);
-                    String sql6 = "UPDATE PESSOAFISICA SET BAIRRO = '"+bairro+"' WHERE idpf = '"+cod+"';";
-                    conection.SqlExecution(sql6);
-                    String sql33 = "UPDATE PESSOAFISICA SET PAIS = '"+pais+"' WHERE idpf = '"+cod+"';";
-                    conection.SqlExecution(sql33);
-                    String sql7 = "UPDATE PESSOAFISICA SET CIDADE = '"+cidade+"' WHERE idpf = '"+cod+"';";
-                    conection.SqlExecution(sql7);
-                    String sql8 = "UPDATE PESSOAFISICA SET ESTADO = '"+estado+"' WHERE idpf = '"+cod+"';";
-                    conection.SqlExecution(sql8);
-                    String sql9 = "UPDATE PESSOAFISICA SET TELEFONE = '"+telefone+"' WHERE idpf = '"+cod+"';";
-                    conection.SqlExecution(sql9);
-                    String sq20 = "UPDATE PESSOAFISICA SET IBGE = '"+ibge+"' WHERE idpf = '"+cod+"';";
-                    conection.SqlExecution(sq20);
-                    String sq21 = "UPDATE PESSOAFISICA SET email = '"+email+"' WHERE idpf = '"+cod+"';";
-                    conection.SqlExecution(sq21);
-                    
-                    JOptionPane.showMessageDialog(null, "CLIENTE ALTERADO COM SUCESSO");
-                    
-                    this.dispose();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao editar o registro da Pessoa Física");
-                JOptionPane.showMessageDialog(null, "Contate seu suporte técnico");
-            }
-        }  
-        
-        else if (ClienteJuridico.isSelected()) {
-           try {
-           String cod, razao, fantasia, cnpj, cep, rua, bairro, numero, pais, estado, cidade, ibge, telefone, IE, email;
-                cod = codigo.getText();
-                razao = CadClienteNome.getText();
-                fantasia = CadClienteFantasia.getText();
-                cnpj = CadClienteCGC.getText();
-                cep = CadClienteCEP.getText();
-                rua = CadClienteRua.getText();
-                bairro = CadClienteBairro.getText();
-                numero = CadClienteNumero.getText();
-                pais = CadClientePais.getText();  
-                estado = CliEstado.getText();
-                cidade = CadClienteCidade.getText();
-                ibge = CadClienteIBGE.getText();
-                telefone = CadClienteTelefone.getText();
-                IE = CadClienteIE.getText();
-                email = CadClienteEmail.getText();
-
-                String sql = "UPDATE PESSOAJURIDICA SET razao = '"+razao+"' WHERE idpj = '"+cod+"';";
-                SQLConection conection = new SQLConection();
-                conection.SqlExecution(sql);
-                String sql1 = "UPDATE PESSOAJURIDICA SET fantasia = '"+fantasia+"' WHERE idpj = '"+cod+"';";
-                conection.SqlExecution(sql1);
-                String sq122 = "UPDATE PESSOAJURIDICA SET CNPJ = '"+cnpj+"' WHERE idpj = '"+cod+"';";
-                conection.SqlExecution(sq122);
-                String sql3 = "UPDATE PESSOAJURIDICA SET cep = '"+cep+"' WHERE idpj = '"+cod+"';";
-                conection.SqlExecution(sql3);
-                String sql4 = "UPDATE PESSOAJURIDICA SET RUA = '"+rua+"' WHERE idpj = '"+cod+"';";
-                conection.SqlExecution(sql4);
-                String sql5 = "UPDATE PESSOAJURIDICA SET NUMERO = '"+numero+"' WHERE idpj = '"+cod+"';";
-                conection.SqlExecution(sql5);
-                String sql6 = "UPDATE PESSOAJURIDICA SET BAIRRO = '"+bairro+"' WHERE idpj = '"+cod+"';";
-                conection.SqlExecution(sql6);
-                String sql33 = "UPDATE PESSOAJURIDICA SET PAIS = '"+pais+"' WHERE idpj = '"+cod+"';";
-                conection.SqlExecution(sql33);
-                String sql7 = "UPDATE PESSOAJURIDICA SET CIDADE = '"+cidade+"' WHERE idpj = '"+cod+"';";
-                conection.SqlExecution(sql7);
-                String sql8 = "UPDATE PESSOAJURIDICA SET ESTADO = '"+estado+"' WHERE idpj = '"+cod+"';";
-                conection.SqlExecution(sql8);
-                String sql9 = "UPDATE PESSOAJURIDICA SET TELEFONE = '"+telefone+"' WHERE idpj = '"+cod+"';";
-                conection.SqlExecution(sql9);
-                String sq20 = "UPDATE PESSOAJURIDICA SET IBGE = '"+ibge+"' WHERE idpj = '"+cod+"';";
-                conection.SqlExecution(sq20);
-                String sq21 = "UPDATE PESSOAJURIDICA SET email = '"+email+"' WHERE idpj = '"+cod+"';";
-                conection.SqlExecution(sq21);
-                String sql22 = "UPDATE PESSOAJURIDICA SET IE = '"+IE+"' WHERE idpj = '"+cod+"';"; 
-                conection.SqlExecution(sql22);
-                JOptionPane.showMessageDialog(null, "FORNECEDOR ALTERADO COM SUCESSO");
-                    
-                this.dispose();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao editar o registro da Pessoa Juridica");
-                JOptionPane.showMessageDialog(null, "Contate seu suporte técnico");
-            }
-        }
-
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       //Excluindo registros dos meus clientes e fornecedores desejados
-        String message = "Deseja deletar o registro Selecionado?";
-        String title = "Confirmação";
-        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
-          if (reply == JOptionPane.YES_OPTION)
-          {
-            if(ClienteFisico.isSelected()) {
-                try {
-                    String pessoafis = codigo.getText();
-                    String sql = "DELETE FROM PESSOAFISICA WHERE IDPF = "+pessoafis+"";
-                    SQLConection conection = new SQLConection();
-                    conection.SqlExecution(sql);
-                    JOptionPane.showMessageDialog(null, "REGISTRO DELETADO COM SUCESSO!");
-                    this.dispose();
-                } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao deletar registro!");     
-            }
-            } else if (ClienteJuridico.isSelected()) {
-                 try {
-                    String pessoajuri = codigo.getText();
-                    String sql = "DELETE FROM PESSOAJURIDICA WHERE IDPJ = "+pessoajuri+"";
-                    SQLConection conection = new SQLConection();
-                    conection.SqlExecution(sql);
-                    JOptionPane.showMessageDialog(null, "REGISTRO DELETADO COM SUCESSO!");
-                    this.dispose();
-                } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao deletar registro!");     
-            }
-          }
-
-      }     
-        
-    }//GEN-LAST:event_jButton6ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //trazendo informações dos meus clientes e fornecedores cadastrados.
          if (ClienteFisico.isSelected()) { //Se meu Tipo for Pessoa Fisica selecionada irei fazer consulta no meu banco na tabela de pessoa fisica
@@ -808,6 +754,45 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
         new ConsulteFornecedores().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void CadClienteSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadClienteSalvar1ActionPerformed
+        //Excluindo registros dos meus clientes e fornecedores desejados
+        String message = "Deseja deletar o registro Selecionado?";
+        String title = "Confirmação";
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+          if (reply == JOptionPane.YES_OPTION)
+          {
+            if(ClienteFisico.isSelected()) {
+                try {
+                    String pessoafis = codigo.getText();
+                    String sql = "DELETE FROM PESSOAFISICA WHERE IDPF = "+pessoafis+"";
+                    SQLConection conection = new SQLConection();
+                    conection.SqlExecution(sql);
+                    JOptionPane.showMessageDialog(null, "REGISTRO DELETADO COM SUCESSO!");
+                    this.dispose();
+                } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao deletar registro!");     
+            }
+            } else if (ClienteJuridico.isSelected()) {
+                 try {
+                    String pessoajuri = codigo.getText();
+                    String sql = "DELETE FROM PESSOAJURIDICA WHERE IDPJ = "+pessoajuri+"";
+                    SQLConection conection = new SQLConection();
+                    conection.SqlExecution(sql);
+                    JOptionPane.showMessageDialog(null, "REGISTRO DELETADO COM SUCESSO!");
+                    this.dispose();
+                } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao deletar registro!");     
+            }
+          }
+
+      }     
+        
+    }//GEN-LAST:event_CadClienteSalvar1ActionPerformed
+
+    private void CadClienteSalvar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadClienteSalvar2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CadClienteSalvar2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -828,6 +813,8 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
     private javax.swing.JTextField CadClientePais;
     private javax.swing.JTextField CadClienteRua;
     private javax.swing.JButton CadClienteSalvar;
+    private javax.swing.JButton CadClienteSalvar1;
+    private javax.swing.JButton CadClienteSalvar2;
     private javax.swing.JFormattedTextField CadClienteTelefone;
     private javax.swing.JPanel CadClienteTipo;
     private javax.swing.JTextField CliEstado;
@@ -838,8 +825,6 @@ public class CadClienteFornecedor extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
