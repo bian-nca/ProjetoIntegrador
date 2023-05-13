@@ -144,6 +144,7 @@ public class Pedidos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txt_situation = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -589,6 +590,16 @@ public class Pedidos extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, -1, -1));
+
+        jButton12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton12.setForeground(new java.awt.Color(0, 0, 51));
+        jButton12.setText("Limpar");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1084,12 +1095,9 @@ public class Pedidos extends javax.swing.JFrame {
             txt_tot.setText(vlrtot);
             txt_situation.setText(sit);
             
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao consultar venda!");
-        }
-        
-        if(txt_situation.getText() != null) {        
-                String vend = txt_pesquisa.getText();
+            
+             if(txt_situation.getText() != null) {        
+                String vendido = txt_pesquisa.getText();
                 data_venda.setEnabled(false);
                 txtcodcli.setEnabled(false);
                 txt_nomecli.setEnabled(false);
@@ -1115,6 +1123,12 @@ public class Pedidos extends javax.swing.JFrame {
                 }
                 
         }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar venda!");
+            
+        }
+        
+       
 
         
     }//GEN-LAST:event_jButton9ActionPerformed
@@ -1123,6 +1137,12 @@ public class Pedidos extends javax.swing.JFrame {
         // tela que ira chamar a consulta de vendas - informações: idvenda, data venda, cliente, vendedor, valores
         new ConsultePedidos().setVisible(true);      
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // limpando meus campos 
+        
+        
+    }//GEN-LAST:event_jButton12ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1140,6 +1160,7 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

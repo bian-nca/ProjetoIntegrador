@@ -347,4 +347,39 @@ create table entraest_prods(
 );
 
   
-              
+
+saida de estoque: tabela
+
+create table saida_est(
+    id int primary key,
+	datasaida varchar(11),
+	id_fornecedor int,
+	fornecedor varchar(200),
+	id_vend int,
+    name_vend varchar(100),
+    justificativa varchar(500),
+    cancelada varchar(100),
+    datahora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+	FOREIGN KEY(id_fornecedor)
+	REFERENCES PESSOAJURIDICA(idpj),
+
+	FOREIGN KEY(id_vend)
+	REFERENCES VENDEDORES(idvendedor)
+);
+
+
+saida de estoque com os respectivos produtos
+
+create table saida_prods(
+	idsaidaprods int primary key auto_increment,
+	id_saida int,
+	codprod int,
+	descprod varchar(200),
+	saldoanterior int,
+	qtdprod int,
+    datahora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+	FOREIGN KEY(id_saida)
+	REFERENCES saida_est(ID)
+);

@@ -153,6 +153,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem12">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\mov-caixa.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Movimento de Caixa"/>
               </Properties>
             </MenuItem>
@@ -171,7 +174,13 @@
               <Properties>
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Sa&#xed;da de Estoque"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\inventario.png"/>
+                </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxMenuItem1ActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -182,6 +191,9 @@
           <SubComponents>
             <Menu class="javax.swing.JMenu" name="jMenu1">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\gerenciamento-de-dinheiro.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Contas a Pagar"/>
               </Properties>
               <SubComponents>
@@ -199,6 +211,9 @@
             </Menu>
             <Menu class="javax.swing.JMenu" name="jMenu2">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\gerenciamento-de-dinheiro.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Contas a Receber"/>
               </Properties>
               <SubComponents>

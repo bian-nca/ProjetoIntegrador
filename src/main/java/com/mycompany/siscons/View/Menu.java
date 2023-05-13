@@ -186,6 +186,7 @@ public class Menu extends javax.swing.JFrame {
         });
         InfosConfig.add(TelaPedidos);
 
+        jMenuItem12.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\mov-caixa.png")); // NOI18N
         jMenuItem12.setText("Movimento de Caixa");
         InfosConfig.add(jMenuItem12);
 
@@ -200,12 +201,19 @@ public class Menu extends javax.swing.JFrame {
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("Saída de Estoque");
+        jCheckBoxMenuItem1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\inventario.png")); // NOI18N
+        jCheckBoxMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuItem1ActionPerformed(evt);
+            }
+        });
         InfosConfig.add(jCheckBoxMenuItem1);
 
         jMenuBar1.add(InfosConfig);
 
         jMenu3.setText("Financeiro");
 
+        jMenu1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\gerenciamento-de-dinheiro.png")); // NOI18N
         jMenu1.setText("Contas a Pagar");
 
         jMenuItem2.setText("Lançamentos");
@@ -216,6 +224,7 @@ public class Menu extends javax.swing.JFrame {
 
         jMenu3.add(jMenu1);
 
+        jMenu2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\gerenciamento-de-dinheiro.png")); // NOI18N
         jMenu2.setText("Contas a Receber");
 
         jMenuItem8.setText("Lançamentos");
@@ -371,6 +380,11 @@ public class Menu extends javax.swing.JFrame {
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jCheckBoxMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem1ActionPerformed
+        // chamando minha tela de saida de estoque
+        new SaidaEstoque().setVisible(true);
+    }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
 
 
 

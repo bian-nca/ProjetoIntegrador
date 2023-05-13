@@ -468,12 +468,7 @@ public class EntradaEstoque extends javax.swing.JFrame {
             justificativa.setText(justi);
             sit.setText(situation);
             
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao consultar entrada de estoque!");
-        }
-        
-        if(txt_consulteid.getText() != null) {        
-                String entrada = txt_consulteid.getText();
+            if(txt_consulteid.getText() != null) {        
                 data_venda.setEnabled(false);
                 txt_pesq_cod.setEnabled(false);
                 txt_desc_forn.setEnabled(false);
@@ -492,6 +487,12 @@ public class EntradaEstoque extends javax.swing.JFrame {
                     jButton2.setEnabled(true);
                 }        
         }
+        } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao consultar entrada de estoque!");
+
+        }
+        
+        
      
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -549,18 +550,7 @@ public class EntradaEstoque extends javax.swing.JFrame {
         /*Aqui é onde faremos a inserção dos produtos que terão seus estoques atualizados. */
             DefaultTableModel modelo = (DefaultTableModel) tabela_entest.getModel();          
             modelo.addRow(new Object[]{codigo_produto.getText(),produto_descricao.getText(), txt_estoque.getText(), qtd_estoqentrada.getText()});   
-            
-                   
-            
-        /*   codigo_produto.setText(null);
-           produto_descricao.setText(null);
-           qtd_vendas.setText(null);
-           vlr_unitario.setText(null);
-           totalizando.setText(null);
-           txt_estoque.setText(null);
-           txt_prod.setText(null);
-           txt_descprod.setText(null);
-          */  
+        
  
     }//GEN-LAST:event_botao_addActionPerformed
 
