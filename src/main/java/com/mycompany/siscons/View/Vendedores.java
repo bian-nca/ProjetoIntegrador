@@ -100,8 +100,6 @@ public class Vendedores extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Código:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
-
-        codigo.setEditable(false);
         getContentPane().add(codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 88, -1));
 
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -164,8 +162,8 @@ public class Vendedores extends javax.swing.JFrame {
          try {
             String cod, vend; 
             
-            String vendedores = vendedor.getText();
-            String sql = "SELECT idvendedor, nome FROM VENDEDORES WHERE NOME LIKE '"+vendedores+"'";
+            String vendedores = codigo.getText();
+            String sql = "SELECT idvendedor, nome FROM VENDEDORES WHERE idvendedor LIKE '"+vendedores+"'";
 
             Connection con = SQLConection.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);

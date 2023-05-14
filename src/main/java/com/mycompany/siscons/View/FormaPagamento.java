@@ -64,8 +64,6 @@ public class FormaPagamento extends javax.swing.JFrame {
             }
         });
 
-        codigo.setEditable(false);
-
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(102, 0, 0));
         jButton2.setText("EXCLUIR");
@@ -195,8 +193,8 @@ public class FormaPagamento extends javax.swing.JFrame {
          try {
             String cod, formapag; 
             
-            String pagamento = descricao.getText();
-            String sql = "SELECT codigo, descricao FROM PAGAMENTOS WHERE DESCRICAO LIKE '"+pagamento+"'";
+            String pagamento = codigo.getText();
+            String sql = "SELECT codigo, descricao FROM PAGAMENTOS WHERE CODIGO LIKE '"+pagamento+"'";
 
             Connection con = SQLConection.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);

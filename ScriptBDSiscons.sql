@@ -231,9 +231,9 @@ create table vendas(
 	cidade varchar(100),
 	id_vendedor int,
 	nomevend varchar(100),
-	valor_wth_desc float,
-	desconto float,
-	vlr_total float,
+	valor_wth_desc DECIMAL(10,2),
+	desconto DECIMAL(10,2),
+	vlr_total DECIMAL(10,2),
     cancelada varchar(5),
 
 	FOREIGN KEY(id_cliente)
@@ -272,8 +272,8 @@ create table vendasprod(
     codprod int,
     descprod varchar(200),
     qtdprod int,
-    vlrunitprod float,
-    totalprod float,
+    vlrunitprod DECIMAL(10,2),
+    totalprod DECIMAL(10,2),
 
     FOREIGN KEY(id_venda)
 	REFERENCES VENDAS(idvenda),
@@ -383,3 +383,35 @@ create table saida_prods(
 	FOREIGN KEY(id_saida)
 	REFERENCES saida_est(ID)
 );
+
+//criando tabela das informações do meu faturamento
+
+create table faturamento (
+    idfatura int primary key auto_increment,
+    idpedido int,
+    idcli int,
+    nomecli varchar(200),
+    datafaturamento varchar(100),
+    vlrpagar decimal(10,2),
+    idformapag int,
+    descformapag varchar(100),
+    qtdparcelas int,
+    vencimentodias int,
+    numeroparcelas int,
+    vlrparcela Decimal(10,2),
+    datavencimentoparcela varchar(100),
+    situacao varchar(100),
+
+
+    FOREIGN KEY(idpedido)
+    REFERENCES VENDAS(idvenda),
+
+    FOREIGN KEY(idcli)
+    REFERENCES PESSOAFISICA(idpf),
+    
+    FOREIGN KEY(idformapag)
+    REFERENCES PAGAMENTOS(codigo)
+
+);
+
+

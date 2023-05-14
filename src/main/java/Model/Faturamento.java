@@ -4,17 +4,62 @@
  */
 package Model;
 
+import DAO.SQLConection;
+import static com.fasterxml.jackson.databind.util.ISO8601Utils.format;
+import com.mycompany.siscons.View.Pedidos;
+import static java.lang.String.format;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import static java.text.MessageFormat.format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
+
 /**
  *
  * @author Bianca
  */
 public class Faturamento extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Faturamento
-     */
-    public Faturamento() {
+        MaskFormatter mfdata; //para inserir a mascara para data no meu jfield;
+
+    public Faturamento() throws SQLException {
         initComponents();
+         try {
+            
+            mfdata = new MaskFormatter("##/##/####");
+            String sql = "SELECT idvenda, datavenda, id_cliente, nome_cli, vlr_total FROM vendas ORDER BY idvenda DESC LIMIT 1";
+
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            rs.next();
+            
+            txt_pedido.setText(rs.getString("idvenda"));
+            codcliente.setText(rs.getString("id_cliente"));
+            descliente.setText(rs.getString("nome_cli"));
+            total.setText(rs.getString("vlr_total"));
+            data_venda.setText(rs.getString("datavenda"));
+            parcelas.setEnabled(false);
+            datasvenc.setEnabled(false);
+
+            
+        } catch (ParseException ex) {
+            System.out.println("Insira uma data válida!");
+            Logger.getLogger(ConsulteClientes.class.getName()).log(Level.SEVERE, null, ex);
+
+        } 
+        
     }
 
     /**
@@ -26,22 +71,382 @@ public class Faturamento extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        txt_pedido = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        codcliente = new javax.swing.JTextField();
+        descliente = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        total = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        codigofp = new javax.swing.JTextField();
+        descfp = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        table_parcelas = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        parcelas = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        jButton5 = new javax.swing.JButton();
+        botao_rmv = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        data_venda = new javax.swing.JFormattedTextField(mfdata);
+        datasvenc = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        vlr_tot = new javax.swing.JTextField();
+        jButton6 = new javax.swing.JButton();
+
         setTitle("Faturar ");
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 413, Short.MAX_VALUE)
-        );
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("Pedido:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+
+        txt_pedido.setEditable(false);
+        getContentPane().add(txt_pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 80, -1));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Cliente:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, -1, -1));
+
+        codcliente.setEditable(false);
+        getContentPane().add(codcliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, 50, -1));
+
+        descliente.setEditable(false);
+        descliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                desclienteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(descliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 210, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("Data");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, 40, 20));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setText("Valor a Pagar (R$):");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+
+        total.setEditable(false);
+        getContentPane().add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 70, -1));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("Forma de Pagamento:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, -1, -1));
+        getContentPane().add(codigofp, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, 50, -1));
+        getContentPane().add(descfp, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 210, -1));
+
+        table_parcelas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Parcelas", "Valor da Parcela", "Data de Vencimento"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(table_parcelas);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 820, 170));
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 51));
+        jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 40, -1, -1));
+
+        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(0, 0, 102));
+        jButton3.setText("Consultar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 40, 90, 30));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setText("Quantidade de parcelas:");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
+        getContentPane().add(parcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 80, -1));
+
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 51, 0));
+        jButton2.setText("Faturar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 370, 120, 30));
+
+        jButton4.setText("Gravar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 120, -1));
+        getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 810, -1));
+
+        jButton5.setText("Calcular");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, -1, -1));
+
+        botao_rmv.setText("Excluir");
+        botao_rmv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_rmvActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botao_rmv, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setText("Vencimento:");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, -1, -1));
+
+        new javax.swing.JFormattedTextField(mfdata);
+        data_venda.setEditable(false);
+        data_venda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                data_vendaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(data_venda, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 10, 80, -1));
+        getContentPane().add(datasvenc, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, 80, -1));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel8.setText("Valor total das parcelas:");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, -1, -1));
+        getContentPane().add(vlr_tot, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, 90, -1));
+
+        jButton6.setText("Gravar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void desclienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desclienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_desclienteActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // vai buscar a forma de pagamento que eu desejo para faturar a venda que estou finalizando
+         try {
+            String cod, formapag; 
+            
+            String pagamento = codigofp.getText();
+            String sql = "SELECT codigo, descricao FROM PAGAMENTOS WHERE CODIGO LIKE '"+pagamento+"'";
+
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            rs.next();
+            
+            cod = Integer.toString(rs.getInt("codigo"));
+            formapag = rs.getString("descricao");
+           
+            codigofp.setText(cod);
+            descfp.setText(formapag);
+        
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "ERRO AO BUSCAR FORMA DE PAGAMENTO!");
+            JOptionPane.showMessageDialog(null, "Consulte se essa forma de pagamento está cadastrado!");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        //atalho para a pessoa verificar quais formas de pagamentos estão cadastrados.
+        new ConsultePagamento().setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // fazendo conferência da forma de pagamento para habilitar ou deixar desabilitado o campo de parcelas
+        String resposta = codigofp.getText();
+        if(resposta.equals("3") || (resposta.equals("1") || (resposta.equals("2") || (resposta.equals("5"))))){
+            parcelas.setText("1");
+            datasvenc.setEnabled(false);
+            datasvenc.setText("1");
+            
+        } else if ((resposta.equals("4"))) {
+            parcelas.setEnabled(true);
+            datasvenc.setEnabled(true);
+        }
+        else{
+            parcelas.setText("1");
+            parcelas.setEnabled(false);
+            datasvenc.setEnabled(false);
+        }
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // aqui que eu choro e minha mae nao vai ver kkk vamos la
+        
+        //quando "não é parcelado" nao irei me preocupar com calculo de parcelas e data de vencimento, apenas irei pegar meus dados do cabeçalho e jogar na Jtable
+        String resposta = codigofp.getText();
+        String tot = total.getText();
+        float totalizando = Float.parseFloat(tot);
+        if((resposta.equals("1")) || (resposta.equals("2")) || (resposta.equals("5")) || (resposta.equals("3"))) {
+            
+            DefaultTableModel modelo = (DefaultTableModel) table_parcelas.getModel();
+            /*
+                Irei fazer a validação para impedir que o meu cliente adicione mais uma linha na minha JTable nos casos de forma de pagamento com UMA parcela obrigatória
+                if(modelo.getRowCount()==0) está verificando se minha linhas na tabelas sao equivalentes a zero, se sim, ele irá adicionar os valores que eu quero na jtable
+            */
+            if(modelo.getRowCount() ==0) {       
+                  modelo.addRow(new Object[]{parcelas.getText(), totalizando , data_venda.getText()});                
+            } else {
+                JOptionPane.showMessageDialog(null, "Já existe uma parcela adicionada para essa forma de pagamento selecionada");
+                
+            }
+        
+        
+        } else {
+              // Obtendo o valor total e o número de parcelas
+                BigDecimal valorTotal = new BigDecimal(total.getText());
+                int numParcelas = Integer.parseInt(parcelas.getText());
+
+                // Calculando o valor de cada parcela
+                BigDecimal valorParcela = valorTotal.divide(new BigDecimal(numParcelas), 2, RoundingMode.HALF_UP);
+                Float transvalorParcela = valorParcela.floatValue();
+
+                // Obtendo a data atual
+                Calendar dataVencimento = Calendar.getInstance();
+                // Define o número de dias para vencimento das parcelas
+                int diasVencimento = Integer.valueOf(datasvenc.getText());
+
+                // Preenche a tabela com as informações das parcelas
+                DefaultTableModel model = (DefaultTableModel) table_parcelas.getModel();
+                model.setRowCount(0);
+                for (int i = 1; i <= numParcelas; i++) {
+                    // Adiciona a linha com os dados da parcela
+                    String dataFormatada = format(dataVencimento.getTime());
+                    model.addRow(new Object[] { i, valorParcela, dataFormatada });
+
+                    // Adiciona o número de dias para o vencimento das próximas parcelas
+                    dataVencimento.add(Calendar.DAY_OF_MONTH, diasVencimento);
+                }
+                                // Verifica se o valor total é menor ou igual à soma das parcelas
+                BigDecimal somaParcelas = valorParcela.multiply(new BigDecimal(numParcelas));
+                if (somaParcelas.compareTo(valorTotal) > 0) {
+                    // Ajusta o valor da última parcela para que a soma seja igual ao valor total
+                    BigDecimal diferenca = somaParcelas.subtract(valorTotal);
+                    BigDecimal ultimaParcela = valorParcela.subtract(diferenca);
+
+                    // Mostra a mensagem de aviso ao usuário
+                    JOptionPane.showMessageDialog(null, "O valor da última parcela foi ajustado para não ultrapassar o valor total.");
+
+                    // Atualiza o valor da última parcela na tabela
+                    int indexUltimaParcela = model.getRowCount() - 1;
+                    model.setValueAt(ultimaParcela, indexUltimaParcela, 1);
+                }
+  }
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void botao_rmvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_rmvActionPerformed
+        // excluir meu item selecionado da tabela
+
+        if(botao_rmv.isEnabled()){
+            DefaultTableModel modelo = (DefaultTableModel) table_parcelas.getModel();
+            modelo.setRowCount(0);            
+        }
+    }//GEN-LAST:event_botao_rmvActionPerformed
+
+    private void data_vendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_data_vendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_data_vendaActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // esse campo tem como objetivo pegar os valores da coluna Valor da parcela e somar para verificar se nao está passando ou ficando para trás alguns centavos
+       
+        int totvalunit = table_parcelas.getRowCount();
+        BigDecimal tot = BigDecimal.ZERO;
+        for(int i = 0; i<totvalunit; i++){
+            BigDecimal descvalue = new BigDecimal(table_parcelas.getValueAt(i,1).toString());
+            tot = tot.add(descvalue);
+        }
+            vlr_tot.setText(tot.toString());
+        
+        
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // salvando minha fatura 
+       
+        String message = "Deseja confirmar o faturamento?";
+        String title = "Confirmação";
+
+        int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
+          if (reply == JOptionPane.YES_OPTION)
+          {
+           try {
+                      
+                       String situation = "EM ABERTO";
+                       for(int row = 0; row < table_parcelas.getRowCount(); row++) {
+                            int numberparc = Integer.parseInt(table_parcelas.getValueAt(row,0).toString());
+                            float vlrparc = Float.parseFloat(table_parcelas.getValueAt(row,1).toString());
+                            String datasparc = (String)table_parcelas.getValueAt(row,2);
+                            SQLConection conection = new SQLConection();
+                            String sql = "INSERT INTO FATURAMENTO(idfatura, idpedido, idcli, nomecli, datafaturamento, vlrpagar, idformapag, descformapag, qtdparcelas,"
+                                    + " vencimentodias, numeroparcelas, vlrparcela, datavencimentoparcela, situacao)"
+                                    + " VALUES"
+                                    + " (NULL, '"+txt_pedido.getText()+"', '"+codcliente.getText()+"','"+descliente.getText()+"', '"+data_venda.getText()+"', '"+total.getText()+"',"
+                                    + " '"+codigofp.getText()+"', '"+descfp.getText()+"', '"+parcelas.getText()+"', '"+datasvenc.getText()+"', '"+numberparc+"', '"+vlrparc+"', '"+datasparc+"','"+situation+"')";
+                            conection.SqlExecution(sql);
+
+                       }
+                       JOptionPane.showMessageDialog(null, "INFORMAÇÕES DO FATURAMENTO REGISTRADO");
+                       this.dispose();                       
+                   } catch (SQLException ex) {
+                        Logger.getLogger(Faturamento.class.getName()).log(Level.SEVERE, null, ex);
+                        ex.printStackTrace();
+                       JOptionPane.showMessageDialog(null, "Erro na execução do SQL");
+                       JOptionPane.showMessageDialog(null, "NÃO FOI POSSÍVEL ESTABELECER CONEXÃO COM O BANCO DE DADOS");
+                   }
+          
+          
+          }
+                
+                   
+                    
+                         
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -73,11 +478,39 @@ public class Faturamento extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Faturamento().setVisible(true);
+            
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botao_rmv;
+    private javax.swing.JTextField codcliente;
+    private javax.swing.JTextField codigofp;
+    private javax.swing.JTextField data_venda;
+    private javax.swing.JTextField datasvenc;
+    private javax.swing.JTextField descfp;
+    private javax.swing.JTextField descliente;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField parcelas;
+    private javax.swing.JTable table_parcelas;
+    private javax.swing.JTextField total;
+    private javax.swing.JTextField txt_pedido;
+    private javax.swing.JTextField vlr_tot;
     // End of variables declaration//GEN-END:variables
 }

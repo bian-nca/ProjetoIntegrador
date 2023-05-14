@@ -625,49 +625,53 @@ public class Pedidos extends javax.swing.JFrame {
           if (reply == JOptionPane.YES_OPTION)
           {
                try {
-                String idvendas = txt_pesquisa.getText();
-                String clienteid = txtcodcli.getText();
-                String data = data_venda.getText();
-                String clientenome = txt_nomecli.getText();
-                String enderecocli = txt_ruacli.getText();
-                String bairro = bairrocli.getText();
-                String numero = txt_ncli1.getText();
-                String cidade = txt_cidadecli.getText();
-                String idvend = txt_codvend.getText();
-                String nomevend = txt_nomevend.getText();
-                String valor_unit = valor_tot.getText();
-                String descontinho = desconto.getText();
-                String vlr_total = txt_tot.getText();
-                String situation = "NÃO";
-                SQLConection conection = new SQLConection();
-                String sql = "INSERT INTO VENDAS(idvenda, datavenda, id_cliente, nome_cli, rua, bairro, numero, cidade, id_vendedor, nomevend, valor_wth_desc, desconto, vlr_total, cancelada) VALUES ('"+idvendas+"', '"+data+"','"+clienteid+"', '"+clientenome+"', '"+enderecocli+"', '"+bairro+"', '"+numero+"', '"+cidade+"', '"+idvend+"', '"+nomevend+"', '"+valor_unit+"', '"+descontinho+"','"+vlr_total+"','"+situation+"')";               
-                conection.SqlExecution(sql);
-                this.dispose();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro na execução do SQL");
-                JOptionPane.showMessageDialog(null, "NÃO FOI POSSÍVEL ESTABELECER CONEXÃO COM O BANCO DE DADOS");
-            }
-              for(int row = 0; row < tabela_vendas.getRowCount(); row++) {
-                  int idVenda = Integer.parseInt(txt_pesquisa.getText());
-                  int codprod = Integer.parseInt(tabela_vendas.getValueAt(row,0).toString());
-                  String descprod = (tabela_vendas.getValueAt(row, 1).toString());
-                  int qtdpro = Integer.parseInt(tabela_vendas.getValueAt(row,2).toString());
-                  float vlrunit = Float.parseFloat(tabela_vendas.getValueAt(row, 3).toString());
-                  float totalprod = Float.parseFloat(tabela_vendas.getValueAt(row, 4).toString());
-                  SQLConection conection = new SQLConection();
-                  String sql = "INSERT INTO VENDASPROD (idvedprods, id_venda, codprod, descprod, qtdprod, vlrunitprod, totalprod) VALUES (NULL, '"+idVenda+"','"+codprod+"', '"+descprod+"', '"+qtdpro+"', '"+vlrunit+"', '"+totalprod+"')";
                    try {
+                       String idvendas = txt_pesquisa.getText();
+                       String clienteid = txtcodcli.getText();
+                       String data = data_venda.getText();
+                       String clientenome = txt_nomecli.getText();
+                       String enderecocli = txt_ruacli.getText();
+                       String bairro = bairrocli.getText();
+                       String numero = txt_ncli1.getText();
+                       String cidade = txt_cidadecli.getText();
+                       String idvend = txt_codvend.getText();
+                       String nomevend = txt_nomevend.getText();
+                       String valor_unit = valor_tot.getText();
+                       String descontinho = desconto.getText();
+                       String vlr_total = txt_tot.getText();
+                       String situation = "NÃO";
+                       SQLConection conection = new SQLConection();
+                       String sql = "INSERT INTO VENDAS(idvenda, datavenda, id_cliente, nome_cli, rua, bairro, numero, cidade, id_vendedor, nomevend, valor_wth_desc, desconto, vlr_total, cancelada) VALUES ('"+idvendas+"', '"+data+"','"+clienteid+"', '"+clientenome+"', '"+enderecocli+"', '"+bairro+"', '"+numero+"', '"+cidade+"', '"+idvend+"', '"+nomevend+"', '"+valor_unit+"', '"+descontinho+"','"+vlr_total+"','"+situation+"')";
                        conection.SqlExecution(sql);
-                       
+                       this.dispose();                       
                    } catch (SQLException ex) {
-                       Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+                       JOptionPane.showMessageDialog(null, "Erro na execução do SQL");
+                       JOptionPane.showMessageDialog(null, "NÃO FOI POSSÍVEL ESTABELECER CONEXÃO COM O BANCO DE DADOS");
                    }
+                   for(int row = 0; row < tabela_vendas.getRowCount(); row++) {
+                       int idVenda = Integer.parseInt(txt_pesquisa.getText());
+                       int codprod = Integer.parseInt(tabela_vendas.getValueAt(row,0).toString());
+                       String descprod = (tabela_vendas.getValueAt(row, 1).toString());
+                       int qtdpro = Integer.parseInt(tabela_vendas.getValueAt(row,2).toString());
+                       float vlrunit = Float.parseFloat(tabela_vendas.getValueAt(row, 3).toString());
+                       float totalprod = Float.parseFloat(tabela_vendas.getValueAt(row, 4).toString());
+                       SQLConection conection = new SQLConection();
+                       String sql = "INSERT INTO VENDASPROD (idvedprods, id_venda, codprod, descprod, qtdprod, vlrunitprod, totalprod) VALUES (NULL, '"+idVenda+"','"+codprod+"', '"+descprod+"', '"+qtdpro+"', '"+vlrunit+"', '"+totalprod+"')";
+                       try {
+                           conection.SqlExecution(sql);
+                           
+                       } catch (SQLException ex) {
+                           Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+                       }
+                       
+                   }
+                   JOptionPane.showMessageDialog(null, "PRODUTOS SALVOS COM A RESPECTIVA VENDA");
                    
-              }
-              JOptionPane.showMessageDialog(null, "PRODUTOS SALVOS COM A RESPECTIVA VENDA");
-                  
-                 
-              new Faturamento().setVisible(true); // agora iremos partir para a tela de faturamento, ou seja, a forma como será paga
+                   
+                   new Faturamento().setVisible(true); // agora iremos partir para a tela de faturamento, ou seja, a forma como será paga
+               } catch (SQLException ex) {
+                Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE,null, ex);
+            }
           }
        
     }//GEN-LAST:event_btn_confirmarActionPerformed
@@ -903,13 +907,15 @@ public class Pedidos extends javax.swing.JFrame {
         qtditem = qtd_vendas.getText();
         vlrofitem = vlr_unitario.getText();
         
-        Float soma_itens;
-        soma_itens = ((Float.valueOf((qtditem)) * (Float.valueOf(vlrofitem))));
-        String somatoria = String.valueOf(soma_itens);
-        if(btn_soma.isEnabled()) {
+        BigDecimal qtd = new BigDecimal(qtditem);
+        BigDecimal vlrof = new BigDecimal(vlrofitem);
+        BigDecimal soma_itens = qtd.multiply(vlrof);
+        String somatoria = soma_itens.toString();
+
+        if (btn_soma.isEnabled()) {
             totalizando.setText(somatoria);
-            }
-         
+        }
+
     }//GEN-LAST:event_btn_somaActionPerformed
 
     private void valor_totActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valor_totActionPerformed
@@ -959,27 +965,25 @@ public class Pedidos extends javax.swing.JFrame {
         //mostrando o valor total com o desconto
         
  
-        //dvalor unitario total sem desconto
         int totvalunit = tabela_vendas.getRowCount();
-        double tot = 0;
-        for(int i = 0; i<totvalunit; i++){
-            double descvalue = Double.valueOf(tabela_vendas.getValueAt(i,4).toString());
-            tot += descvalue;
+        BigDecimal tot = BigDecimal.ZERO;
+        for (int i = 0; i < totvalunit; i++) {
+            BigDecimal descvalue = new BigDecimal(tabela_vendas.getValueAt(i, 4).toString());
+            tot = tot.add(descvalue);
         }
-        valor_tot.setText(Double.toString(tot));
-        
-        
+        valor_tot.setText(tot.toString());
+
         //soma total com desconto
-       int sumtot = tabela_vendas.getRowCount();
-       double sumt = 0;
-       for(int i=0; i<sumtot; i++) {
-        double smt = Double.valueOf(tabela_vendas.getValueAt(i, 4).toString());
-        sumt += smt;
-    }
-       String descontinho;
-       descontinho = desconto.getText();
-       Float dsct = Float.valueOf(descontinho);
-       txt_tot.setText(Double.toString(sumt -dsct));
+        int sumtot = tabela_vendas.getRowCount();
+        BigDecimal sumt = BigDecimal.ZERO;
+        for (int i = 0; i < sumtot; i++) {
+            BigDecimal smt = new BigDecimal(tabela_vendas.getValueAt(i, 4).toString());
+            sumt = sumt.add(smt);
+        }
+        String descontinho = desconto.getText();
+        BigDecimal dsct = new BigDecimal(descontinho);
+        txt_tot.setText(sumt.subtract(dsct).toString());
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void descontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descontoActionPerformed
@@ -1140,8 +1144,73 @@ public class Pedidos extends javax.swing.JFrame {
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // limpando meus campos 
-        
-        
+        try {
+          txtcodcli.setText(null);
+          txt_nomecli.setText(null);
+          txt_ruacli.setText(null);
+          bairrocli.setText(null);
+          txt_cidadecli.setText(null);
+          txt_ncli1.setText(null);
+          txt_codvend.setText(null);
+          txt_nomevend.setText(null);
+          txt_prod.setText(null);
+          txt_descprod.setText(null);
+          codigo_produto.setText(null);
+          totalizando.setText(null);
+          desconto.setText(null);
+          txt_tot.setText(null);
+          vlr_unitario.setText(null);
+          valor_tot.setText(null);
+          qtd_vendas.setText(null);
+          produto_descricao.setText(null);
+          txt_estoque.setText(null);
+          txt_situation.setText(null);
+          
+          
+          DefaultTableModel model = (DefaultTableModel) tabela_vendas.getModel();
+           model.setRowCount(0); // limpa a tabela
+           try {
+                mfdata = new MaskFormatter("##/##/####");
+                
+            } catch (ParseException ex) {
+                System.out.println("Insira uma data válida!");
+            }
+            
+            data_venda.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(System.currentTimeMillis())));
+            SQLConection conection = new SQLConection();
+            String sql = "SELECT MAX(IDVENDA) AS MAX_IDVENDA FROM VENDAS"; //estou obtendo o ultimo valor da coluna "idvenda" da minha tablea "vendas" e irei incrementá-lo posteriormente em +1
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                int maxIdVenda = rs.getInt("MAX_IDVENDA");
+                int proxIdVenda = maxIdVenda + 1;
+                txt_pesquisa.setText(Integer.toString(proxIdVenda));
+            }   
+        } catch (SQLException ex) {
+            Logger.getLogger(EntradaEstoque.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        txtcodcli.setEnabled(true);
+          txt_nomecli.setEnabled(true);
+          txt_ruacli.setEnabled(true);
+          bairrocli.setEnabled(true);
+          txt_cidadecli.setEnabled(true);
+          txt_ncli1.setEnabled(true);
+          txt_codvend.setEnabled(true);
+          txt_nomevend.setEnabled(true);
+          txt_prod.setEnabled(true);
+          txt_descprod.setEnabled(true);
+          codigo_produto.setEnabled(true);
+          totalizando.setEnabled(true);
+          desconto.setEnabled(true);
+          txt_tot.setEnabled(true);
+          vlr_unitario.setEnabled(true);
+          valor_tot.setEnabled(true);
+          qtd_vendas.setEnabled(true);
+          produto_descricao.setEnabled(true);
+          txt_estoque.setEnabled(true);
+          txt_situation.setEnabled(true);
+          tabela_vendas.setEnabled(true);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     /**

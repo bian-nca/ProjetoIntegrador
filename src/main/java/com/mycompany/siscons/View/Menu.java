@@ -382,8 +382,12 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jCheckBoxMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuItem1ActionPerformed
-        // chamando minha tela de saida de estoque
-        new SaidaEstoque().setVisible(true);
+        try {
+            // chamando minha tela de saida de estoque
+            new SaidaEstoque().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
 
 
