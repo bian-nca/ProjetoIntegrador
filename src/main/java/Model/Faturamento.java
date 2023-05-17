@@ -11,6 +11,7 @@ import static java.lang.String.format;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,6 +31,7 @@ import javax.swing.text.MaskFormatter;
  */
 public class Faturamento extends javax.swing.JFrame {
 
+    
         MaskFormatter mfdata; //para inserir a mascara para data no meu jfield;
 
     public Faturamento() throws SQLException {
@@ -37,13 +39,16 @@ public class Faturamento extends javax.swing.JFrame {
          try {
             
             mfdata = new MaskFormatter("##/##/####");
+            
             String sql = "SELECT idvenda, datavenda, id_cliente, nome_cli, vlr_total FROM vendas ORDER BY idvenda DESC LIMIT 1";
-
+            
             Connection con = SQLConection.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery(sql);
-            
+           
             rs.next();
+            
+            
             
             txt_pedido.setText(rs.getString("idvenda"));
             codcliente.setText(rs.getString("id_cliente"));
@@ -52,7 +57,7 @@ public class Faturamento extends javax.swing.JFrame {
             data_venda.setText(rs.getString("datavenda"));
             parcelas.setEnabled(false);
             datasvenc.setEnabled(false);
-
+            
             
         } catch (ParseException ex) {
             System.out.println("Insira uma data válida!");
@@ -99,6 +104,7 @@ public class Faturamento extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         vlr_tot = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
 
         setTitle("Faturar ");
         setResizable(false);
@@ -107,9 +113,7 @@ public class Faturamento extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Pedido:");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
-
-        txt_pedido.setEditable(false);
-        getContentPane().add(txt_pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 80, -1));
+        getContentPane().add(txt_pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 70, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Cliente:");
@@ -249,6 +253,14 @@ public class Faturamento extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, -1, -1));
+
+        jButton7.setText("buscar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 70, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -424,8 +436,12 @@ public class Faturamento extends javax.swing.JFrame {
                                     + " (NULL, '"+txt_pedido.getText()+"', '"+codcliente.getText()+"','"+descliente.getText()+"', '"+data_venda.getText()+"', '"+total.getText()+"',"
                                     + " '"+codigofp.getText()+"', '"+descfp.getText()+"', '"+parcelas.getText()+"', '"+datasvenc.getText()+"', '"+numberparc+"', '"+vlrparc+"', '"+datasparc+"','"+situation+"')";
                             conection.SqlExecution(sql);
-
+                            
                        }
+                    String fatu = "FATURADA";
+                    String sql = "UPDATE VENDAS SET faturada = '"+fatu+"' WHERE idvenda = '"+txt_pedido.getText()+"';";
+                    SQLConection conection = new SQLConection();
+                    conection.SqlExecution(sql);
                        JOptionPane.showMessageDialog(null, "INFORMAÇÕES DO FATURAMENTO REGISTRADO");
                        this.dispose();                       
                    } catch (SQLException ex) {
@@ -447,6 +463,46 @@ public class Faturamento extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // buscar somente VENDAS NAO FATURADAS
+        
+        try {
+            String idped, idcli, nomecli, vlr, fat;
+            
+            String vend = txt_pedido.getText();
+            String sql = "SELECT * FROM VENDAS WHERE idvenda LIKE '"+vend+"'";
+
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            rs.next();
+            
+            idped = Integer.toString(rs.getInt("idvenda"));
+            idcli = Integer.toString(rs.getInt("id_cliente"));
+            nomecli = rs.getString("nome_cli");
+            vlr = Float.toString(rs.getFloat("vlr_total"));
+            fat = rs.getString("faturada");
+            
+            if(fat.equals("FATURADA")) {
+                JOptionPane.showMessageDialog(null, "VENDA JA FATURADA");
+            } else {
+            
+                txt_pedido.setText(idped);
+                codcliente.setText(idcli);
+                descliente.setText(nomecli);
+                total.setText(vlr);
+                data_venda.setText(new SimpleDateFormat("dd/MM/yyyy").format(new Date(System.currentTimeMillis())));
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao consultar venda!");
+        }
+       
+       
+
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -497,6 +553,7 @@ public class Faturamento extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

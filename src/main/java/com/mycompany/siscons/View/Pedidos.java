@@ -145,6 +145,8 @@ public class Pedidos extends javax.swing.JFrame {
         txt_situation = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
+        txt_fatur = new javax.swing.JTextField();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -601,6 +603,13 @@ public class Pedidos extends javax.swing.JFrame {
         });
         getContentPane().add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, -1, -1));
 
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel22.setText("Situação:");
+        getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 580, -1, -1));
+
+        txt_fatur.setEditable(false);
+        getContentPane().add(txt_fatur, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 580, 80, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -614,8 +623,21 @@ public class Pedidos extends javax.swing.JFrame {
 
     private void btn_confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confirmarActionPerformed
         // Chamar tela de faturamento onde a pessoa vai preencher onde o dinheiro irá cair  
-      
-
+        String sitaberto = txt_fatur.getText();
+        if(sitaberto.equals("EM ABERTO")) {
+            try {       
+                new Faturamento().setVisible(true);            
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } else if(sitaberto.equals("FATURADA")) {
+            JOptionPane.showMessageDialog(null, "ESSA VENDA JÁ FOI FATURADA!");
+         
+        }
+        
+        else {
+        
         String message = "Deseja confirmar a venda?";
         String title = "Confirmação";
         
@@ -640,8 +662,9 @@ public class Pedidos extends javax.swing.JFrame {
                        String descontinho = desconto.getText();
                        String vlr_total = txt_tot.getText();
                        String situation = "NÃO";
+                       String fatu = "EM ABERTO";
                        SQLConection conection = new SQLConection();
-                       String sql = "INSERT INTO VENDAS(idvenda, datavenda, id_cliente, nome_cli, rua, bairro, numero, cidade, id_vendedor, nomevend, valor_wth_desc, desconto, vlr_total, cancelada) VALUES ('"+idvendas+"', '"+data+"','"+clienteid+"', '"+clientenome+"', '"+enderecocli+"', '"+bairro+"', '"+numero+"', '"+cidade+"', '"+idvend+"', '"+nomevend+"', '"+valor_unit+"', '"+descontinho+"','"+vlr_total+"','"+situation+"')";
+                       String sql = "INSERT INTO VENDAS(idvenda, datavenda, id_cliente, nome_cli, rua, bairro, numero, cidade, id_vendedor, nomevend, valor_wth_desc, desconto, vlr_total, cancelada, faturada) VALUES ('"+idvendas+"', '"+data+"','"+clienteid+"', '"+clientenome+"', '"+enderecocli+"', '"+bairro+"', '"+numero+"', '"+cidade+"', '"+idvend+"', '"+nomevend+"', '"+valor_unit+"', '"+descontinho+"','"+vlr_total+"','"+situation+"', '"+fatu+"')";
                        conection.SqlExecution(sql);
                        this.dispose();                       
                    } catch (SQLException ex) {
@@ -673,7 +696,7 @@ public class Pedidos extends javax.swing.JFrame {
                 Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE,null, ex);
             }
           }
-       
+        }
     }//GEN-LAST:event_btn_confirmarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1043,9 +1066,9 @@ public class Pedidos extends javax.swing.JFrame {
         // buscando minha venda 
         try {
             String codvend, datavend, clieid, clinome, ruacli, bairocli, numerocli, cidadecli, idvend, nomevend, vlrsemdesc, desc, vlrtot, sit;
-            
+            String fatu;
             String vend = txt_pesquisa.getText();
-            String sql = "SELECT idvenda, datavenda, id_cliente, nome_cli, rua, bairro, numero, cidade, id_vendedor, nomevend, valor_wth_desc, desconto, vlr_total, cancelada FROM VENDAS WHERE idvenda LIKE '"+vend+"'";
+            String sql = "SELECT idvenda, datavenda, id_cliente, nome_cli, rua, bairro, numero, cidade, id_vendedor, nomevend, valor_wth_desc, desconto, vlr_total, cancelada, faturada FROM VENDAS WHERE idvenda LIKE '"+vend+"'";
             String sqlprods = "SELECT * from vendasprod where id_venda LIKE '"+vend+"'";
             try{
                 Connection con = SQLConection.getConnection();
@@ -1082,7 +1105,7 @@ public class Pedidos extends javax.swing.JFrame {
             desc = Float.toString(rs.getFloat("desconto"));
             vlrtot = Float.toString(rs.getFloat("vlr_total"));
             sit = rs.getString("cancelada");
-            
+            fatu = rs.getString("faturada");
             
             txt_pesquisa.setText(codvend);
             data_venda.setText(datavend);
@@ -1098,7 +1121,7 @@ public class Pedidos extends javax.swing.JFrame {
             desconto.setText(desc);
             txt_tot.setText(vlrtot);
             txt_situation.setText(sit);
-            
+            txt_fatur.setText(fatu);
             
              if(txt_situation.getText() != null) {        
                 String vendido = txt_pesquisa.getText();
@@ -1118,6 +1141,7 @@ public class Pedidos extends javax.swing.JFrame {
                 txt_situation.setEnabled(false);
                 txt_prod.setEnabled(false);
                 txt_descprod.setEnabled(false);
+                txt_fatur.setEnabled(false);
                 String situacao = txt_situation.getText();
                 
                 if(situacao.equals("SIM")) {
@@ -1165,7 +1189,7 @@ public class Pedidos extends javax.swing.JFrame {
           produto_descricao.setText(null);
           txt_estoque.setText(null);
           txt_situation.setText(null);
-          
+          txt_fatur.setText(null);
           
           DefaultTableModel model = (DefaultTableModel) tabela_vendas.getModel();
            model.setRowCount(0); // limpa a tabela
@@ -1252,6 +1276,7 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1275,6 +1300,7 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JTextField txt_codvend;
     private javax.swing.JTextField txt_descprod;
     private javax.swing.JTextField txt_estoque;
+    private javax.swing.JTextField txt_fatur;
     private javax.swing.JTextField txt_ncli;
     private javax.swing.JTextField txt_ncli1;
     private javax.swing.JTextField txt_nomecli;

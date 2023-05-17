@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,6 +25,7 @@ public class ConsultePedidos extends javax.swing.JFrame {
      */
     public ConsultePedidos() {
         initComponents();
+        
         try{
             Connection con = SQLConection.getConnection();
             String sql = "Select * from vendas";
@@ -33,7 +35,7 @@ public class ConsultePedidos extends javax.swing.JFrame {
             modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
 
             while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
-                modelo.addRow(new Object[]{rs.getString("idvenda"), rs.getString("datavenda"), rs.getString("id_cliente"), rs.getString("nome_cli"), rs.getString("id_vendedor"), rs.getString("nomevend"), rs.getString("valor_wth_desc"), rs.getString("desconto"), rs.getString("vlr_total"), rs.getString("cancelada")});
+                modelo.addRow(new Object[]{rs.getString("idvenda"), rs.getString("datavenda"), rs.getString("id_cliente"), rs.getString("nome_cli"), rs.getString("id_vendedor"), rs.getString("nomevend"), rs.getString("valor_wth_desc"), rs.getString("desconto"), rs.getString("vlr_total"), rs.getString("cancelada"), rs.getString("faturada")});
             }
             con.close();
         } catch (SQLException ex) {
@@ -63,7 +65,7 @@ public class ConsultePedidos extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Venda:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 30));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 40));
         getContentPane().add(txt_venda, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 420, -1));
 
         jButton1.setText("Filtrar");
@@ -84,17 +86,17 @@ public class ConsultePedidos extends javax.swing.JFrame {
 
         tabela_vendas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Pedido", "Data ", "id Cliente", "Cliente", "id Vendedor", "Vendedor", "Valor Bruto", "Desconto", "Valor Total", "Cancelada"
+                "Pedido", "Data ", "id Cliente", "Cliente", "id Vendedor", "Vendedor", "Valor Bruto", "Desconto", "Valor Total", "Cancelada", "Faturada"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -103,14 +105,18 @@ public class ConsultePedidos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabela_vendas);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 800, 343));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 840, 343));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //
-
+       String res = txt_venda.getText();
+       if(res.equals(null)) {
+           JOptionPane.showMessageDialog(null, "CAMPO NULO");
+           
+       } else {
         try{
             String venda = txt_venda.getText();
             Connection con = SQLConection.getConnection();
@@ -121,12 +127,13 @@ public class ConsultePedidos extends javax.swing.JFrame {
             modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
 
             while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
-                modelo.addRow(new Object[]{rs.getString("idvenda"), rs.getString("datavenda"), rs.getString("id_cliente"), rs.getString("nome_cli"), rs.getString("id_vendedor"), rs.getString("nomevend"), rs.getString("valor_wth_desc"), rs.getString("desconto"), rs.getString("vlr_total"), rs.getString("cancelada")});
+                modelo.addRow(new Object[]{rs.getString("idvenda"), rs.getString("datavenda"), rs.getString("id_cliente"), rs.getString("nome_cli"), rs.getString("id_vendedor"), rs.getString("nomevend"), rs.getString("valor_wth_desc"), rs.getString("desconto"), rs.getString("vlr_total"), rs.getString("cancelada"), rs.getString("faturada")});
             }
             con.close();
         } catch (SQLException ex) {
             Logger.getLogger(ConsulteFornecedores.class.getName()).log(Level.SEVERE, null, ex);
         }
+       }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -140,7 +147,7 @@ public class ConsultePedidos extends javax.swing.JFrame {
             modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
 
             while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
-                modelo.addRow(new Object[]{rs.getString("idvenda"), rs.getString("datavenda"), rs.getString("id_cliente"), rs.getString("nome_cli"), rs.getString("id_vendedor"), rs.getString("nomevend"), rs.getString("valor_wth_desc"), rs.getString("desconto"), rs.getString("vlr_total"), rs.getString("cancelada")});
+                modelo.addRow(new Object[]{rs.getString("idvenda"), rs.getString("datavenda"), rs.getString("id_cliente"), rs.getString("nome_cli"), rs.getString("id_vendedor"), rs.getString("nomevend"), rs.getString("valor_wth_desc"), rs.getString("desconto"), rs.getString("vlr_total"), rs.getString("cancelada"), rs.getString("faturada")});
             }
             con.close();
         } catch (SQLException ex) {
