@@ -188,6 +188,11 @@ public class Menu extends javax.swing.JFrame {
 
         jMenuItem12.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\mov-caixa.png")); // NOI18N
         jMenuItem12.setText("Movimento de Caixa");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
         InfosConfig.add(jMenuItem12);
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\entrada.png")); // NOI18N
@@ -389,6 +394,12 @@ public class Menu extends javax.swing.JFrame {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        // chamar minha tela de movimento de caixa
+        new MovimentoCaixa().setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
 
 
 

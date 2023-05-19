@@ -235,6 +235,7 @@ create table vendas(
 	desconto DECIMAL(10,2),
 	vlr_total DECIMAL(10,2),
     cancelada varchar(5),
+    faturada varchar(100),
 
 	FOREIGN KEY(id_cliente)
 	REFERENCES PESSOAFISICA(idpf),

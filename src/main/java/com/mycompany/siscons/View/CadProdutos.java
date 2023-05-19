@@ -344,7 +344,8 @@ public class CadProdutos extends javax.swing.JFrame {
             String cod,desc, ncmer,cestpro, titem, est, und, marc, custo, vista, prazo;
             
             String prod = descricao.getText();
-            String sql = "SELECT codigo, descricao, ncm, cest,tipo_item, qtd_estoque, unidade, marca, vlr_custo, vlr_venda_vista, vlr_venda_prazo FROM PRODUTOS WHERE DESCRICAO LIKE '"+prod+"'";
+            String sql = "SELECT codigo, descricao, ncm, cest,tipo_item, qtd_estoque, unidade, marca, vlr_custo, "
+                    + "vlr_venda_vista, vlr_venda_prazo FROM PRODUTOS WHERE DESCRICAO LIKE '"+prod+"'";
 
             Connection con = SQLConection.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -369,7 +370,7 @@ public class CadProdutos extends javax.swing.JFrame {
             descricao.setText(desc);
             ncm.setText(ncmer);
             cest.setText(cestpro);
-            tipo_item.setToolTipText(titem);
+            tipo_item.setSelectedItem(titem);
             qtd_estoque.setText(est);
             unidade.setText(und);
             marca.setText(marc);
