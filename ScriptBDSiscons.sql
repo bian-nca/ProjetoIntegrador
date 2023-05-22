@@ -214,6 +214,13 @@ create table EMPRESA(
   telefone varchar(20)
  );
 
+/*criando tabela para cadastro de centro de custo*/
+
+create table centrocusto(
+    codigo int primary key,
+    descricao varchar(200) not null,
+    observacao varchar(300)
+);
 
 
 /*modulo de vendas*/

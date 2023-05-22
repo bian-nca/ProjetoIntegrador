@@ -108,6 +108,11 @@ public class CadProdutos extends javax.swing.JFrame {
         jLabel19.setText("Tipo do Item:");
 
         tipo_item.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "00 - Mercadoria para Revenda", "01 - Matéria Prima", "02 - Embalagem", "03 - Produto em Processo", "04 - Produto Acabado", "05- Subproduto", "06 - Produto Intermediário", "07 - Materia de Uso e Consumo", "08 - Serviços", "09 - Outros Insumos", "10 - Outros" }));
+        tipo_item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipo_itemActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton3.setForeground(new java.awt.Color(0, 102, 0));
@@ -128,6 +133,11 @@ public class CadProdutos extends javax.swing.JFrame {
         });
 
         codigo.setEditable(false);
+        codigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codigoActionPerformed(evt);
+            }
+        });
 
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton6.setForeground(new java.awt.Color(102, 0, 0));
@@ -197,7 +207,7 @@ public class CadProdutos extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(29, 29, 29)
                         .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(300, 300, 300)
+                        .addGap(297, 297, 297)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(ncm, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -291,23 +301,7 @@ public class CadProdutos extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // SALVANDO OS PRODUTOS NO BANCO DE DADOS
-        /**
-         * 
-    create table produtos(
-        codigo int primary key auto_increment,
-        descricao varchar(100) not null,
-        ncm int(8),
-        cest int(8),
-        tipo_item varchar(100),
-        qtd_estoque int not null,
-        unidade varchar(50),
-        marca varchar(100),
-        vlr_custo float,
-        vlr_venda_vista float,
-        vlr_venda_prazo float
-);
-         * 
-         */
+        
           try {
                 String desc = descricao.getText();
                 String numero_cm = ncm.getText();
@@ -319,7 +313,8 @@ public class CadProdutos extends javax.swing.JFrame {
                 String custo = vlr_custo.getText();
                 String vista = vlr_venda_vista.getText();
                 String prazo = vlr_venda_prazo.getText();
-                String sqlprod = "INSERT into PRODUTOS(codigo, descricao, ncm, cest, tipo_item, qtd_estoque, unidade, marca, vlr_custo, vlr_venda_vista, vlr_venda_prazo) VALUES (NULL, '"+desc+"','"+numero_cm+"', '"+c_est+"', '"+item+"', '"+est+"', '"+und+"', '"+marc+"', '"+custo+"', '"+vista+"', '"+prazo+"')";
+                String sqlprod = "INSERT into PRODUTOS(codigo, descricao, ncm, cest, tipo_item, qtd_estoque, unidade, marca, vlr_custo, vlr_venda_vista, vlr_venda_prazo) VALUES "
+                        + "(NULL, '"+desc+"','"+numero_cm+"', '"+c_est+"', '"+item+"', '"+est+"', '"+und+"', '"+marc+"', '"+custo+"', '"+vista+"', '"+prazo+"')";
                 SQLConection conection = new SQLConection();
                 conection.SqlExecution(sqlprod);
                 JOptionPane.showMessageDialog(null, "Produto Cadastrado!");
@@ -371,6 +366,7 @@ public class CadProdutos extends javax.swing.JFrame {
             ncm.setText(ncmer);
             cest.setText(cestpro);
             tipo_item.setSelectedItem(titem);
+            //tipo_item.setSelectedIndex(4);
             qtd_estoque.setText(est);
             unidade.setText(und);
             marca.setText(marc);
@@ -450,6 +446,14 @@ public class CadProdutos extends javax.swing.JFrame {
           }
         
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codigoActionPerformed
+
+    private void tipo_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipo_itemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipo_itemActionPerformed
 
     /**
      * @param args the command line arguments

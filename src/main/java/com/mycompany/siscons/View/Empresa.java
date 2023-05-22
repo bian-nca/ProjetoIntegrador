@@ -23,6 +23,8 @@ public class Empresa extends javax.swing.JFrame {
      */
     public Empresa() {
         initComponents();
+        inscricao.setEnabled(false);
+        regime.setEnabled(false);
     }
 
     /**
@@ -130,6 +132,8 @@ public class Empresa extends javax.swing.JFrame {
         getContentPane().add(nomefantasia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 200, -1));
         getContentPane().add(bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 200, -1));
         getContentPane().add(complemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 200, -1));
+
+        inscricao.setEditable(false);
         getContentPane().add(inscricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 200, -1));
         getContentPane().add(cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 90, 110, -1));
         getContentPane().add(endereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 200, -1));
@@ -137,6 +141,8 @@ public class Empresa extends javax.swing.JFrame {
         getContentPane().add(cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 150, 200, -1));
         getContentPane().add(estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 180, 200, -1));
         getContentPane().add(ibge, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 200, -1));
+
+        regime.setEditable(false);
         getContentPane().add(regime, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 240, 200, -1));
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N

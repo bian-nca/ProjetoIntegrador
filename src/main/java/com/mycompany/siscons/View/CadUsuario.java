@@ -1,6 +1,7 @@
 package com.mycompany.siscons.View;
 
 import DAO.SQLConection;
+import Model.ConsulteUsers;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -45,6 +46,7 @@ public class CadUsuario extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         Codusuario = new javax.swing.JTextField();
         ConsultarUsuario = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setTitle("Cadastro de Usuários");
         setResizable(false);
@@ -107,10 +109,19 @@ public class CadUsuario extends javax.swing.JFrame {
 
         ConsultarUsuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ConsultarUsuario.setForeground(new java.awt.Color(0, 0, 102));
-        ConsultarUsuario.setText("CONSULTAR");
+        ConsultarUsuario.setText("Buscar");
         ConsultarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ConsultarUsuarioActionPerformed(evt);
+            }
+        });
+
+        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(0, 0, 51));
+        jButton3.setText("CONSULTAR");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -151,12 +162,14 @@ public class CadUsuario extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(ConsultarUsuario)))))
                 .addContainerGap(18, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(128, 128, 128)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(SalvarUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton3)
+                .addGap(63, 63, 63))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +202,8 @@ public class CadUsuario extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(SalvarUsuario)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
@@ -351,6 +365,12 @@ public class CadUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ConsultarUsuarioActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // iremos chamar minha tela de consulteUsers
+         new ConsulteUsers().setVisible(true);
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -367,6 +387,7 @@ public class CadUsuario extends javax.swing.JFrame {
     private javax.swing.JRadioButton OperacionalRB;
     private javax.swing.JButton SalvarUsuario;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

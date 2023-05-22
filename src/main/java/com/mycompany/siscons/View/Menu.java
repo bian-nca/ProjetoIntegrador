@@ -55,6 +55,7 @@ public class Menu extends javax.swing.JFrame {
         InfosCad = new javax.swing.JMenu();
         CadadastrarEmpresa = new javax.swing.JMenuItem();
         CadUsuario = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         CadBancos = new javax.swing.JMenuItem();
         CadProdutos = new javax.swing.JMenuItem();
         CadOperacoes = new javax.swing.JMenuItem();
@@ -65,15 +66,12 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem13 = new javax.swing.JMenuItem();
         InfosConfig = new javax.swing.JMenu();
         TelaPedidos = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -112,6 +110,15 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         InfosCad.add(CadUsuario);
+
+        jMenuItem2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\despesas.png")); // NOI18N
+        jMenuItem2.setText("Centro de Custo");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        InfosCad.add(jMenuItem2);
 
         CadBancos.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\banco.png")); // NOI18N
         CadBancos.setText("Cadastro de Bancos");
@@ -186,15 +193,6 @@ public class Menu extends javax.swing.JFrame {
         });
         InfosConfig.add(TelaPedidos);
 
-        jMenuItem12.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\mov-caixa.png")); // NOI18N
-        jMenuItem12.setText("Movimento de Caixa");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
-            }
-        });
-        InfosConfig.add(jMenuItem12);
-
         jMenuItem5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\entrada.png")); // NOI18N
         jMenuItem5.setText("Entrada de Estoque");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
@@ -218,24 +216,28 @@ public class Menu extends javax.swing.JFrame {
 
         jMenu3.setText("Financeiro");
 
-        jMenu1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\gerenciamento-de-dinheiro.png")); // NOI18N
-        jMenu1.setText("Contas a Pagar");
-
-        jMenuItem2.setText("Lançamentos");
-        jMenu1.add(jMenuItem2);
-
-        jMenuItem7.setText("Conta Corrente do Fornecedor");
-        jMenu1.add(jMenuItem7);
-
-        jMenu3.add(jMenu1);
-
         jMenu2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\gerenciamento-de-dinheiro.png")); // NOI18N
         jMenu2.setText("Contas a Receber");
 
-        jMenuItem8.setText("Lançamentos");
-        jMenu2.add(jMenuItem8);
+        jMenuItem12.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\mov-caixa.png")); // NOI18N
+        jMenuItem12.setText("Movimento de Caixa");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem12);
 
+        jMenuItem9.setText("Lançamentos Múltiplos");
+        jMenu2.add(jMenuItem9);
+
+        jMenuItem11.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\clientes.png")); // NOI18N
         jMenuItem11.setText("Conta Corrente do Cliente");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem11);
 
         jMenu3.add(jMenu2);
@@ -401,6 +403,16 @@ public class Menu extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        
+        new ContaCorrenteCliente().setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        new CentroCusto().setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -415,7 +427,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu InfosCot;
     private javax.swing.JMenuItem TelaPedidos;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -432,8 +443,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu jPopupMenu1;
     // End of variables declaration//GEN-END:variables
 

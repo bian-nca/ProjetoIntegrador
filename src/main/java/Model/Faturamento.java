@@ -302,10 +302,13 @@ public class Faturamento extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // fazendo conferência da forma de pagamento para habilitar ou deixar desabilitado o campo de parcelas
+ 
         String resposta = codigofp.getText();
+    
         if(resposta.equals("3") || (resposta.equals("1") || (resposta.equals("2") || (resposta.equals("5"))))){
             parcelas.setText("1");
             datasvenc.setEnabled(false);
+            parcelas.setEnabled(false);
             datasvenc.setText("1");
             
         } else if ((resposta.equals("4"))) {
@@ -313,11 +316,11 @@ public class Faturamento extends javax.swing.JFrame {
             datasvenc.setEnabled(true);
         }
         else{
-            parcelas.setText("1");
+            JOptionPane.showMessageDialog(null, "ESCOLHA UM FORMA DE PAGAMENTO");
+            parcelas.setEnabled(false);
             parcelas.setEnabled(false);
             datasvenc.setEnabled(false);
         }
-        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
