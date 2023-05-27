@@ -23,7 +23,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,20,0,0,3,54"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,20,0,0,3,96"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
@@ -56,7 +56,7 @@
     <Component class="javax.swing.JTextField" name="descli">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="180" y="20" width="426" height="-1"/>
+          <AbsoluteConstraints x="180" y="20" width="480" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -69,7 +69,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="610" y="20" width="-1" height="-1"/>
+          <AbsoluteConstraints x="670" y="20" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -82,7 +82,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="690" y="20" width="-1" height="-1"/>
+          <AbsoluteConstraints x="750" y="20" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -112,12 +112,12 @@
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                  <Component id="todos" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
+                  <Component id="abertos" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="17" max="32767" attributes="0"/>
+                  <Component id="pagos" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="36" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -126,12 +126,12 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="todos" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="abertos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="pagos" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -145,22 +145,28 @@
             <Property name="text" type="java.lang.String" value="Situa&#xe7;&#xe3;o:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+        <Component class="javax.swing.JRadioButton" name="todos">
           <Properties>
             <Property name="text" type="java.lang.String" value="Todos"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="todosActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="jRadioButton3">
+        <Component class="javax.swing.JRadioButton" name="abertos">
           <Properties>
             <Property name="text" type="java.lang.String" value="Abertos"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="abertosActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+        <Component class="javax.swing.JRadioButton" name="pagos">
           <Properties>
             <Property name="text" type="java.lang.String" value="Pago"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pagosActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -199,7 +205,7 @@
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="0" y="120" width="820" height="280"/>
+          <AbsoluteConstraints x="0" y="120" width="870" height="280"/>
         </Constraint>
       </Constraints>
 
@@ -208,13 +214,14 @@
         <Component class="javax.swing.JTable" name="faturamentotabel">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="0">
+              <Table columnCount="8" rowCount="0">
                 <Column editable="false" title="Pedido" type="java.lang.Object"/>
                 <Column editable="false" title="Data - Faturamento" type="java.lang.Object"/>
-                <Column editable="false" title="Valor Total - Pedido" type="java.lang.Object"/>
                 <Column editable="false" title="Parcela" type="java.lang.Object"/>
                 <Column editable="false" title="Valor da Parcela" type="java.lang.Object"/>
                 <Column editable="false" title="Vencimento - Parcela" type="java.lang.Object"/>
+                <Column editable="false" title="Valor Pago" type="java.lang.Object"/>
+                <Column editable="false" title="Valor a Pagar" type="java.lang.Object"/>
                 <Column editable="false" title="Situa&#xe7;&#xe3;o" type="java.lang.Object"/>
               </Table>
             </Property>
@@ -231,7 +238,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="20" y="450" width="-1" height="-1"/>
+          <AbsoluteConstraints x="310" y="420" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -248,19 +255,6 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="14" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Total Faturado:"/>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="20" y="470" width="110" height="30"/>
-        </Constraint>
-      </Constraints>
-    </Component>
     <Component class="javax.swing.JTextField" name="pago">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -268,17 +262,10 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JTextField" name="faturado">
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="140" y="480" width="140" height="-1"/>
-        </Constraint>
-      </Constraints>
-    </Component>
     <Component class="javax.swing.JTextField" name="receber">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="140" y="450" width="140" height="-1"/>
+          <AbsoluteConstraints x="430" y="420" width="140" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>

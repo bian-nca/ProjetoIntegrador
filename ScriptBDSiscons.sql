@@ -409,7 +409,8 @@ create table faturamento (
     vlrparcela Decimal(10,2),
     datavencimentoparcela varchar(100),
     situacao varchar(100),
-
+    vlrpago decimal(10,2),
+    vlrapagar decimal(10,2),
 
     FOREIGN KEY(idpedido)
     REFERENCES VENDAS(idvenda),

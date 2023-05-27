@@ -6,6 +6,7 @@ package com.mycompany.siscons.View;
 
 import DAO.SQLConection;
 import Model.ConsulteClientes;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,6 +26,14 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
      */
     public ContaCorrenteCliente() {
         initComponents();
+        
+        
+        
+        receber.setEnabled(false);
+        pago.setEnabled(false);
+        
+        
+        
     }
 
     /**
@@ -44,9 +53,9 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        todos = new javax.swing.JRadioButton();
+        abertos = new javax.swing.JRadioButton();
+        pagos = new javax.swing.JRadioButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
@@ -55,9 +64,7 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
         faturamentotabel = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         pago = new javax.swing.JTextField();
-        faturado = new javax.swing.JTextField();
         receber = new javax.swing.JTextField();
 
         setTitle("Conta Corrente - Cliente");
@@ -74,7 +81,7 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
             }
         });
         getContentPane().add(codcli, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 18, 90, -1));
-        getContentPane().add(descli, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 426, -1));
+        getContentPane().add(descli, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 480, -1));
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +89,7 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 20, -1, -1));
 
         jButton5.setText("Consultar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -90,21 +97,31 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, -1));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 20, -1, -1));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Situação:");
 
-        jRadioButton1.setText("Todos");
-
-        jRadioButton3.setText("Abertos");
-
-        jRadioButton2.setText("Pago");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        todos.setText("Todos");
+        todos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                todosActionPerformed(evt);
+            }
+        });
+
+        abertos.setText("Abertos");
+        abertos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abertosActionPerformed(evt);
+            }
+        });
+
+        pagos.setText("Pago");
+        pagos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pagosActionPerformed(evt);
             }
         });
 
@@ -116,23 +133,23 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton1)
+                .addComponent(todos)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton3)
+                .addComponent(abertos)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton2)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addComponent(pagos)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
+                    .addComponent(todos)
                     .addComponent(jLabel2)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton2))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addComponent(abertos)
+                    .addComponent(pagos))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, 50));
@@ -146,11 +163,11 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Pedido", "Data - Faturamento", "Valor Total - Pedido", "Parcela", "Valor da Parcela", "Vencimento - Parcela", "Situação"
+                "Pedido", "Data - Faturamento", "Parcela", "Valor da Parcela", "Vencimento - Parcela", "Valor Pago", "Valor a Pagar", "Situação"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -159,22 +176,17 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(faturamentotabel);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 820, 280));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 870, 280));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Total a Receber:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Total Pago:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, 80, -1));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("Total Faturado:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, 110, 30));
         getContentPane().add(pago, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, 140, -1));
-        getContentPane().add(faturado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 480, 140, -1));
-        getContentPane().add(receber, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 450, 140, -1));
+        getContentPane().add(receber, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, 140, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -184,9 +196,52 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
         new ConsulteClientes().setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // 
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    private void pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagosActionPerformed
+    try {                                        
+         //ao selecionar TODOS irá desabilitar as outras opções selecinadas
+         abertos.setSelected(false);
+         todos.setSelected(false);
+                        
+         String codigo = codcli.getText();
+         String name;
+         String situ = "PAGO";
+         Connection con = SQLConection.getConnection();
+         String sql = "Select * from faturamento where idcli LIKE '"+codigo+"' and situacao LIKE '"+situ+"'";
+
+           try {
+                PreparedStatement stmt = con.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery(sql);
+                rs.next();
+                name = rs.getString("nomecli");
+                descli.setText(name);
+           } catch (SQLException ex) {
+                            Logger.getLogger(ContaCorrenteCliente.class.getName()).log(Level.SEVERE, null,ex);
+           }
+                        
+                PreparedStatement stmt = con.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery();
+                DefaultTableModel modelo = (DefaultTableModel) faturamentotabel.getModel();
+                modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
+                        
+                while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
+                      modelo.addRow(new Object[]{rs.getString("idpedido"), rs.getString("datafaturamento"), rs.getString("numeroparcelas"), rs.getString("vlrparcela"), rs.getString("datavencimentoparcela"),rs.getString("vlrpago"), " ", rs.getString("situacao")});
+          }                              
+                int totvalpago = faturamentotabel.getRowCount();
+                BigDecimal tot = BigDecimal.ZERO;
+                for (int i = 0; i < totvalpago; i++) {
+                    BigDecimal totalpagado = new BigDecimal(faturamentotabel.getValueAt(i, 5).toString());
+                    tot = tot.add(totalpagado);
+                }
+                pago.setText(tot.toString());
+                receber.setText(null);
+               
+                        
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ContaCorrenteCliente.class.getName()).log(Level.SEVERE, null,ex);
+                    }
+   
+        
+    }//GEN-LAST:event_pagosActionPerformed
 
     private void codcliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codcliActionPerformed
         // 
@@ -195,53 +250,168 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //buscando as informações de faturamento do meu cliente 
          String cod, name;
-        if(codcli.getText().isEmpty()) {
-            try{
-                    String nome = descli.getText();
-                    Connection con = SQLConection.getConnection();
-                    String sql = "Select * from faturamento where nomecli LIKE '"+nome+"'";
-                    
-                    PreparedStatement stmt = con.prepareStatement(sql);
-                    ResultSet rs = stmt.executeQuery();
-                    DefaultTableModel modelo = (DefaultTableModel) faturamentotabel.getModel();
-                    modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
-                    rs.next();
-                    cod = Integer.toString(rs.getInt("idcli"));
-                    codcli.setText(cod);  
-                    while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
-                        modelo.addRow(new Object[]{rs.getString("idpedido"), rs.getString("datafaturamento"), rs.getString("vlrpagar"), rs.getString("numeroparcelas"), rs.getString("vlrparcela"), rs.getString("datavencimentoparcela"), rs.getString("situacao")});   
-                    }
-                    con.close();
-                } catch (SQLException ex) {
-                        Logger.getLogger(ContaCorrenteCliente.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-        } else {
+         
             try{
                     String id = codcli.getText();
                     Connection con = SQLConection.getConnection();
                     String sql = "Select * from faturamento where idcli LIKE '"+id+"'";
-                    
-                    PreparedStatement stmt = con.prepareStatement(sql);
-                    ResultSet rs = stmt.executeQuery();
-                    DefaultTableModel modelo = (DefaultTableModel) faturamentotabel.getModel();
-                    modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
-                    rs.next();
-                    name = rs.getString(("nomecli"));
-                    descli.setText(name);  
-                    while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
-                        modelo.addRow(new Object[]{rs.getString("idpedido"), rs.getString("datafaturamento"), rs.getString("vlrpagar"), rs.getString("numeroparcelas"), rs.getString("vlrparcela"), rs.getString("datavencimentoparcela"), rs.getString("situacao")});   
+                    try {
+                        String nomesql = "Select nomecli from faturamento where idcli LIKE '"+id+"'";
+                        PreparedStatement stmt = con.prepareStatement(nomesql);
+                        ResultSet rs = stmt.executeQuery(sql);
+                        rs.next();
+                        name = rs.getString("nomecli");
+                        descli.setText(name);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ContaCorrenteCliente.class.getName()).log(Level.SEVERE, null,ex);
                     }
+                    
+                PreparedStatement stmt = con.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery();
+                DefaultTableModel modelo = (DefaultTableModel) faturamentotabel.getModel();
+                modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
+                 
+                while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
+                     modelo.addRow(new Object[]{rs.getString("idpedido"), rs.getString("datafaturamento"), rs.getString("numeroparcelas"), rs.getString("vlrparcela"), rs.getString("datavencimentoparcela"),rs.getString("vlrpago"),rs.getString("vlrapagar"), rs.getString("situacao")});   
+                 }
+                
+                
+                int totvalpago = faturamentotabel.getRowCount();
+                BigDecimal tot = BigDecimal.ZERO;
+                for (int i = 0; i < totvalpago; i++) {
+                    BigDecimal totalpagado = new BigDecimal(faturamentotabel.getValueAt(i, 5).toString());
+                    tot = tot.add(totalpagado);
+                }
+                pago.setText(tot.toString());
+
+                int totalapagar = faturamentotabel.getRowCount();
+                BigDecimal total = BigDecimal.ZERO;
+                for (int i = 0; i < totalapagar; i++) {
+                    BigDecimal faltapagar = new BigDecimal(faturamentotabel.getValueAt(i, 6).toString());
+                    total = total.add(faltapagar);
+                }
+                receber.setText(total.toString());
                     
                     con.close();
                 } catch (SQLException ex) {
                         Logger.getLogger(ContaCorrenteCliente.class.getName()).log(Level.SEVERE, null, ex);
                     }
-            
-        }
-       
+     
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void todosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_todosActionPerformed
+        // se selecionar o todos irá desabilitar as outras opções selecionadas
+        abertos.setSelected(false);
+        pagos.setSelected(false);
+
+         String cod, name;
+         
+            try{
+                    String id = codcli.getText();
+                    Connection con = SQLConection.getConnection();
+                    String sql = "Select * from faturamento where idcli LIKE '"+id+"'";
+                    try {
+                        String nomesql = "Select nomecli from faturamento where idcli LIKE '"+id+"'";
+                        PreparedStatement stmt = con.prepareStatement(nomesql);
+                        ResultSet rs = stmt.executeQuery(sql);
+                        rs.next();
+                        name = rs.getString("nomecli");
+                        descli.setText(name);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ContaCorrenteCliente.class.getName()).log(Level.SEVERE, null,ex);
+                    }
+                    
+                PreparedStatement stmt = con.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery();
+                DefaultTableModel modelo = (DefaultTableModel) faturamentotabel.getModel();
+                modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
+                 
+                while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
+                     modelo.addRow(new Object[]{rs.getString("idpedido"), rs.getString("datafaturamento"), rs.getString("numeroparcelas"), rs.getString("vlrparcela"), rs.getString("datavencimentoparcela"),rs.getString("vlrpago"),rs.getString("vlrapagar"), rs.getString("situacao")});   
+                 }
+                
+                
+                int totvalpago = faturamentotabel.getRowCount();
+                BigDecimal tot = BigDecimal.ZERO;
+                for (int i = 0; i < totvalpago; i++) {
+                    BigDecimal totalpagado = new BigDecimal(faturamentotabel.getValueAt(i, 5).toString());
+                    tot = tot.add(totalpagado);
+                }
+                pago.setText(tot.toString());
+
+                int totalapagar = faturamentotabel.getRowCount();
+                BigDecimal total = BigDecimal.ZERO;
+                for (int i = 0; i < totalapagar; i++) {
+                    BigDecimal faltapagar = new BigDecimal(faturamentotabel.getValueAt(i, 6).toString());
+                    total = total.add(faltapagar);
+                }
+                receber.setText(total.toString());
+                    
+                    con.close();
+                } catch (SQLException ex) {
+                        Logger.getLogger(ContaCorrenteCliente.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+     
+        
+    }//GEN-LAST:event_todosActionPerformed
+
+    private void abertosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abertosActionPerformed
+      try {                                        
+         //ao selecionar TODOS irá desabilitar as outras opções selecinadas
+         todos.setSelected(false);
+         pagos.setSelected(false);
+                        
+         String codigo = codcli.getText();
+         String name;
+         String situ = "EM ABERTO";
+         Connection con = SQLConection.getConnection();
+         String sql = "Select * from faturamento where idcli LIKE '"+codigo+"' and situacao LIKE '"+situ+"'";
+
+           try {
+                            PreparedStatement stmt = con.prepareStatement(sql);
+                            ResultSet rs = stmt.executeQuery(sql);
+                            rs.next();
+                            name = rs.getString("nomecli");
+                            descli.setText(name);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(ContaCorrenteCliente.class.getName()).log(Level.SEVERE, null,ex);
+                        }
+                        
+                        PreparedStatement stmt = con.prepareStatement(sql);
+                        ResultSet rs = stmt.executeQuery();
+                        DefaultTableModel modelo = (DefaultTableModel) faturamentotabel.getModel();
+                        modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
+                        
+                        while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
+                            modelo.addRow(new Object[]{rs.getString("idpedido"), rs.getString("datafaturamento"), rs.getString("numeroparcelas"), rs.getString("vlrparcela"), rs.getString("datavencimentoparcela"),rs.getString("vlrpago"),rs.getString("vlrapagar"), rs.getString("situacao")});
+                        }
+                        
+                         
+                int totvalpago = faturamentotabel.getRowCount();
+                BigDecimal tot = BigDecimal.ZERO;
+                for (int i = 0; i < totvalpago; i++) {
+                    BigDecimal totalpagado = new BigDecimal(faturamentotabel.getValueAt(i, 5).toString());
+                    tot = tot.add(totalpagado);
+                }
+                pago.setText(tot.toString());
+
+                int totalapagar = faturamentotabel.getRowCount();
+                BigDecimal total = BigDecimal.ZERO;
+                for (int i = 0; i < totalapagar; i++) {
+                    BigDecimal faltapagar = new BigDecimal(faturamentotabel.getValueAt(i, 6).toString());
+                    total = total.add(faltapagar);
+                }
+                receber.setText(total.toString());
+                        
+                        
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ContaCorrenteCliente.class.getName()).log(Level.SEVERE, null,ex);
+                    }
+        
+            
+        
+    }//GEN-LAST:event_abertosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,10 +449,10 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton abertos;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField codcli;
     private javax.swing.JTextField descli;
-    private javax.swing.JTextField faturado;
     private javax.swing.JTable faturamentotabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
@@ -290,17 +460,15 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField pago;
+    private javax.swing.JRadioButton pagos;
     private javax.swing.JTextField receber;
+    private javax.swing.JRadioButton todos;
     // End of variables declaration//GEN-END:variables
 }

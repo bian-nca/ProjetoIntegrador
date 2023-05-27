@@ -987,7 +987,7 @@ public class Pedidos extends javax.swing.JFrame {
         //fazendo o field do meu desconto ser calculado e abatido no valor total 
         //mostrando o valor total com o desconto
         
- 
+        //soma total sem desconto
         int totvalunit = tabela_vendas.getRowCount();
         BigDecimal tot = BigDecimal.ZERO;
         for (int i = 0; i < totvalunit; i++) {

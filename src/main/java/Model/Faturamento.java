@@ -5,6 +5,7 @@
 package Model;
 
 import DAO.SQLConection;
+import java.text.SimpleDateFormat;
 import static com.fasterxml.jackson.databind.util.ISO8601Utils.format;
 import com.mycompany.siscons.View.Pedidos;
 import static java.lang.String.format;
@@ -15,6 +16,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import static java.text.MessageFormat.format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -362,9 +364,10 @@ public class Faturamento extends javax.swing.JFrame {
                 // Preenche a tabela com as informações das parcelas
                 DefaultTableModel model = (DefaultTableModel) table_parcelas.getModel();
                 model.setRowCount(0);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 for (int i = 1; i <= numParcelas; i++) {
                     // Adiciona a linha com os dados da parcela
-                    String dataFormatada = format(dataVencimento.getTime());
+                    String dataFormatada = dateFormat.format(dataVencimento.getTime());
                     model.addRow(new Object[] { i, valorParcela, dataFormatada });
 
                     // Adiciona o número de dias para o vencimento das próximas parcelas
@@ -421,7 +424,8 @@ public class Faturamento extends javax.swing.JFrame {
        
         String message = "Deseja confirmar o faturamento?";
         String title = "Confirmação";
-
+        float vlrpag = (float) 0.0;
+  
         int reply = JOptionPane.showConfirmDialog(null, message, title, JOptionPane.YES_NO_OPTION);
           if (reply == JOptionPane.YES_OPTION)
           {
@@ -434,10 +438,11 @@ public class Faturamento extends javax.swing.JFrame {
                             String datasparc = (String)table_parcelas.getValueAt(row,2);
                             SQLConection conection = new SQLConection();
                             String sql = "INSERT INTO FATURAMENTO(idfatura, idpedido, idcli, nomecli, datafaturamento, vlrpagar, idformapag, descformapag, qtdparcelas,"
-                                    + " vencimentodias, numeroparcelas, vlrparcela, datavencimentoparcela, situacao)"
+                                    + " vencimentodias, numeroparcelas, vlrparcela, datavencimentoparcela, situacao, vlrpago, vlrapagar)"
                                     + " VALUES"
                                     + " (NULL, '"+txt_pedido.getText()+"', '"+codcliente.getText()+"','"+descliente.getText()+"', '"+data_venda.getText()+"', '"+total.getText()+"',"
-                                    + " '"+codigofp.getText()+"', '"+descfp.getText()+"', '"+parcelas.getText()+"', '"+datasvenc.getText()+"', '"+numberparc+"', '"+vlrparc+"', '"+datasparc+"','"+situation+"')";
+                                    + " '"+codigofp.getText()+"', '"+descfp.getText()+"', '"+parcelas.getText()+"',"
+                                    + " '"+datasvenc.getText()+"', '"+numberparc+"', '"+vlrparc+"', '"+datasparc+"','"+situation+"', '"+vlrpag+"', '"+vlrparc+"')";
                             conection.SqlExecution(sql);
                             
                        }
