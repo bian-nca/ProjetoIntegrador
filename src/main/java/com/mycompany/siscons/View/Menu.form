@@ -215,6 +215,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Lan&#xe7;amentos M&#xfa;ltiplos"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem9ActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem11">
                   <Properties>

@@ -424,3 +424,16 @@ create table faturamento (
 );
 
 
+create table entrapag(
+    idcc int,
+    idped int,
+    desccc varchar(100),
+    dataentrada varchar(100),
+    valorentr decimal(10,2),
+
+    FOREIGN KEY(idcc)
+    REFERENCES centrocusto(codigo),
+
+    FOREIGN KEY(idped)
+    REFERENCES VENDAS(idvenda)
+);

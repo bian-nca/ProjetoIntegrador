@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,6 +32,7 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
         
         receber.setEnabled(false);
         pago.setEnabled(false);
+        
         
         
         
@@ -62,10 +64,10 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         faturamentotabel = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         pago = new javax.swing.JTextField();
         receber = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         setTitle("Conta Corrente - Cliente");
         setResizable(false);
@@ -156,7 +158,7 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, -1, -1));
         getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 820, -1));
         getContentPane().add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, -1, -1));
-        getContentPane().add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 820, 10));
+        getContentPane().add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 870, 10));
 
         faturamentotabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -178,15 +180,15 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 870, 280));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText("Total a Receber:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 420, -1, -1));
-
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Total Pago:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, 80, -1));
+        jLabel4.setText("Total a Receber:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, 110, -1));
         getContentPane().add(pago, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 420, 140, -1));
-        getContentPane().add(receber, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, 140, -1));
+        getContentPane().add(receber, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 420, 140, -1));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setText("Total Pago:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, 80, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -201,7 +203,7 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
          //ao selecionar TODOS irá desabilitar as outras opções selecinadas
          abertos.setSelected(false);
          todos.setSelected(false);
-                        
+
          String codigo = codcli.getText();
          String name;
          String situ = "PAGO";
@@ -224,7 +226,7 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
                 modelo.setNumRows(0); /* Vai ter nenhuma linha inicialmente, elas serão adicionadas conforme o bd for encontrando no meu banco de dados*/
                         
                 while(rs.next()){   /*Enquanto houver dados ele irá fazer esse comando para pegar todas as minhas informações*/
-                      modelo.addRow(new Object[]{rs.getString("idpedido"), rs.getString("datafaturamento"), rs.getString("numeroparcelas"), rs.getString("vlrparcela"), rs.getString("datavencimentoparcela"),rs.getString("vlrpago"), " ", rs.getString("situacao")});
+                      modelo.addRow(new Object[]{rs.getString("idpedido"), rs.getString("datafaturamento"), rs.getString("numeroparcelas"), rs.getString("vlrparcela"), rs.getString("datavencimentoparcela"),rs.getString("vlrpago"), rs.getString("vlrapagar"), rs.getString("situacao")});
           }                              
                 int totvalpago = faturamentotabel.getRowCount();
                 BigDecimal tot = BigDecimal.ZERO;
@@ -250,20 +252,21 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //buscando as informações de faturamento do meu cliente 
          String cod, name;
-         
             try{
                     String id = codcli.getText();
                     Connection con = SQLConection.getConnection();
                     String sql = "Select * from faturamento where idcli LIKE '"+id+"'";
                     try {
-                        String nomesql = "Select nomecli from faturamento where idcli LIKE '"+id+"'";
-                        PreparedStatement stmt = con.prepareStatement(nomesql);
+                        PreparedStatement stmt = con.prepareStatement(sql);
                         ResultSet rs = stmt.executeQuery(sql);
                         rs.next();
                         name = rs.getString("nomecli");
                         descli.setText(name);
                     } catch (SQLException ex) {
                         Logger.getLogger(ContaCorrenteCliente.class.getName()).log(Level.SEVERE, null,ex);
+                        JOptionPane.showMessageDialog(null, "Informe um cliente válido");
+                        descli.setText("");
+                        codcli.setText("");
                     }
                     
                 PreparedStatement stmt = con.prepareStatement(sql);
@@ -284,13 +287,8 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
                 }
                 pago.setText(tot.toString());
 
-                int totalapagar = faturamentotabel.getRowCount();
-                BigDecimal total = BigDecimal.ZERO;
-                for (int i = 0; i < totalapagar; i++) {
-                    BigDecimal faltapagar = new BigDecimal(faturamentotabel.getValueAt(i, 6).toString());
-                    total = total.add(faltapagar);
-                }
-                receber.setText(total.toString());
+                
+                receber.setText(null);
                     
                     con.close();
                 } catch (SQLException ex) {
@@ -304,7 +302,7 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
         // se selecionar o todos irá desabilitar as outras opções selecionadas
         abertos.setSelected(false);
         pagos.setSelected(false);
-
+        
          String cod, name;
          
             try{
@@ -340,13 +338,8 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
                 }
                 pago.setText(tot.toString());
 
-                int totalapagar = faturamentotabel.getRowCount();
-                BigDecimal total = BigDecimal.ZERO;
-                for (int i = 0; i < totalapagar; i++) {
-                    BigDecimal faltapagar = new BigDecimal(faturamentotabel.getValueAt(i, 6).toString());
-                    total = total.add(faltapagar);
-                }
-                receber.setText(total.toString());
+               
+                receber.setText(null);
                     
                     con.close();
                 } catch (SQLException ex) {
@@ -388,13 +381,8 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
                         }
                         
                          
-                int totvalpago = faturamentotabel.getRowCount();
-                BigDecimal tot = BigDecimal.ZERO;
-                for (int i = 0; i < totvalpago; i++) {
-                    BigDecimal totalpagado = new BigDecimal(faturamentotabel.getValueAt(i, 5).toString());
-                    tot = tot.add(totalpagado);
-                }
-                pago.setText(tot.toString());
+                
+                pago.setText(null);
 
                 int totalapagar = faturamentotabel.getRowCount();
                 BigDecimal total = BigDecimal.ZERO;
@@ -458,8 +446,8 @@ public class ContaCorrenteCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
