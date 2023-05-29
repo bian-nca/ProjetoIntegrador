@@ -32,57 +32,57 @@ public class RelatorioPF {
     }
     private void gerarRelatorio() {
         Document documento = new Document();
-    try{
-        PdfWriter.getInstance(documento, new FileOutputStream("D:\\Relatorio_PF_PDF.pdf"));
-        documento.open();
-        documento.setPageSize(PageSize.A4);
-        
-        documento.add(new Paragraph("SYSCONS - Relatório de Cadastros Pessoa Física"));
-        documento.add(new Paragraph(" "));
-        documento.add(new Paragraph(" "));
-        
-        
-        documento.add(createTablePF());
-    
-        JOptionPane.showMessageDialog(null, "Relatório Criado em D://");
-    }catch(DocumentException | IOException de){
-    }finally{
-        documento.close();
-    }
+        try{
+            PdfWriter.getInstance(documento, new FileOutputStream("D:\\Relatorio_PF_PDF.pdf"));
+            documento.open();
+            documento.setPageSize(PageSize.A4);
+
+            documento.add(new Paragraph("SYSCONS - Relatório de Cadastros Pessoa Física"));
+            documento.add(new Paragraph(" "));
+            documento.add(new Paragraph(" "));
+
+
+            documento.add(createTablePF());
+
+            JOptionPane.showMessageDialog(null, "Relatório Criado em D://");
+        }catch(DocumentException | IOException de){}
+        finally{
+            documento.close();
+        }
     }
     
         private static PdfPTable createTablePF(){
-        PdfPTable table = new PdfPTable(3);
-        try {
-            String nome, cpf, telefone;
-            PdfPCell c1 = new PdfPCell(new Phrase("Nome"));
-            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(c1);
-            c1 = new PdfPCell(new Phrase("CPF"));
-            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(c1);
-            c1 = new PdfPCell(new Phrase("Telefone"));
-            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(c1);
-            table.setHeaderRows(1);
-            
-            int count = 1;
-            String sql = "SELECT * FROM pessoafisica";
-            Connection con = SQLConection.getConnection();
-            PreparedStatement stmt = con.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery(sql);
-            while(rs.next()){
-                nome = rs.getString("nome");
-                cpf = rs.getString("cpf");
-                telefone =rs.getString("telefone");
-                table.addCell(nome);
-                table.addCell(cpf);
-                table.addCell(telefone);
-            }
+            PdfPTable table = new PdfPTable(3);
+            try {
+                String nome, cpf, telefone;
+                PdfPCell c1 = new PdfPCell(new Phrase("Nome"));
+                c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(c1);
+                c1 = new PdfPCell(new Phrase("CPF"));
+                c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(c1);
+                c1 = new PdfPCell(new Phrase("Telefone"));
+                c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(c1);
+                table.setHeaderRows(1);
 
-        } catch (SQLException ex) {
-            Logger.getLogger(Relatorios.class.getName()).log(Level.SEVERE, null, ex);
+                int count = 1;
+                String sql = "SELECT * FROM pessoafisica";
+                Connection con = SQLConection.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery(sql);
+                while(rs.next()){
+                    nome = rs.getString("nome");
+                    cpf = rs.getString("cpf");
+                    telefone =rs.getString("telefone");
+                    table.addCell(nome);
+                    table.addCell(cpf);
+                    table.addCell(telefone);
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Relatorios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return table;
         }
-        return table;
-    }
 }

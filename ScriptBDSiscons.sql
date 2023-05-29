@@ -437,3 +437,44 @@ create table entrapag(
     FOREIGN KEY(idped)
     REFERENCES VENDAS(idvenda)
 );
+
+************************************TABELA COTAÇÃO DE VENDAS*************************************************
+//Cópia descarada da tabela de vendas.. XD
+
+create table cotacao(
+	idvenda int primary key,
+	datavenda varchar(11),
+	id_cliente int,
+	nome_cli varchar(200),
+	rua varchar(100),
+	bairro varchar(100),
+	numero varchar(8),
+	cidade varchar(100),
+	id_vendedor int,
+	nomevend varchar(100),
+	valor_wth_desc DECIMAL(10,2),
+	desconto DECIMAL(10,2),
+	vlr_total DECIMAL(10,2),
+    cancelada varchar(5),
+    faturada varchar(100),
+
+	FOREIGN KEY(id_cliente)
+	REFERENCES PESSOAFISICA(idpf),
+
+	FOREIGN KEY(id_vendedor)
+	REFERENCES VENDEDORES(idvendedor)
+);
+
+********************************TABELA PARA OS ITENS DA COTAÇÃO************************************
+create table itens_cotação(
+	iditens_cotacao int primary key auto_increment,
+	idcotacao int,
+	codproduto int,
+	descproduto varchar(200),
+	qtdproduto int,
+	valorunit float,
+	valortotal float,
+
+	FOREIGN KEY(codproduto)
+	REFERENCES PRODUTOS(codigo)
+);
