@@ -70,7 +70,6 @@ public class Menu extends javax.swing.JFrame {
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -218,15 +217,6 @@ public class Menu extends javax.swing.JFrame {
 
         jMenu2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\gerenciamento-de-dinheiro.png")); // NOI18N
         jMenu2.setText("Contas a Receber");
-
-        jMenuItem12.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bianca\\Documents\\NetBeansProjects\\ProjetoIntegrador\\src\\main\\java\\com\\mycompany\\siscons\\resources\\mov-caixa.png")); // NOI18N
-        jMenuItem12.setText("Movimento de Caixa");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem12);
 
         jMenuItem9.setText("Lançamentos Múltiplos");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
@@ -402,24 +392,18 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jCheckBoxMenuItem1ActionPerformed
 
-    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-        // chamar minha tela de movimento de caixa
-        new MovimentoCaixa().setVisible(true);
-        
-    }//GEN-LAST:event_jMenuItem12ActionPerformed
-
-    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-        
-        new ContaCorrenteCliente().setVisible(true);
-        
-    }//GEN-LAST:event_jMenuItem11ActionPerformed
-
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         new CentroCusto().setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+
+        new ContaCorrenteCliente().setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-         new LancMult().setVisible(true);
+        new LancMult().setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
 
@@ -445,7 +429,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;

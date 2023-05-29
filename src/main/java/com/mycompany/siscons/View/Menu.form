@@ -200,17 +200,6 @@
                 <Property name="text" type="java.lang.String" value="Contas a Receber"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem12">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\Bianca\Documents\NetBeansProjects\ProjetoIntegrador\src\main\java\com\mycompany\siscons\resources\mov-caixa.png"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Movimento de Caixa"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem12ActionPerformed"/>
-                  </Events>
-                </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem9">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Lan&#xe7;amentos M&#xfa;ltiplos"/>

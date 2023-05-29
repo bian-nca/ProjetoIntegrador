@@ -47,6 +47,7 @@ public class CadUsuario extends javax.swing.JFrame {
         Codusuario = new javax.swing.JTextField();
         ConsultarUsuario = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setTitle("Cadastro de Usuários");
         setResizable(false);
@@ -125,6 +126,15 @@ public class CadUsuario extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(0, 0, 51));
+        jButton5.setText("Limpar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -156,7 +166,10 @@ public class CadUsuario extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(CadUsuarioSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
                             .addComponent(CadUsuarioSenhaRep, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Codusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Codusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton5))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(CadUsuarioNome)
                                 .addGap(18, 18, 18)
@@ -174,10 +187,11 @@ public class CadUsuario extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(Codusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Codusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
@@ -204,7 +218,7 @@ public class CadUsuario extends javax.swing.JFrame {
                     .addComponent(SalvarUsuario)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -230,6 +244,7 @@ public class CadUsuario extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Erro na execução do SQL <CADASTRO NOVO USUÁRIO>");
                 }
+                new CadUsuario().setVisible(true);
             }
             else
             {
@@ -255,6 +270,8 @@ public class CadUsuario extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(rootPane, "As senhas digitadas não conferem");
         }
+        
+        new CadUsuario().setVisible(true);
     }//GEN-LAST:event_SalvarUsuarioActionPerformed
 
     private void AtualizarRBs()
@@ -320,6 +337,7 @@ public class CadUsuario extends javax.swing.JFrame {
                JOptionPane.showMessageDialog(null, "Erro ao deletar usuario!");     
             }
           }
+          new CadUsuario().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void ConsultarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarUsuarioActionPerformed
@@ -371,6 +389,19 @@ public class CadUsuario extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+  
+            // facilitando para o cliente poder limpar os campos
+            Codusuario.setText(null);
+            CadUsuarioNome.setText(null);
+            CadUsuarioSenha.setText(null);
+            CadUsuarioSenhaRep.setText(null);
+            AdministrativoRB.setSelected(false);
+            OperacionalRB.setSelected(false);
+            GerenciaRB.setSelected(false);
+            
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -388,6 +419,7 @@ public class CadUsuario extends javax.swing.JFrame {
     private javax.swing.JButton SalvarUsuario;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

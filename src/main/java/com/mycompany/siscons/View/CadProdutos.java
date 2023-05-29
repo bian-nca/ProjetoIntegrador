@@ -26,8 +26,22 @@ public class CadProdutos extends javax.swing.JFrame {
      * Creates new form CadProdutos
      */
     public CadProdutos() {
-        initComponents();
-        setLocationRelativeTo(null);
+        try {
+            initComponents();
+            setLocationRelativeTo(null);
+            SQLConection conection = new SQLConection();
+            String sql = "SELECT MAX(codigo) AS MAX_COD FROM PRODUTOS"; //estou obtendo o ultimo valor da coluna "idvenda" da minha tablea "vendas" e irei incrementá-lo posteriormente em +1
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                int maxId = rs.getInt("MAX_COD");
+                int proxId = maxId + 1;
+                codigo.setText(Integer.toString(proxId));
+            }  
+        } catch (SQLException ex) {
+            Logger.getLogger(CadProdutos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -68,6 +82,7 @@ public class CadProdutos extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
 
         setTitle("Cadastro de Estoque");
         setResizable(false);
@@ -132,7 +147,6 @@ public class CadProdutos extends javax.swing.JFrame {
             }
         });
 
-        codigo.setEditable(false);
         codigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 codigoActionPerformed(evt);
@@ -162,6 +176,15 @@ public class CadProdutos extends javax.swing.JFrame {
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(0, 0, 51));
+        jButton7.setText("Limpar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
             }
         });
 
@@ -207,7 +230,9 @@ public class CadProdutos extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(29, 29, 29)
                         .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(297, 297, 297)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton7)
+                        .addGap(208, 208, 208)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(ncm, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -252,10 +277,12 @@ public class CadProdutos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel19)
                             .addComponent(tipo_item, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(7, 7, 7)
+                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
@@ -293,7 +320,7 @@ public class CadProdutos extends javax.swing.JFrame {
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
@@ -303,6 +330,7 @@ public class CadProdutos extends javax.swing.JFrame {
         // SALVANDO OS PRODUTOS NO BANCO DE DADOS
         
           try {
+                String cod = codigo.getText();
                 String desc = descricao.getText();
                 String numero_cm = ncm.getText();
                 String c_est = cest.getText();
@@ -314,7 +342,7 @@ public class CadProdutos extends javax.swing.JFrame {
                 String vista = vlr_venda_vista.getText();
                 String prazo = vlr_venda_prazo.getText();
                 String sqlprod = "INSERT into PRODUTOS(codigo, descricao, ncm, cest, tipo_item, qtd_estoque, unidade, marca, vlr_custo, vlr_venda_vista, vlr_venda_prazo) VALUES "
-                        + "(NULL, '"+desc+"','"+numero_cm+"', '"+c_est+"', '"+item+"', '"+est+"', '"+und+"', '"+marc+"', '"+custo+"', '"+vista+"', '"+prazo+"')";
+                        + "('"+codigo.getText()+"', '"+desc+"','"+numero_cm+"', '"+c_est+"', '"+item+"', '"+est+"', '"+und+"', '"+marc+"', '"+custo+"', '"+vista+"', '"+prazo+"')";
                 SQLConection conection = new SQLConection();
                 conection.SqlExecution(sqlprod);
                 JOptionPane.showMessageDialog(null, "Produto Cadastrado!");
@@ -323,7 +351,7 @@ public class CadProdutos extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Erro na execução do SQL");
                 JOptionPane.showMessageDialog(null, "NÃO FOI POSSÍVEL ESTABELECER CONEXÃO COM O BANCO DE DADOS");
             }
-                         
+            new CadProdutos().setVisible(true);
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -350,8 +378,8 @@ public class CadProdutos extends javax.swing.JFrame {
             
             cod = Integer.toString(rs.getInt("codigo"));
             desc = rs.getString("descricao");
-            ncmer = Integer.toString(rs.getInt("ncm"));
-            cestpro = Integer.toString(rs.getInt("cest"));
+            ncmer = rs.getString("ncm");
+            cestpro = rs.getString("cest");
             titem = rs.getString("tipo_item");
             est = Integer.toString(rs.getInt("qtd_estoque"));
             und = rs.getString("unidade");
@@ -444,7 +472,7 @@ public class CadProdutos extends javax.swing.JFrame {
                JOptionPane.showMessageDialog(null, "Erro ao deletar produto!");     
             }
           }
-        
+        new CadProdutos().setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoActionPerformed
@@ -454,6 +482,37 @@ public class CadProdutos extends javax.swing.JFrame {
     private void tipo_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipo_itemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tipo_itemActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+                
+        try {
+            codigo.setText(null);
+            descricao.setText(null);
+            ncm.setText(null);
+            cest.setText(null);
+            tipo_item.setSelectedIndex(0);
+            qtd_estoque.setText(null);
+            unidade.setText(null);
+            marca.setText(null);
+            vlr_custo.setText(null);
+            vlr_venda_vista.setText(null);
+            vlr_venda_prazo.setText(null);
+            SQLConection conection = new SQLConection();
+            String sql = "SELECT MAX(codigo) AS MAX_COD FROM PRODUTOS"; //estou obtendo o ultimo valor da coluna "idvenda" da minha tablea "vendas" e irei incrementá-lo posteriormente em +1
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                int maxId = rs.getInt("MAX_COD");
+                int proxId = maxId + 1;
+                codigo.setText(Integer.toString(proxId));  
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CadProdutos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -468,6 +527,7 @@ public class CadProdutos extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

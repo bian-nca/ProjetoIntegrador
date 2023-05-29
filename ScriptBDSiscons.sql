@@ -106,10 +106,10 @@ desc pessoajuridica;
 +----------+--------------+------+-----+---------+----------------+
 
 create table produtos(
-    codigo int primary key auto_increment,
+    codigo int primary key,
     descricao varchar(100) not null,
-    ncm int(8),
-    cest int(8),
+    ncm varchar(40),
+    cest varchar(40),
     tipo_item varchar(100),
     qtd_estoque int not null,
     unidade varchar(50),
@@ -197,8 +197,8 @@ desc vendedores;
 /* criando tabela para cadastrar a empresa */
 
 create table EMPRESA(
-  IDEMPRESA int PRIMARY KEY AUTO_INCREMENT,
-  DESCRICAO varchar(100) not null,
+  idempresa int primary key not null,
+  descricao varchar(100) not null,
   fantasia varchar(100),
   CNPJ varchar(20) not null,
   CEP varchar(10),

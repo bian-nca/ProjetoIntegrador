@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,9 +24,23 @@ public class Empresa extends javax.swing.JFrame {
      * Creates new form Empresa
      */
     public Empresa() {
-        initComponents();
-        inscricao.setEnabled(false);
-        regime.setEnabled(false);
+        try {
+            initComponents();
+            inscricao.setEnabled(false);
+            regime.setEnabled(false);
+            SQLConection conection = new SQLConection();
+            String sql = "SELECT MAX(idempresa) AS MAX_IDEMPRESA FROM EMPRESA"; //estou obtendo o ultimo valor da coluna "idvenda" da minha tablea "vendas" e irei incrementá-lo posteriormente em +1
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                int maxId = rs.getInt("MAX_IDEMPRESA");
+                int proxId = maxId + 1;
+                codloja.setText(Integer.toString(proxId));
+            }   
+        } catch (SQLException ex) {
+            Logger.getLogger(Empresa.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -73,6 +89,7 @@ public class Empresa extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         telefone = new javax.swing.JFormattedTextField();
         cnpjloja = new javax.swing.JFormattedTextField();
+        jButton7 = new javax.swing.JButton();
 
         setTitle("Cadastro de Empresa");
         setResizable(false);
@@ -82,8 +99,6 @@ public class Empresa extends javax.swing.JFrame {
         jLabel1.setText("Descrição:");
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 18, -1, -1));
-
-        codloja.setEditable(false);
         getContentPane().add(codloja, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 70, -1));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -186,7 +201,7 @@ public class Empresa extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, -1, 30));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, -1, 30));
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton4.setForeground(new java.awt.Color(153, 0, 0));
@@ -196,7 +211,7 @@ public class Empresa extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 320, 80, 30));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 320, 80, 30));
 
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton5.setForeground(new java.awt.Color(0, 0, 51));
@@ -206,7 +221,7 @@ public class Empresa extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 320, -1, 30));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 320, -1, 30));
 
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton6.setText("SALVAR");
@@ -215,7 +230,7 @@ public class Empresa extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, 80, 30));
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, 80, 30));
 
         try {
             telefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
@@ -230,6 +245,16 @@ public class Empresa extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         getContentPane().add(cnpjloja, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 200, -1));
+
+        jButton7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(0, 0, 51));
+        jButton7.setText("Limpar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 320, -1, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -253,7 +278,7 @@ public class Empresa extends javax.swing.JFrame {
              ibge_empresa = ibge.getText();
              regime_empresa = regime.getText();
              
-            String sql = "INSERT INTO EMPRESA(idempresa, descricao, fantasia, CNPJ, CEP, rua, bairro, numero, cidade, estado, complemento, IBGE, inscricao, regimetrib, telefone) VALUES (NULL, '"+razaosocial+"','"+fantasia+"', '"+cnpj+"', '"+cep_empresa+"', '"+logradouro+"', '"+bairro_empresa+"', '"+numero_empresa+"', '"+cidade_empresa+"', '"+estado_empresa+"', '"+complemento_empresa+"', '"+ibge_empresa+"', '"+iestadual+"', '"+regime_empresa+"', '"+telefone_empresa+"')";
+            String sql = "INSERT INTO EMPRESA(idempresa, descricao, fantasia, CNPJ, CEP, rua, bairro, numero, cidade, estado, complemento, IBGE, inscricao, regimetrib, telefone) VALUES ('"+codloja.getText()+"', '"+razaosocial+"','"+fantasia+"', '"+cnpj+"', '"+cep_empresa+"', '"+logradouro+"', '"+bairro_empresa+"', '"+numero_empresa+"', '"+cidade_empresa+"', '"+estado_empresa+"', '"+complemento_empresa+"', '"+ibge_empresa+"', '"+iestadual+"', '"+regime_empresa+"', '"+telefone_empresa+"')";
             SQLConection conection = new SQLConection();
             conection.SqlExecution(sql);
             JOptionPane.showMessageDialog(null, "Empresa Cadastrada!");
@@ -262,17 +287,19 @@ public class Empresa extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Erro na execução do SQL");
                 JOptionPane.showMessageDialog(null, "NÃO FOI POSSÍVEL ESTABELECER CONEXÃO COM O BANCO DE DADOS");
             }
-        
+         
+        new Empresa().setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     //buscando minha empresa cadastrada
     //trazendo informações de produto ja cadastrado 
-         try {
+    String codigoloja = codloja.getText(); 
+         try{
             String codigo, fantasia_empresa, cnpj_empresa, cep_empresa, rua_empresa, bairro_empresa, numero_empresa, cidade_empresa, estado_empresa, complemento_empresa, ibge_empresa, inscricaoe, regimetributario, phone;
             
             String nome = desc.getText();
-            String sql = "SELECT idempresa, descricao, fantasia, CNPJ, CEP, rua, bairro, cidade, numero, estado, complemento, ibge, inscricao, regimetrib, telefone FROM EMPRESA WHERE DESCRICAO LIKE '"+nome+"'";
+            String sql = "SELECT * FROM EMPRESA WHERE IDEMPRESA LIKE '"+codloja.getText()+"'";
             Connection con = SQLConection.getConnection();
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery(sql);
@@ -314,7 +341,8 @@ public class Empresa extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao consultar empresa!");
             JOptionPane.showMessageDialog(null, "Por favor verificar se essa empresa já está cadastrada!");
         }
-       
+   
+   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -353,6 +381,7 @@ public class Empresa extends javax.swing.JFrame {
                JOptionPane.showMessageDialog(null, "Erro ao deletar a empresa selecionada!");     
             }
           }
+          new Empresa().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -409,12 +438,49 @@ public class Empresa extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "ERRO AO CONSULTAR A EMPRESA");
                 }
+        
+        new Empresa().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // consultar as empresas cadastradas
          new ConsulteEmpresa().setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        try {
+            // facilitando para o cliente poder limpar os campos
+
+            desc.setText(null);
+            nomefantasia.setText(null);
+            cnpjloja.setText(null);
+            endereco.setText(null);
+            bairro.setText(null);
+            complemento.setText(null);
+            inscricao.setText(null);
+            telefone.setText(null);
+            cep.setText(null);
+            numero.setText(null);
+            cidade.setText(null);
+            estado.setText(null);
+            ibge.setText(null);
+            regime.setText(null);  
+            SQLConection conection = new SQLConection();
+            String sql = "SELECT MAX(idempresa) AS MAX_IDEMPRESA FROM EMPRESA"; //estou obtendo o ultimo valor da coluna "idvenda" da minha tablea "vendas" e irei incrementá-lo posteriormente em +1
+            Connection con = SQLConection.getConnection();
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                int maxId = rs.getInt("MAX_IDEMPRESA");
+                int proxId = maxId + 1;
+                codloja.setText(Integer.toString(proxId));
+            }   
+        } catch (SQLException ex) {
+            Logger.getLogger(EntradaEstoque.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -469,6 +535,7 @@ public class Empresa extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
